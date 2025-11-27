@@ -1,0 +1,1 @@
+export { fontManrope } from './fonts'
