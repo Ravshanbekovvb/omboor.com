@@ -1,37 +1,42 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import * as z from 'zod'
 
 import { countries } from '@/shared/constants'
 import { TCountry } from '@/shared/types'
 
+const formSchema = z.object({
+	phone: z.string().min(1, 'Telefon raqam kiritilishi shart'),
+	password: z.string().min(8, 'Password must be at least 8 characters')
+})
+type TForm = z.infer<typeof formSchema>
 export const useLogin = () => {
+	const defaultValues = {
+		phone: '',
+		password: ''
+	} as TForm
+	const form = useForm<TForm>({
+		mode: 'onSubmit',
+		resolver: zodResolver(formSchema),
+		defaultValues
+	})
 	const [selectedCountry, setSelectedCountry] = useState<TCountry>(countries[0])
-	const [phoneNumber, setPhoneNumber] = useState('')
-	const [password, setPassword] = useState('')
 	const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
 	const [isHashed, setIsHashed] = useState<boolean>(false)
-
-	const getFlagComponent = (countryCode: string) => {
-		// const FlagComponent = (flags as flags.FlagComponent)[countryCode.toUpperCase()]
-		// return FlagComponent ? (
-		// 	<FlagComponent className='h-4 w-2' />
-		// ) : (
-		// 	<div className='flex h-4 w-5 items-center justify-center rounded bg-blue-400 text-xs font-bold text-white'>
-		// 		{countryCode}
-		// 	</div>
-		// )
+	const onSubmit: SubmitHandler<TForm> = data => {
+		data.phone = selectedCountry.dialCode + data.phone
+		console.log(data)
 	}
 
 	return {
 		selectedCountry,
-		phoneNumber,
-		password,
 		isDropdownOpen,
 		isHashed,
-		getFlagComponent,
 		setSelectedCountry,
-		setPhoneNumber,
-		setPassword,
 		setIsDropdownOpen,
-		setIsHashed
+		setIsHashed,
+		onSubmit,
+		form
 	}
 }
