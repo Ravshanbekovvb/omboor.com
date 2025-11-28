@@ -2,6 +2,9 @@
 
 import { Eye, EyeClosed } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
+
+import { Title } from '@/entities/title'
 
 import { countries } from '@/shared/constants'
 import { cn } from '@/shared/lib/utils'
@@ -53,10 +56,8 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 						/>
 						<div className='truncate text-2xl sm:text-3xl'>Omboor.com</div>
 					</div>
-					<h3 className='text-3xl font-black sm:text-4xl'>Вход в аккаунт</h3>
+					<Title title='Вход в аккаунт' />
 					<div className='flex flex-col items-start gap-3'>
-						{/* <label className='text-base font-semibold sm:text-lg'></label> */}
-
 						<FormField
 							control={form.control}
 							name='phone'
@@ -129,11 +130,6 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 					</div>
 
 					<div className='space-y-3'>
-						{/* <div className='flex flex-col gap-2 text-base font-semibold sm:flex-row sm:items-center sm:justify-between sm:text-lg'>
-							<label className='cursor-pointer text-sm text-blue-500 hover:underline sm:text-base'>
-								Забыли пароль?
-							</label>
-						</div> */}
 						<div className='relative'>
 							<FormField
 								control={form.control}
@@ -142,9 +138,12 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 									<FormItem>
 										<div className='flex items-center justify-between'>
 											<FormLabel>Пароль</FormLabel>
-											<label className='cursor-pointer text-sm text-blue-500 hover:underline sm:text-base'>
+											<Link
+												href={'/forgot-password'}
+												className='cursor-pointer text-sm text-blue-500 hover:underline sm:text-base'
+											>
 												Забыли пароль?
-											</label>
+											</Link>
 										</div>
 										<FormControl>
 											<div className='relative'>
