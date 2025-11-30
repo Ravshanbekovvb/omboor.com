@@ -1,9 +1,9 @@
+import { User } from '@/generated/client'
+import { SelectSubset } from '@/generated/internal/prismaNamespace'
 import { PrismaService } from '@/prisma/prisma.service'
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
-import { User } from 'generated/prisma/client'
-import { SelectSubset } from 'generated/prisma/internal/prismaNamespace'
 import { UserDefaultArgs, UserFindManyArgs, UserGetPayload } from 'generated/prisma/models'
-import { CreateUserRequestDTO } from './dto/create-user-request.dto'
+import { CreateUserRequestDTO } from '../common/dto'
 
 @Injectable()
 export class UserService {

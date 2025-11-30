@@ -1,4 +1,4 @@
-import { CreateUserRequestDTO } from '@/user/dto/create-user-request.dto'
+import { CreateUserRequestDTO } from '@/common/dto'
 import {
 	ValidationArguments,
 	ValidatorConstraint,
