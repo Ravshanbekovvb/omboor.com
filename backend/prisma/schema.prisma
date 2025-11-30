@@ -7,3 +7,82 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id String @id @default(uuid())
+
+  name     String
+  imgUrl   String?
+  password String
+  email    String  @unique
+
+  plan Plan @default(START)
+
+  stores Store[] @relation("user_stores_store_user")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
+
+enum Plan {
+  START
+  ADVANCED
+  PRO
+}
+
+model Store {
+  id String @id @default(uuid())
+
+  name String
+
+  user   User   @relation("user_stores_store_user", fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  products Product[] @relation("store_product_product_store")
+
+  @@unique([name, userId])
+  @@map("stores")
+}
+
+model Product {
+  id String @id @default(uuid())
+
+  name            String
+  description     String?
+  imgUrl          String?
+  barcode         String? @map("bar_code")
+  article         String?
+  brand           String?
+  category        String?
+  container       String?
+  containerNumber Int?    @map("container_number")
+  options         String?
+
+  quantity Int @default(0)
+
+  unit Unit
+
+  price    Float
+  discount Int?
+
+  stores Store[] @relation("store_product_product_store")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("products")
+}
+
+enum Unit {
+  PCS // штука
+  KG // килограмм
+  G // грамм
+  L // литр
+  ML // миллилитр
+  M // метр
+  CM // сантиметр
+  MM // миллиметр
+  PACK // упаковка
+  BOX // коробка
+  SET // набор
+}
