@@ -1,12 +1,15 @@
+import { Authorization } from '@/common/decorators'
+import { User } from '@/generated/client'
+import { UserRole } from '@/generated/enums'
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
-import { User } from 'generated/prisma/client'
-import { CreateUserRequestDTO } from './dto/create-user-request.dto'
+import { CreateUserRequestDTO } from '../common/dto/create-user-request.dto'
 import { UserService } from './user.service'
 
 @Controller('users')
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
+	@Authorization(UserRole.ADMIN)
 	@Get()
 	async findAll() {
 		return await this.userService.findAll()
