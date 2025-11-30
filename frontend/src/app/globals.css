@@ -46,7 +46,43 @@
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
 
-	/* Custom colors */
+	/* Custom colors for Warehouse Management System */
+
+	/* Main brand colors - Professional blue-gray palette */
+	--color-brand-primary: oklch(0.55 0.08 240); /* Professional blue */
+	--color-brand-secondary: oklch(0.45 0.06 220); /* Darker blue */
+	--color-brand-accent: oklch(0.65 0.12 200); /* Light blue accent */
+
+	/* Status colors for inventory management */
+	--color-status-success: oklch(0.6 0.15 140); /* In stock - calm green */
+	--color-status-warning: oklch(0.7 0.18 80); /* Low stock - amber */
+	--color-status-danger: oklch(0.6 0.2 25); /* Out of stock - muted red */
+	--color-status-info: oklch(0.65 0.12 240); /* Information - soft blue */
+
+	/* Neutral work colors - easy on eyes */
+	--color-work-surface: oklch(0.98 0.005 240); /* Very light blue-white */
+	--color-work-background: oklch(0.96 0.01 240); /* Slight blue tint */
+	--color-work-border: oklch(0.88 0.02 240); /* Subtle borders */
+	--color-work-text: oklch(0.25 0.02 240); /* Dark blue-gray text */
+	--color-work-text-muted: oklch(0.5 0.03 240); /* Muted text */
+
+	/* Interactive elements */
+	--color-interactive-hover: oklch(0.92 0.03 240); /* Hover states */
+	--color-interactive-active: oklch(0.85 0.05 240); /* Active states */
+	--color-interactive-focus: oklch(0.55 0.08 240); /* Focus ring */
+
+	/* Data visualization colors */
+	--color-data-1: oklch(0.6 0.15 210); /* Charts - blue */
+	--color-data-2: oklch(0.65 0.18 160); /* Charts - teal */
+	--color-data-3: oklch(0.7 0.15 90); /* Charts - green */
+	--color-data-4: oklch(0.75 0.12 60); /* Charts - yellow */
+	--color-data-5: oklch(0.65 0.18 30); /* Charts - orange */
+
+	/* Priority levels for tasks/alerts */
+	--color-priority-low: oklch(0.75 0.08 140); /* Low priority - light green */
+	--color-priority-medium: oklch(0.7 0.15 80); /* Medium - amber */
+	--color-priority-high: oklch(0.65 0.18 25); /* High - orange-red */
+	--color-priority-critical: oklch(0.55 0.22 15); /* Critical - deep red */
 }
 
 :root {

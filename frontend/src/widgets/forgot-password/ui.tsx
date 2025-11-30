@@ -1,20 +1,13 @@
 'use client'
 import { ChevronLeft } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
 import { Title } from '@/entities/title'
 
 import { countries } from '@/shared/constants'
 import { cn } from '@/shared/lib/utils'
-import {
-	Button,
-	Input,
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger
-} from '@/shared/ui'
+import { Button, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger } from '@/shared/ui'
 import {
 	Form,
 	FormControl,
@@ -26,6 +19,9 @@ import {
 
 import { useForgotPassword } from './model'
 
+const InputMask = dynamic(() => import('@/shared/ui/input-mask'), {
+	ssr: false
+})
 export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) => {
 	const {
 		form,
@@ -111,11 +107,11 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 												</SelectGroup>
 											</SelectContent>
 										</Select>
-										<Input
-											{...field}
+										<InputMask
+											phoneMask={selectedCountry.phoneMask}
 											type='tel'
-											placeholder={'xx xxx xx xx'}
 											className='rounded-none rounded-r-2xl border-0 border-l-2 border-l-gray-200 text-sm shadow-none outline-none focus-visible:border-l-gray-200 focus-visible:ring-0 focus-visible:ring-offset-0 sm:text-base'
+											{...field}
 										/>
 									</div>
 								</FormControl>
@@ -127,7 +123,7 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 							</FormItem>
 						)}
 					/>
-					<Button className='mt-5 w-full' type='submit'>
+					<Button className='mt-5 w-full' type='submit' variant='primary'>
 						Получить код
 					</Button>
 				</form>

@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { unformat } from '@react-input/mask'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -22,7 +23,9 @@ export const useForgotPassword = () => {
 	const [selectedCountry, setSelectedCountry] = useState<TCountry>(countries[0])
 	const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
 	const onSubmit: SubmitHandler<TForm> = data => {
-		data.phone = selectedCountry.dialCode + data.phone
+		data.phone =
+			selectedCountry.dialCode +
+			unformat(data.phone, { mask: selectedCountry.phoneMask, replacement: { _: /\d/ } })
 		console.log(data)
 	}
 
