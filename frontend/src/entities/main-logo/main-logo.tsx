@@ -32,7 +32,7 @@ export const MainLogo: React.FC<{
 				className={cn(
 					`truncate overflow-hidden whitespace-nowrap transition-all duration-300 ease-in-out ${textSize}`,
 					className,
-					isOpen ? 'ml-2 max-w-full opacity-100' : 'ml-0 max-w-0 opacity-0'
+					isOpen ? 'max-w-full opacity-100' : 'max-w-0 opacity-0'
 				)}
 			>
 				Omboor.com
