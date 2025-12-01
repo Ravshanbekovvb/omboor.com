@@ -3,12 +3,14 @@ import {
 	CanActivate,
 	ExecutionContext,
 	ForbiddenException,
+	Injectable,
 	UnauthorizedException
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { Request } from 'express'
 import { ROLES_KEY } from '../decorators/roles.decorator'
 
+@Injectable()
 export class RolesGuard implements CanActivate {
 	constructor(private readonly reflector: Reflector) {}
 

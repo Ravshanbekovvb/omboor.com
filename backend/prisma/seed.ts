@@ -76,6 +76,7 @@ export async function up() {
 			name: 'Bekzod Ravshanbekov',
 			password: hashSync('Bekzod2001', 10),
 			email: 'bekzodrn@mail.ru',
+			role: 'ADMIN',
 			stores: {
 				create: {
 					id: '1',
@@ -85,6 +86,16 @@ export async function up() {
 					}
 				}
 			}
+		}
+	})
+
+	await prisma.user.create({
+		data: {
+			id: '2',
+			name: 'Behruz Ravshanbekov',
+			password: hashSync('Behruz2005', 10),
+			email: 'behruzravshanbekov79@gmail.com',
+			role: 'REGULAR'
 		}
 	})
 }
