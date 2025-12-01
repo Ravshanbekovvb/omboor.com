@@ -57,6 +57,10 @@ export class AuthService {
 		return this.saveSession(request, newUser)
 	}
 
+	async me(userId: string): Promise<User> {
+		return await this.userService.findById(userId)
+	}
+
 	private async saveSession(request: Request, user: User): Promise<User> {
 		return new Promise((resolve, reject) => {
 			request.session.userId = user.id

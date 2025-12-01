@@ -1,5 +1,6 @@
+import { Authorization, AuthorizedUser } from '@/common/decorators'
 import { CreateUserRequestDTO } from '@/common/dto'
-import { Body, Controller, Post, Req, Res } from '@nestjs/common'
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common'
 import { type Request, type Response } from 'express'
 import { AuthService } from './auth.service'
 
@@ -23,5 +24,11 @@ export class AuthController {
 	@Post('logout')
 	async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
 		return await this.authService.logout(req, res)
+	}
+
+	@Authorization()
+	@Get('me')
+	async me(@AuthorizedUser('id') id: string) {
+		return await this.authService.me(id)
 	}
 }

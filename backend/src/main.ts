@@ -9,14 +9,18 @@ import ms from 'ms'
 import { parseBoolean } from './common/utils'
 
 import { RedisStore } from 'connect-redis'
-import IORedis from 'ioredis'
+import { createClient } from 'redis'
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule)
 
 	const config = app.get(ConfigService)
 
-	const redis = new IORedis(config.getOrThrow<string>('REDIS_URI'))
+	const redis = createClient({
+		url: config.getOrThrow<string>('REDIS_URI')
+	})
+
+	await redis.connect()
 
 	app.setGlobalPrefix('api')
 
@@ -27,7 +31,7 @@ async function bootstrap() {
 			secret: config.getOrThrow<string>('SESSION_SECRET'),
 			name: config.getOrThrow<string>('SESSION_NAME'),
 			saveUninitialized: false,
-			resave: true,
+			resave: false,
 			cookie: {
 				domain: config.getOrThrow<string>('SESSION_DOMAIN'),
 				maxAge: ms(config.getOrThrow<ms.StringValue>('SESSION_MAX_AGE')),
