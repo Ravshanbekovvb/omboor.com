@@ -6,9 +6,10 @@ import { cn } from '@/shared/lib/utils'
 import { Button } from '@/shared/ui'
 
 import { Help } from './help'
-import { useSidebar } from './model'
 import { Navbar } from './navbar'
 import { Profile } from './profile'
+
+import { useSidebar } from '../model'
 
 export const Sidebar: React.FC = () => {
 	const { setIsOpen, isOpen } = useSidebar()

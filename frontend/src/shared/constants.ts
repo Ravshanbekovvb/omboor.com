@@ -22,7 +22,7 @@ export const countries: TCountry[] = [
 export const menuItems: {
 	name: string
 	icon: React.ElementType
-	nestedItems?: { name: string; href: string }[]
+	nestedItems: { name: string; href: string }[]
 }[] = [
 	{
 		name: 'products',
@@ -54,18 +54,42 @@ export const menuItems: {
 	},
 	{
 		name: 'marketing',
-		icon: TbCirclePercentageFilled
+		icon: TbCirclePercentageFilled,
+		nestedItems: [
+			{ name: 'catalog', href: '/products/catalog' },
+			{ name: 'import', href: '/products/import' },
+			{ name: 'orders', href: '/products/orders' },
+			{ name: 'inventory', href: '/products/inventory' }
+		]
 	},
 	{
 		name: 'reports',
-		icon: MdReport
+		icon: MdReport,
+		nestedItems: [
+			{ name: 'catalog', href: '/products/catalog' },
+			{ name: 'import', href: '/products/import' },
+			{ name: 'orders', href: '/products/orders' },
+			{ name: 'inventory', href: '/products/inventory' }
+		]
 	},
 	{
 		name: 'management',
-		icon: MdWorkHistory
+		icon: MdWorkHistory,
+		nestedItems: [
+			{ name: 'catalog', href: '/products/catalog' },
+			{ name: 'import', href: '/products/import' },
+			{ name: 'orders', href: '/products/orders' },
+			{ name: 'inventory', href: '/products/inventory' }
+		]
 	},
 	{
 		name: 'settings',
-		icon: MdSettings
+		icon: MdSettings,
+		nestedItems: [
+			{ name: 'catalog', href: '/products/catalog' },
+			{ name: 'import', href: '/products/import' },
+			{ name: 'orders', href: '/products/orders' },
+			{ name: 'inventory', href: '/products/inventory' }
+		]
 	}
 ]
