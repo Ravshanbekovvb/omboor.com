@@ -16,6 +16,8 @@ model User {
   password String
   email    String  @unique
 
+  role UserRole @default(REGULAR)
+
   plan Plan @default(START)
 
   stores Store[] @relation("user_stores_store_user")
@@ -29,6 +31,11 @@ enum Plan {
   START
   ADVANCED
   PRO
+}
+
+enum UserRole {
+  REGULAR
+  ADMIN
 }
 
 model Store {

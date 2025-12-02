@@ -1,9 +1,15 @@
+import { SelectSubset } from '@/generated/internal/prismaNamespace'
 import { PrismaService } from '@/prisma/prisma.service'
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
-import { User } from 'generated/prisma/client'
-import { SelectSubset } from 'generated/prisma/internal/prismaNamespace'
+import {
+	ConflictException,
+	ForbiddenException,
+	Injectable,
+	NotFoundException
+} from '@nestjs/common'
+import { hash } from 'bcrypt'
 import { UserDefaultArgs, UserFindManyArgs, UserGetPayload } from 'generated/prisma/models'
-import { CreateUserRequestDTO } from './dto/create-user-request.dto'
+import { CreateUserRequestDTO } from '../common/dto'
+import { UpdateUserRequestDTO } from './dto/update-user-request.dto'
 
 @Injectable()
 export class UserService {
@@ -70,18 +76,24 @@ export class UserService {
 
 	async update<T extends UserDefaultArgs>(
 		id: string,
-		payload: Partial<User>,
+		authorizedUserId: string,
+		payload: UpdateUserRequestDTO,
 		args?: SelectSubset<T, UserDefaultArgs>
 	): Promise<UserGetPayload<T>> {
 		const params = args ?? {}
 
 		const user = await this.findById(id)
 
+		if (user.id !== authorizedUserId)
+			throw new ForbiddenException('You are not allowed to edit other users')
+
+		const hashedPass = payload.password ? await hash(payload.password, 10) : user.password
+
 		return (await this.prisma.user.update({
 			where: {
 				id
 			},
-			data: { ...payload, id: user.id },
+			data: { ...payload, password: hashedPass },
 			...params
 		})) as UserGetPayload<T>
 	}
