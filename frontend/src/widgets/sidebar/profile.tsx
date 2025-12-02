@@ -22,7 +22,7 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 			<SheetTrigger asChild>
 				<div
 					className={cn(
-						`flex cursor-pointer items-center p-4 transition-all duration-300 ease-in-out hover:bg-gray-100`,
+						`dark:hover:bg-input flex cursor-pointer items-center p-4 transition-all duration-300 ease-in-out`,
 						isOpen ? 'gap-2' : 'justify-center gap-0',
 						className
 					)}
@@ -139,7 +139,6 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 				<SheetFooter>
 					<Button variant={'destructive'} className='font-bold'>
 						<span className='first-letter:uppercase'>выйти из аккаунта</span>
-						{/* <LogOut className='size-6' strokeWidth={2.5} /> */}
 					</Button>
 				</SheetFooter>
 			</SheetContent>

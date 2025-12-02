@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react'
 
-import { cn, menuItems } from '@/shared/lib/utils'
+import { menuItems } from '@/shared/constants'
+import { cn } from '@/shared/lib/utils'
 
 export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 	className,
@@ -15,7 +16,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 						<div
 							key={item.name}
 							className={cn(
-								'group ease-in-out0 hover:bg-brand-secondary/20 flex cursor-pointer items-center justify-between gap-3 p-4 transition-all duration-300',
+								'group dark:hover:bg-input flex cursor-pointer items-center justify-between gap-3 p-4 transition-all duration-300 ease-in-out',
 								isOpen ? '' : 'justify-center'
 							)}
 						>
@@ -26,11 +27,11 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 								)}
 							>
 								<span>
-									<ItemIcon className='text-brand-primary transition-all duration-300 ease-in-out' />
+									<ItemIcon className='text-brand-primary size-6 transition-all duration-300 ease-in-out' />
 								</span>
 								<span
 									className={cn(
-										'group-hover:text-brand-primary overflow-hidden font-bold whitespace-nowrap transition-all duration-300 ease-in-out',
+										'overflow-hidden font-bold whitespace-nowrap transition-all duration-300 ease-in-out first-letter:uppercase',
 										isOpen
 											? 'ml-3 max-w-full justify-center opacity-100'
 											: 'ml-0 max-w-0 opacity-0'
@@ -47,7 +48,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 							>
 								<ChevronRight
 									className={cn(
-										'group-hover:text-brand-primary text-gray-400 transition-all duration-300 ease-in-out'
+										'text-gray-400 transition-all duration-300 ease-in-out'
 									)}
 								/>
 							</span>

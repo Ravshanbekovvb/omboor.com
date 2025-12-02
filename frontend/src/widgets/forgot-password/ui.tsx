@@ -34,7 +34,7 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 	return (
 		<div
 			className={cn(
-				'w-full space-y-10 rounded-[60px] bg-white p-6 sm:p-12 md:p-16 lg:p-20',
+				'dark:bg-foreground w-full space-y-10 rounded-[60px] bg-white p-6 sm:p-12 md:p-16 lg:p-20',
 				className
 			)}
 		>
@@ -71,7 +71,7 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 												if (country) setSelectedCountry(country)
 											}}
 										>
-											<SelectTrigger className='w-[100px] rounded-none border-0 shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[120px]'>
+											<SelectTrigger className='flex max-h-[1000px] min-h-[60px] items-center gap-1 rounded-none rounded-l-2xl border-none'>
 												<div className='flex items-center gap-1 sm:gap-2'>
 													{<selectedCountry.flag />}
 													<span className='text-sm font-medium sm:text-base'>

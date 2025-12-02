@@ -4,8 +4,14 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-	--color-background: var(--background);
+	/* --color-background: var(--background);
+	--color-background: #404040;
 	--color-foreground: var(--foreground);
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono); */
+	--color-background: #404040;
+	--color-background-light: #f1f3f5;
+	--color-foreground: #262626;
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
 
@@ -35,7 +41,7 @@
 	--color-muted: var(--muted);
 	--color-secondary-foreground: var(--secondary-foreground);
 	--color-secondary: var(--secondary);
-	--color-primary-foreground: var(--primary-foreground);
+	--color-primary-foreground: #909090;
 	--color-primary: var(--primary);
 	--color-popover-foreground: var(--popover-foreground);
 	--color-popover: var(--popover);
@@ -94,7 +100,7 @@
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);
 	--primary: oklch(0.21 0.006 285.885);
-	--primary-foreground: oklch(0.985 0 0);
+	--primary-foreground: s;
 	--secondary: oklch(0.967 0.001 286.375);
 	--secondary-foreground: oklch(0.21 0.006 285.885);
 	--muted: oklch(0.967 0.001 286.375);
@@ -159,7 +165,7 @@
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply dark:bg-foreground text-foreground bg-white dark:text-white;
 	}
 }
 
