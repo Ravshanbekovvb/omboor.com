@@ -52,7 +52,7 @@ function SheetContent({
 			<SheetPrimitive.Content
 				data-slot='sheet-content'
 				className={cn(
-					'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
+					'dark:bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 bg-white shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
 					side === 'right' &&
 						'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm',
 					side === 'left' &&
@@ -67,7 +67,11 @@ function SheetContent({
 			>
 				{children}
 				<SheetPrimitive.Close className='ring-offset-background data-[state=open]:bg-secondary text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground absolute top-4 right-4 cursor-pointer opacity-70 transition-opacity hover:opacity-100 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none'>
-					<XIcon size={22} strokeWidth={4} className='hover:text-destructive' />
+					<XIcon
+						size={22}
+						strokeWidth={4}
+						className='dark:hover:text-destructive hover:text-destructive text-background dark:text-white'
+					/>
 					<span className='sr-only'>Close</span>
 				</SheetPrimitive.Close>
 			</SheetPrimitive.Content>

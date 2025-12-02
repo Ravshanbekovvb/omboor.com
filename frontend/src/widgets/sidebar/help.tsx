@@ -6,7 +6,7 @@ export const Help: React.FC<{ className?: string; isOpen: boolean }> = ({ classN
 	return (
 		<div
 			className={cn(
-				`text-md dark:hover:bg-input flex cursor-pointer items-center p-4 py-6 font-black transition-all duration-300 ease-in-out first-letter:uppercase`,
+				`text-md hover:bg-input flex cursor-pointer items-center p-4 py-6 font-black transition-all duration-300 ease-in-out first-letter:uppercase`,
 				isOpen ? '' : 'justify-center',
 				className
 			)}

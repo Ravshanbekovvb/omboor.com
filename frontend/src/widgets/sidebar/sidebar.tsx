@@ -15,7 +15,7 @@ export const Sidebar: React.FC = () => {
 	return (
 		<div
 			className={cn(
-				'dark:bg-background flex h-screen max-w-[250px] flex-col justify-between transition-all duration-350',
+				'dark:bg-background bg-background-light flex h-screen max-w-[250px] flex-col justify-between transition-all duration-350',
 				isOpen ? 'w-64' : 'w-21'
 			)}
 		>

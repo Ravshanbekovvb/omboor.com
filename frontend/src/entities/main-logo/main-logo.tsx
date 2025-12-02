@@ -14,7 +14,7 @@ export const MainLogo: React.FC<{
 	link?: string
 }> = ({
 	className,
-	imageHeight = 20,
+	imageHeight = 40,
 	imageWidth = 40,
 	textSize = 'text-2xl sm:text-3xl',
 	isOpen = true,

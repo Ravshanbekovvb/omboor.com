@@ -1,11 +1,9 @@
 'use client'
-
 import { Eye, EyeClosed } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
 import { MainLogo } from '@/entities/main-logo/main-logo'
-import { ThemeToggle } from '@/entities/theme-toggle'
 import { Title } from '@/entities/title'
 
 import { countries } from '@/shared/constants'
@@ -187,7 +185,6 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 						</a>
 					</p>
 				</form>
-				<ThemeToggle />
 			</Form>
 		</div>
 	)

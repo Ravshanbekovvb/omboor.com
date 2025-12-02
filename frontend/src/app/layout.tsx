@@ -17,7 +17,7 @@ export default function MainLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning>
 			<body
 				className={`${fontManrope.variable} font-manrope flex h-svh w-full flex-col overflow-hidden antialiased sm:font-medium`}
 				data-scroll-behavior='smooth'
