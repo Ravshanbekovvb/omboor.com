@@ -22,17 +22,19 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 			<SheetTrigger asChild>
 				<div
 					className={cn(
-						`flex cursor-pointer items-center p-4 transition-all duration-300 ease-in-out hover:bg-gray-100`,
+						`hover:bg-input flex cursor-pointer items-center p-4 transition-all duration-300 ease-in-out`,
 						isOpen ? 'gap-2' : 'justify-center gap-0',
 						className
 					)}
 				>
 					<Image
-						src={'https://cdn-icons-png.flaticon.com/512/219/219988.png'}
+						src={
+							'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81iX4Mo49Z3oCPSx-GtgiMAkdDop2uVmVvw&s'
+						}
 						alt='User image'
 						height={'30'}
 						width={'40'}
-						className='transition-all duration-300 ease-in-out'
+						className='rounded-full transition-all duration-300 ease-in-out'
 					/>
 					<div
 						className={cn(
@@ -53,29 +55,23 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 					<SheetDescription>
 						<span
 							className={cn(
-								`mt-5 flex cursor-pointer items-center p-4 transition-all duration-300 ease-in-out hover:bg-gray-100`,
-								isOpen ? 'gap-2' : 'justify-center gap-0'
+								`mt-5 flex cursor-pointer items-center justify-start gap-3 p-4 transition-all duration-300 ease-in-out`
 							)}
 						>
 							<Image
-								src={'https://cdn-icons-png.flaticon.com/512/219/219988.png'}
+								src={
+									'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81iX4Mo49Z3oCPSx-GtgiMAkdDop2uVmVvw&s'
+								}
 								alt='User image'
 								height={'30'}
 								width={'40'}
-								className='transition-all duration-300 ease-in-out'
+								className='rounded-full transition-all duration-300 ease-in-out'
 							/>
-							<span
-								className={cn(
-									'flex flex-col items-start overflow-hidden transition-all duration-300 ease-in-out',
-									isOpen
-										? 'ml-2 max-w-full opacity-100'
-										: 'ml-0 max-w-0 opacity-0'
-								)}
-							>
+							<span className={cn('flex flex-col items-start')}>
 								<span className='text-lg font-black whitespace-nowrap'>
 									Abdulloh Sultonov
 								</span>
-								<span className='text-xs font-bold whitespace-nowrap text-gray-400'>
+								<span className='text-xs font-bold whitespace-nowrap'>
 									Bolalar tanlovi
 								</span>
 							</span>
@@ -139,7 +135,6 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 				<SheetFooter>
 					<Button variant={'destructive'} className='font-bold'>
 						<span className='first-letter:uppercase'>выйти из аккаунта</span>
-						{/* <LogOut className='size-6' strokeWidth={2.5} /> */}
 					</Button>
 				</SheetFooter>
 			</SheetContent>

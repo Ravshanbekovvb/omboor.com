@@ -8,10 +8,11 @@ const InputMask: React.FC<React.ComponentProps<typeof Input> & { phoneMask: stri
 }) => {
 	const inputRef = useMask({
 		mask: phoneMask,
-		replacement: { _: /\d/ },
+		replacement: { x: /\d/ },
 		showMask: true,
 		separate: false
 	})
+
 	return <Input {...props} ref={inputRef} />
 }
 export default InputMask

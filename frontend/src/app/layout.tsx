@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { fontManrope } from '@/shared/assets'
+import { Providers } from '@/shared/providers'
 import { Toaster } from '@/shared/ui/sonner'
 
 import './globals.css'
@@ -16,14 +17,16 @@ export default function MainLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning>
 			<body
-				className={`${fontManrope.variable} font-manrope flex h-svh w-full flex-col overflow-hidden bg-gray-100 antialiased`}
+				className={`${fontManrope.variable} font-manrope flex h-svh w-full flex-col overflow-hidden antialiased sm:font-medium`}
 				data-scroll-behavior='smooth'
 				suppressHydrationWarning
 			>
-				{children}
-				<Toaster position='top-left' richColors />
+				<Providers>
+					{children}
+					<Toaster position='top-left' richColors />
+				</Providers>
 			</body>
 		</html>
 	)

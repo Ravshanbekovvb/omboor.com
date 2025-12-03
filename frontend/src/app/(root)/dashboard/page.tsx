@@ -4,7 +4,7 @@ import { Sidebar } from '@/widgets/sidebar'
 
 export default function Page() {
 	return (
-		<div>
+		<div className=''>
 			<Sidebar />
 		</div>
 	)

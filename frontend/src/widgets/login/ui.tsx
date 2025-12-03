@@ -1,5 +1,4 @@
 'use client'
-
 import { Eye, EyeClosed } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -47,13 +46,16 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 	} = useLogin()
 	return (
 		<div
-			className={cn('w-full rounded-[60px] bg-white p-6 sm:p-12 md:p-16 lg:p-20', className)}
+			className={cn(
+				'dark:bg-foreground w-full rounded-[75px] bg-white p-6 sm:p-12 md:p-16 lg:p-20',
+				className
+			)}
 		>
 			<Form {...form}>
 				<form className='space-y-4 sm:space-y-6' onSubmit={form.handleSubmit(onSubmit)}>
-					<MainLogo />
+					<MainLogo isOpen={true} className='gap-2' />
 					<Title title='Вход в аккаунт' />
-					<div className='flex flex-col items-start gap-3'>
+					<div className='flex flex-col items-start'>
 						<FormField
 							control={form.control}
 							name='phone'
@@ -61,7 +63,7 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 								<FormItem className='relative mb-2 w-full'>
 									<FormLabel>Введите номер телефона</FormLabel>
 									<FormControl>
-										<div className='border-input focus-within:ring-input flex items-center rounded-2xl border transition-shadow duration-300 focus-within:ring-3 focus-within:ring-offset-1'>
+										<div className='flex items-center'>
 											<Select
 												open={isDropdownOpen}
 												onOpenChange={setIsDropdownOpen}
@@ -73,13 +75,11 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 													if (country) setSelectedCountry(country)
 												}}
 											>
-												<SelectTrigger className='w-[100px] rounded-none border-0 shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[120px]'>
-													<div className='flex items-center gap-1 sm:gap-2'>
-														{<selectedCountry.flag />}
-														<span className='text-sm font-medium sm:text-base'>
-															{selectedCountry.dialCode}
-														</span>
-													</div>
+												<SelectTrigger className='flex max-h-[1000px] min-h-[60px] items-center gap-1 rounded-none rounded-l-2xl border-none'>
+													<selectedCountry.flag />
+													<span className='text-sm font-medium sm:text-base'>
+														{selectedCountry.dialCode}
+													</span>
 												</SelectTrigger>
 												<SelectContent
 													className='max-h-[260px] w-[200px] sm:w-[225px]'
@@ -94,16 +94,15 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 																<SelectItem
 																	key={country.code}
 																	value={country.code}
+																	className='flex items-center gap-1'
 																>
-																	<div className='flex items-center gap-1'>
-																		<CountryFlagComponent />
-																		<span className='min-w-10 text-sm font-medium sm:min-w-12 sm:text-base'>
-																			{country.dialCode}
-																		</span>
-																		<span className='truncate text-xs text-gray-600 sm:text-sm'>
-																			{country.name}
-																		</span>
-																	</div>
+																	<CountryFlagComponent />
+																	<span className='min-w-10 text-sm font-medium sm:min-w-12 sm:text-base'>
+																		{country.dialCode}
+																	</span>
+																	<span className='truncate text-xs sm:text-sm'>
+																		{country.name}
+																	</span>
 																</SelectItem>
 															)
 														})}
@@ -113,7 +112,7 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 											<InputMask
 												phoneMask={selectedCountry.phoneMask}
 												type='tel'
-												className='rounded-none rounded-r-2xl border-0 border-l-2 border-l-gray-200 text-sm shadow-none outline-none focus-visible:border-l-gray-200 focus-visible:ring-0 focus-visible:ring-offset-0 sm:text-base'
+												className='border-l-primary-foreground/30 focus-visible:border-l-primary-foreground/30 h-full rounded-none rounded-r-2xl border-0 border-l-2 text-sm shadow-none outline-none focus-visible:ring-0 sm:text-base'
 												{...field}
 											/>
 										</div>
@@ -136,7 +135,7 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 											<FormLabel>Пароль</FormLabel>
 											<Link
 												href={'/forgot-password'}
-												className='cursor-pointer text-sm text-blue-500 hover:underline sm:text-base'
+												className='cursor-pointer text-sm font-medium text-blue-500 hover:underline sm:text-base'
 											>
 												Забыли пароль?
 											</Link>
@@ -147,12 +146,12 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 													{...field}
 													type={isHashed ? 'text' : 'password'}
 													placeholder='введите ваш пароль'
-													className='w-full text-sm sm:text-base'
+													className='w-full border-none text-sm sm:text-base'
 												/>
 												<button
 													type='button'
 													onClick={() => setIsHashed(!isHashed)}
-													className='absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-500 transition-colors hover:text-gray-700'
+													className='absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer transition-colors'
 												>
 													{isHashed ? (
 														<Eye size={18} className='sm:h-5 sm:w-5' />
@@ -173,7 +172,7 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 						</div>
 					</div>
 					<Button
-						className='mt-5 w-full py-3 text-sm sm:py-4 sm:text-base'
+						className='mt-5 w-full py-3 text-sm sm:py-4 sm:text-lg'
 						type='submit'
 						variant='primary'
 					>

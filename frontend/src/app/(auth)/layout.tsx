@@ -5,7 +5,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<>
-			<main className='flex size-full flex-col overflow-y-auto'>{children}</main>
+			<main className='dark:bg-background bg-background-light flex size-full flex-col overflow-y-auto'>
+				{children}
+			</main>
 		</>
 	)
 }
