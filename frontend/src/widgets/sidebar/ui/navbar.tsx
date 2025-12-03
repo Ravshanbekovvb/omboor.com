@@ -45,59 +45,85 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 				menuItems.map(item => {
 					const ItemIcon = item.icon
 					return (
-						<div
-							key={item.name}
-							className={cn(
-								'group hover:bg-input flex cursor-pointer items-center justify-between gap-3 p-4 transition-all duration-300 ease-in-out',
-								isOpen ? '' : 'justify-center'
-							)}
-							onClick={() =>
-								setCurrentNavbar({
-									currentLinkName: item.name,
-									items: item.nestedItems,
-									currentLinkIcon: item.icon
-								})
-							}
-						>
-							<HoverCard openDelay={10} closeDelay={10}>
-								<HoverCardTrigger>Hover</HoverCardTrigger>
-								<HoverCardContent side='right' className='w-60'>
-									The React Framework – created and maintained by @vercel.
-								</HoverCardContent>
-							</HoverCard>
-							<div
+						<HoverCard key={item.name} openDelay={80} closeDelay={80}>
+							<HoverCardTrigger
 								className={cn(
-									'flex items-center transition-all duration-300 ease-in-out',
-									isOpen ? 'gap-3' : 'justify-center gap-0'
+									'group hover:bg-input flex cursor-pointer items-center justify-between gap-3 p-4 transition-all duration-300 ease-in-out',
+									isOpen ? '' : 'justify-center'
 								)}
+								onClick={() =>
+									setCurrentNavbar({
+										currentLinkName: item.name,
+										items: item.nestedItems,
+										currentLinkIcon: item.icon
+									})
+								}
 							>
-								<span>
-									<ItemIcon className='text-brand-primary size-5 transition-all duration-300 ease-in-out' />
-								</span>
-								<span
+								<div
 									className={cn(
-										'overflow-hidden font-bold whitespace-nowrap transition-all duration-300 ease-in-out first-letter:uppercase',
-										isOpen
-											? 'ml-3 max-w-full justify-center opacity-100'
-											: 'ml-0 max-w-0 opacity-0'
+										'flex origin-left items-center transition-all duration-300 ease-in-out',
+										isOpen ? 'gap-3' : 'justify-center gap-0'
 									)}
 								>
-									{item.name}
-								</span>
-							</div>
-							<span
-								className={cn(
-									'overflow-hidden transition-all duration-300 ease-in-out',
-									isOpen ? 'max-w-full opacity-100' : 'hidden max-w-0 opacity-0'
-								)}
-							>
-								<ChevronRight
+									<span>
+										<ItemIcon className='text-brand-primary size-5 transition-all duration-300 ease-in-out' />
+									</span>
+									<span
+										className={cn(
+											'overflow-hidden font-bold whitespace-nowrap truncate transition-[max-width,opacity,transform] duration-300 ease-in-out first-letter:uppercase',
+											isOpen
+												? 'max-w-[160px] translate-x-0 opacity-100'
+												: 'max-w-0 -translate-x-2 opacity-0'
+										)}
+									>
+										{item.name}
+									</span>
+								</div>
+								<span
 									className={cn(
-										'text-gray-400 transition-all duration-300 ease-in-out'
+										'overflow-hidden transition-[max-width,opacity,transform] duration-300 ease-in-out',
+										isOpen
+											? 'max-w-[20px] translate-x-0 opacity-100'
+											: 'max-w-0 translate-x-2 opacity-0'
 									)}
-								/>
-							</span>
-						</div>
+								>
+									<ChevronRight
+										className={cn(
+											'text-gray-400 transition-all duration-300 ease-in-out'
+										)}
+									/>
+								</span>
+							</HoverCardTrigger>
+
+							{!isOpen && (
+								<HoverCardContent side='right' className='w-64 space-y-3 p-4'>
+									<div className='flex items-center gap-3 border-b border-dashed pb-3'>
+										<span className='bg-brand-primary/10 text-brand-primary rounded-xl p-2'>
+											<ItemIcon className='size-5' />
+										</span>
+										<div className='flex flex-col'>
+											<span className='text-sm font-semibold first-letter:uppercase'>
+												{item.name}
+											</span>
+										</div>
+									</div>
+
+									<div className='flex flex-col gap-2'>
+										{item.nestedItems.map(nestedItem => (
+											<div
+												key={nestedItem.name}
+												className='hover:bg-input group hover:border-brand-primary/30 flex cursor-pointer items-center justify-between rounded-2xl border border-transparent px-3 py-2 text-sm font-semibold transition-all duration-200 ease-in-out'
+											>
+												<span className='first-letter:uppercase'>
+													{nestedItem.name}
+												</span>
+												<ChevronRight className='group-hover:text-brand-primary size-4 text-gray-400 transition-all duration-200 ease-in-out group-hover:translate-x-1' />
+											</div>
+										))}
+									</div>
+								</HoverCardContent>
+							)}
+						</HoverCard>
 					)
 				})
 			)}
