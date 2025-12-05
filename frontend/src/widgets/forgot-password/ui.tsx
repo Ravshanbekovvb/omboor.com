@@ -56,10 +56,10 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 						control={form.control}
 						name='phone'
 						render={({ field }) => (
-							<FormItem>
+							<FormItem className='relative mb-2 w-full'>
 								<FormLabel>Введите номер телефона</FormLabel>
 								<FormControl>
-									<div className='border-input focus-within:ring-input flex items-center rounded-2xl border transition-shadow duration-300 focus-within:ring-3 focus-within:ring-offset-1'>
+									<div className='flex items-center'>
 										<Select
 											open={isDropdownOpen}
 											onOpenChange={setIsDropdownOpen}
@@ -72,12 +72,10 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 											}}
 										>
 											<SelectTrigger className='flex max-h-[1000px] min-h-[60px] items-center gap-1 rounded-none rounded-l-2xl border-none'>
-												<div className='flex items-center gap-1 sm:gap-2'>
-													{<selectedCountry.flag />}
-													<span className='text-sm font-medium sm:text-base'>
-														{selectedCountry.dialCode}
-													</span>
-												</div>
+												<selectedCountry.flag />
+												<span className='text-sm font-medium sm:text-base'>
+													{selectedCountry.dialCode}
+												</span>
 											</SelectTrigger>
 											<SelectContent
 												className='max-h-[260px] w-[200px] sm:w-[225px]'
@@ -91,16 +89,15 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 															<SelectItem
 																key={country.code}
 																value={country.code}
+																className='flex items-center gap-1'
 															>
-																<div className='flex items-center gap-1'>
-																	<CountryFlagComponent />
-																	<span className='min-w-10 text-sm font-medium sm:min-w-12 sm:text-base'>
-																		{country.dialCode}
-																	</span>
-																	<span className='truncate text-xs text-gray-600 sm:text-sm'>
-																		{country.name}
-																	</span>
-																</div>
+																<CountryFlagComponent />
+																<span className='min-w-10 text-sm font-medium sm:min-w-12 sm:text-base'>
+																	{country.dialCode}
+																</span>
+																<span className='truncate text-xs sm:text-sm'>
+																	{country.name}
+																</span>
 															</SelectItem>
 														)
 													})}
@@ -110,7 +107,7 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 										<InputMask
 											phoneMask={selectedCountry.phoneMask}
 											type='tel'
-											className='rounded-none rounded-r-2xl border-0 border-l-2 border-l-gray-200 text-sm shadow-none outline-none focus-visible:border-l-gray-200 focus-visible:ring-0 focus-visible:ring-offset-0 sm:text-base'
+											className='border-l-primary-foreground/30 focus-visible:border-l-primary-foreground/30 h-full rounded-none rounded-r-2xl border-0 border-l-2 text-sm shadow-none outline-none focus-visible:ring-0 sm:text-base'
 											{...field}
 										/>
 									</div>

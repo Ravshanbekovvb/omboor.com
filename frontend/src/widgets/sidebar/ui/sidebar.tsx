@@ -21,7 +21,7 @@ export const Sidebar: React.FC = () => {
 			)}
 		>
 			<div>
-				<div className='relative flex items-center justify-between'>
+				<div className='relative'>
 					<MainLogo
 						className='gap-0 p-4'
 						imageHeight={28}

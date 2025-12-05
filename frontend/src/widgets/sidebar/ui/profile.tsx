@@ -29,7 +29,7 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 				>
 					<Image
 						src={
-							'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81iX4Mo49Z3oCPSx-GtgiMAkdDop2uVmVvw&s'
+							'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80'
 						}
 						alt='User image'
 						height={'30'}
@@ -60,7 +60,7 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 						>
 							<Image
 								src={
-									'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81iX4Mo49Z3oCPSx-GtgiMAkdDop2uVmVvw&s'
+									'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80'
 								}
 								alt='User image'
 								height={'30'}

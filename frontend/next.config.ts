@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
 		remotePatterns: [
 			{
 				protocol: 'https',
-				hostname: 'encrypted-tbn0.gstatic.com',
-				pathname: '/images/**'
+				hostname: 'img.freepik.com',
+				pathname: '/free-vector/blue-circle-with-white-user_78370-4707.jpg'
 			}
 		]
 	}

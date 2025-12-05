@@ -13,8 +13,6 @@ export class AuthGuard implements CanActivate {
 
 		if (!userId) throw new UnauthorizedException('User is not authenticated')
 
-		console.log(this.userService)
-
 		const user = await this.userService.findById(userId)
 
 		request.user = user

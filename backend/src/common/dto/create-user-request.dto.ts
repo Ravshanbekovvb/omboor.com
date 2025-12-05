@@ -1,6 +1,6 @@
 import { IsPasswordsMatchingConstraint } from '@/common/decorators'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { IsEmail, IsOptional, IsString, IsUrl, Matches, MinLength, Validate } from 'class-validator'
+import { IsOptional, IsString, IsUrl, Matches, MinLength, Validate } from 'class-validator'
 
 export class CreateUserRequestDTO {
 	@ApiProperty({ example: 'Bekzod', description: 'User name' })
@@ -24,10 +24,9 @@ export class CreateUserRequestDTO {
 	@Validate(IsPasswordsMatchingConstraint)
 	repeatPassword: string
 
-	@ApiProperty({ example: 'test@example.com', description: 'User email' })
-	@IsString({ message: 'Email must be a string' })
-	@IsEmail({}, { message: 'Email must be a valid email address' })
-	email: string
+	@ApiProperty({ example: '+1234567890', description: 'User phone number' })
+	@IsString({ message: 'Phone number must be a string' })
+	phoneNumber: string
 
 	@ApiPropertyOptional({
 		example: 'https://example.com/avatar.png',

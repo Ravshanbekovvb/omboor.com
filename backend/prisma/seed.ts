@@ -75,7 +75,7 @@ export async function up() {
 			id: '1',
 			name: 'Bekzod Ravshanbekov',
 			password: hashSync('Bekzod2001', 10),
-			email: 'bekzodrn@mail.ru',
+			phoneNumber: '+998977883355',
 			role: 'ADMIN',
 			stores: {
 				create: {
@@ -94,7 +94,7 @@ export async function up() {
 			id: '2',
 			name: 'Behruz Ravshanbekov',
 			password: hashSync('Behruz2005', 10),
-			email: 'behruzravshanbekov79@gmail.com',
+			phoneNumber: '+998944183810',
 			role: 'REGULAR'
 		}
 	})

@@ -31,7 +31,11 @@ export const menuItems: {
 			{ name: 'catalog', href: '/products/catalog' },
 			{ name: 'import', href: '/products/import' },
 			{ name: 'orders', href: '/products/orders' },
-			{ name: 'inventory', href: '/products/inventory' }
+			{ name: 'inventory', href: '/products/inventory' },
+			{ name: 'transfer', href: '/products/transfer' },
+			{ name: 'revaluation', href: '/products/revaluation' },
+			{ name: 'write-off', href: '/products/write-off' },
+			{ name: 'suppliers', href: '/products/suppliers' }
 		]
 	},
 	{
@@ -56,40 +60,43 @@ export const menuItems: {
 		name: 'marketing',
 		icon: TbCirclePercentageFilled,
 		nestedItems: [
-			{ name: 'catalog', href: '/products/catalog' },
-			{ name: 'import', href: '/products/import' },
-			{ name: 'orders', href: '/products/orders' },
-			{ name: 'inventory', href: '/products/inventory' }
+			{ name: 'promotions', href: '/marketing/promotions' },
+			{ name: 'promo-codes', href: '/marketing/promo-codes' },
+			{ name: 'sms-mailing', href: '/marketing/sms-mailing' },
+			{ name: 'gift-cards', href: '/marketing/gift-cards' }
 		]
 	},
 	{
 		name: 'reports',
 		icon: MdReport,
 		nestedItems: [
-			{ name: 'catalog', href: '/products/catalog' },
-			{ name: 'import', href: '/products/import' },
-			{ name: 'orders', href: '/products/orders' },
-			{ name: 'inventory', href: '/products/inventory' }
+			{ name: 'favorites', href: '/reports/favorites' },
+			{ name: 'shop', href: '/reports/shop' },
+			{ name: 'products', href: '/reports/products' },
+			{ name: 'sellers', href: '/reports/sellers' },
+			{ name: 'clients', href: '/reports/clients' }
 		]
 	},
 	{
 		name: 'management',
 		icon: MdWorkHistory,
 		nestedItems: [
-			{ name: 'catalog', href: '/products/catalog' },
-			{ name: 'import', href: '/products/import' },
-			{ name: 'orders', href: '/products/orders' },
-			{ name: 'inventory', href: '/products/inventory' }
+			{ name: 'employe', href: '/products/employe' },
+			{ name: 'roles', href: '/products/roles' }
 		]
 	},
 	{
 		name: 'settings',
 		icon: MdSettings,
 		nestedItems: [
-			{ name: 'catalog', href: '/products/catalog' },
-			{ name: 'import', href: '/products/import' },
-			{ name: 'orders', href: '/products/orders' },
-			{ name: 'inventory', href: '/products/inventory' }
+			{ name: 'profile', href: '/products/profile' },
+			{ name: 'company', href: '/products/company' },
+			{ name: 'plan', href: '/products/plan' },
+			{ name: 'cheque', href: '/products/cheque' },
+			{ name: 'payment', href: '/products/payment' },
+			{ name: 'product', href: '/products/product' },
+			{ name: 'notification', href: '/products/notification' },
+			{ name: 'applications', href: '/products/applications' }
 		]
 	}
 ]

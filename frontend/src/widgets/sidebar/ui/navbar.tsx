@@ -28,12 +28,16 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 							{currentNavbar.currentLinkName}
 						</span>
 					</div>
-					<div className={cn('flex flex-col')}>
+					<div
+						className={cn(
+							'flex max-h-96 grow flex-col overflow-x-hidden overflow-y-auto'
+						)}
+					>
 						{currentNavbar.items.map(item => (
 							<span
 								key={item.name}
 								className={cn(
-									'group hover:bg-input inline-block w-full cursor-pointer items-center justify-between gap-3 overflow-hidden p-4 px-6 font-bold whitespace-nowrap transition-all duration-300 ease-in-out first-letter:uppercase'
+									'hover:bg-input cursor-pointer p-4 px-6 font-bold first-letter:uppercase'
 								)}
 							>
 								{item.name}
@@ -70,7 +74,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 									</span>
 									<span
 										className={cn(
-											'overflow-hidden font-bold whitespace-nowrap truncate transition-[max-width,opacity,transform] duration-300 ease-in-out first-letter:uppercase',
+											'truncate overflow-hidden font-bold whitespace-nowrap transition-[max-width,opacity,transform] duration-300 ease-in-out first-letter:uppercase',
 											isOpen
 												? 'max-w-[160px] translate-x-0 opacity-100'
 												: 'max-w-0 -translate-x-2 opacity-0'

@@ -167,6 +167,19 @@
 	body {
 		@apply dark:bg-foreground text-foreground bg-white dark:text-white;
 	}
+	::-webkit-scrollbar {
+		width: 5px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: var(--color-background);
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: #888;
+	}
 }
 
 @layer utilities {

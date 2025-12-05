@@ -10,6 +10,7 @@ import {
 import { ConfigService } from '@nestjs/config'
 import { compare } from 'bcrypt'
 import { Request, Response } from 'express'
+import { LoginRequestDTO } from './dto/login-request.dto'
 @Injectable()
 export class AuthService {
 	constructor(
@@ -17,14 +18,14 @@ export class AuthService {
 		private readonly config: ConfigService
 	) {}
 
-	async login(request: Request, payload: Pick<User, 'email' | 'password'>): Promise<User> {
-		const user = await this.userService.findByEmail(payload.email)
+	async login(request: Request, payload: LoginRequestDTO): Promise<User> {
+		const user = await this.userService.findByPhoneNumber(payload.phoneNumber)
 
-		if (!user) throw new BadRequestException('Email or password is incorrect')
+		if (!user) throw new BadRequestException('Phone number or password is incorrect')
 
 		const isValidPassword = await compare(payload.password, user.password)
 
-		if (!isValidPassword) throw new BadRequestException('Email or password is incorrect')
+		if (!isValidPassword) throw new BadRequestException('Phone number or password is incorrect')
 
 		return this.saveSession(request, user)
 	}
@@ -35,7 +36,7 @@ export class AuthService {
 				if (err) {
 					return reject(
 						new InternalServerErrorException(
-							'Не удалось завершить сессию. Возможно, возникла проблема с сервером или сессия уже была завершена.'
+							'Failed to destroy the session. Please try again later'
 						)
 					)
 				}
@@ -47,10 +48,12 @@ export class AuthService {
 	}
 
 	async register(request: Request, payload: CreateUserRequestDTO): Promise<User> {
-		const user = await this.userService.findByEmail(payload.email)
+		const user = await this.userService.findByPhoneNumber(payload.phoneNumber)
 
 		if (user)
-			throw new ConflictException(`User with this email: ${payload.email} already exists`)
+			throw new ConflictException(
+				`User with this phone number: ${payload.phoneNumber} already exists`
+			)
 
 		const newUser = await this.userService.create(payload)
 
