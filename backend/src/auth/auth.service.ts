@@ -1,4 +1,5 @@
 import { CreateUserRequestDTO } from '@/common/dto'
+import { TUserWithOutPassword } from '@/common/types'
 import { User } from '@/generated/client'
 import { UserService } from '@/user/user.service'
 import {
@@ -18,7 +19,7 @@ export class AuthService {
 		private readonly config: ConfigService
 	) {}
 
-	async login(request: Request, payload: LoginRequestDTO): Promise<User> {
+	async login(request: Request, payload: LoginRequestDTO): Promise<TUserWithOutPassword> {
 		const user = await this.userService.findByPhoneNumber(payload.phoneNumber)
 
 		if (!user) throw new BadRequestException('Phone number or password is incorrect')
@@ -27,7 +28,9 @@ export class AuthService {
 
 		if (!isValidPassword) throw new BadRequestException('Phone number or password is incorrect')
 
-		return this.saveSession(request, user)
+		const { password, ...safeUser } = await this.saveSession(request, user)
+
+		return safeUser
 	}
 
 	async logout(request: Request, response: Response): Promise<void> {
@@ -47,7 +50,7 @@ export class AuthService {
 		})
 	}
 
-	async register(request: Request, payload: CreateUserRequestDTO): Promise<User> {
+	async register(request: Request, payload: CreateUserRequestDTO): Promise<TUserWithOutPassword> {
 		const user = await this.userService.findByPhoneNumber(payload.phoneNumber)
 
 		if (user)
@@ -57,11 +60,15 @@ export class AuthService {
 
 		const newUser = await this.userService.create(payload)
 
-		return this.saveSession(request, newUser)
+		const { password, ...safeUser } = await this.saveSession(request, newUser)
+
+		return safeUser
 	}
 
-	async me(userId: string): Promise<User> {
-		return await this.userService.findById(userId)
+	async me(userId: string): Promise<TUserWithOutPassword> {
+		const { password, ...safeUser } = await this.userService.findById(userId)
+
+		return safeUser
 	}
 
 	private async saveSession(request: Request, user: User): Promise<User> {
