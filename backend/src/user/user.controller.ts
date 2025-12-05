@@ -29,7 +29,7 @@ export class UserController {
 	@ApiOperation({ summary: 'Get user by id' })
 	@ApiOkResponse({ description: 'User returned successfully', type: UserDto })
 	@ApiNotFoundResponse({ description: 'User not found' })
-	@Authorization()
+	@Authorization(UserRole.ADMIN)
 	@Get(':id')
 	async findById(@Param('id') id: string) {
 		return await this.userService.findById(id)
@@ -38,7 +38,7 @@ export class UserController {
 	@ApiOperation({ summary: 'Create user' })
 	@ApiOkResponse({ description: 'User created successfully', type: UserDto })
 	@ApiConflictResponse({
-		description: 'User with this email is already exists'
+		description: 'User with this phone number is already exists'
 	})
 	@Post()
 	async create(@Body() payload: CreateUserRequestDTO) {
@@ -48,7 +48,7 @@ export class UserController {
 	@ApiOperation({ summary: 'Update user' })
 	@ApiOkResponse({ description: 'User updated successfully', type: UserDto })
 	@ApiNotFoundResponse({ description: 'User not found' })
-	@Authorization()
+	@Authorization(UserRole.ADMIN)
 	@Patch(':id')
 	async update(
 		@Param('id') id: string,
@@ -60,7 +60,7 @@ export class UserController {
 
 	@ApiOperation({ summary: 'Delete user' })
 	@ApiOkResponse({ description: 'User deleted successfully', type: UserDto })
-	@Authorization()
+	@Authorization(UserRole.ADMIN)
 	@Delete(':id')
 	async delete(@Param('id') id: string) {
 		return await this.userService.delete(id)

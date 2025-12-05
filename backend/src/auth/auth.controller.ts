@@ -1,9 +1,10 @@
 import { Authorization, AuthorizedUser } from '@/common/decorators'
 import { CreateUserRequestDTO, UserDto } from '@/common/dto'
-import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common'
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res } from '@nestjs/common'
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger'
-import { type Request, type Response } from 'express'
+import { type Response as ExpressResponse, type Request } from 'express'
 import { AuthService } from './auth.service'
+import { LoginRequestDTO } from './dto/login-request.dto'
 
 @Controller('auth')
 export class AuthController {
@@ -19,17 +20,15 @@ export class AuthController {
 	@ApiOperation({ summary: 'User logged successfully' })
 	@ApiOkResponse({ description: 'User logged successfully', type: UserDto })
 	@Post('login')
-	async login(
-		@Req() req: Request,
-		@Body() payload: Pick<CreateUserRequestDTO, 'email' | 'password'>
-	) {
+	@HttpCode(HttpStatus.OK)
+	async login(@Req() req: Request, @Body() payload: LoginRequestDTO) {
 		return await this.authService.login(req, payload)
 	}
 
 	@ApiOperation({ summary: 'User logged out successfully' })
 	@ApiOkResponse({ description: 'User logged out successfully' })
 	@Post('logout')
-	async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+	async logout(@Req() req: Request, @Res({ passthrough: true }) res: ExpressResponse) {
 		return await this.authService.logout(req, res)
 	}
 

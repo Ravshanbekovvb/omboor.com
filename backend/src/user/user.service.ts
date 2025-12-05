@@ -15,15 +15,15 @@ import { UpdateUserRequestDTO } from './dto/update-user-request.dto'
 export class UserService {
 	constructor(private readonly prisma: PrismaService) {}
 
-	async findByEmail<T extends UserDefaultArgs>(
-		email: string,
+	async findByPhoneNumber<T extends UserDefaultArgs>(
+		phoneNumber: string,
 		args?: SelectSubset<T, UserDefaultArgs>
 	): Promise<UserGetPayload<T> | null> {
 		const params = args ?? {}
 
 		return (await this.prisma.user.findUnique({
 			where: {
-				email
+				phoneNumber
 			},
 			...params
 		})) as UserGetPayload<T>
@@ -61,15 +61,17 @@ export class UserService {
 
 		const { repeatPassword, ...validPayload } = payload
 
-		const existingUser = await this.findByEmail(validPayload.email)
+		const existingUser = await this.findByPhoneNumber(validPayload.phoneNumber)
 
 		if (existingUser)
 			throw new ConflictException(
-				`User with this email: ${validPayload.email} is already exists`
+				`User with this phone number: ${validPayload.phoneNumber} is already exists`
 			)
 
+		const hashedPass = await hash(validPayload.password, 10)
+
 		return (await this.prisma.user.create({
-			data: validPayload,
+			data: { ...validPayload, password: hashedPass },
 			...params
 		})) as UserGetPayload<T>
 	}
