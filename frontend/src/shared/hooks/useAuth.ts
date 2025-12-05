@@ -3,20 +3,20 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { api } from '../lib/ky-init'
-import { User } from '../types'
+import { components } from '../types'
 
 export function useAuth() {
 	const router = useRouter()
 	const { mutateAsync: login, isPending: logining } = useMutation({
 		mutationKey: ['login'],
-		mutationFn: async (data: { phoneNumber: string; password: string }) => {
+		mutationFn: async (data: components['schemas']['LoginRequestDTO']) => {
 			console.log(typeof data.phoneNumber)
 
 			const res = await api
 				.post(`auth/login`, {
 					json: data
 				})
-				.json<{ data: User }>()
+				.json<{ data: components['schemas']['UserDto'] }>()
 			console.log(res)
 
 			return res
@@ -40,14 +40,15 @@ export function useAuth() {
 	})
 	const { mutateAsync: register, isPending: registering } = useMutation({
 		mutationKey: ['register'],
-		mutationFn: async (payload: User) => {
+		mutationFn: async (payload: components['schemas']['CreateUserRequestDTO']) => {
 			await api.post('auth/register', { json: payload }).json()
 		}
 	})
 
 	const { data: me } = useQuery({
 		queryKey: ['me'],
-		queryFn: async () => await api.get('auth/me').json<{ data: User }>()
+		queryFn: async () =>
+			await api.get('auth/me').json<{ data: components['schemas']['UserDto'] }>()
 	})
 	return { me, login, logining, logout, loggingOut, register, registering }
 }
