@@ -28,11 +28,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 							{currentNavbar.currentLinkName}
 						</span>
 					</div>
-					<div
-						className={cn(
-							'flex max-h-96 grow flex-col overflow-x-hidden overflow-y-auto'
-						)}
-					>
+					<div className={cn('flex flex-col overflow-x-hidden overflow-y-auto')}>
 						{currentNavbar.items.map(item => (
 							<span
 								key={item.name}
@@ -88,7 +84,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 										'overflow-hidden transition-[max-width,opacity,transform] duration-300 ease-in-out',
 										isOpen
 											? 'max-w-[20px] translate-x-0 opacity-100'
-											: 'max-w-0 translate-x-2 opacity-0'
+											: 'hidden max-w-0 translate-x-2 opacity-0'
 									)}
 								>
 									<ChevronRight

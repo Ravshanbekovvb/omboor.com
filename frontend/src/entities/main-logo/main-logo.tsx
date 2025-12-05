@@ -33,7 +33,7 @@ export const MainLogo: React.FC<{
 				className='shrink-0 transition-all duration-300 ease-in-out'
 			/>
 			<Title
-				title='Omboor.com'
+				title='Omboor'
 				className={cn(
 					`truncate overflow-hidden whitespace-nowrap transition-all duration-300 ease-in-out ${textSize}`,
 					className,

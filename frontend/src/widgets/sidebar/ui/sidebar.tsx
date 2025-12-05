@@ -20,32 +20,31 @@ export const Sidebar: React.FC = () => {
 				isOpen ? 'w-64' : 'w-21'
 			)}
 		>
-			<div>
-				<div className='relative'>
-					<MainLogo
-						className='gap-0 p-4'
-						imageHeight={28}
-						imageWidth={40}
-						textSize='sm:text-xl font-black'
-						link='/dashboard'
-						isOpen={isOpen}
+			<div className='relative'>
+				<MainLogo
+					className='gap-0 p-4'
+					imageHeight={28}
+					imageWidth={40}
+					textSize='sm:text-xl font-black'
+					link='/dashboard'
+					isOpen={isOpen}
+				/>
+				<Button
+					variant={'outline'}
+					className='absolute top-[50%] -right-4 min-h-5 min-w-5 -translate-y-1/2 cursor-pointer rounded-full p-2 transition-all duration-400 ease-in-out hover:shadow-md'
+					onClick={() => setIsOpen(!isOpen)}
+					size={'icon-sm'}
+				>
+					<ChevronLeft
+						className={
+							'transition-all duration-300 ease-in-out ' +
+							(isOpen ? '' : 'rotate-180')
+						}
 					/>
-					<Button
-						variant={'outline'}
-						className='absolute top-[50%] -right-4 min-h-5 min-w-5 -translate-y-1/2 cursor-pointer rounded-full p-2 transition-all duration-400 ease-in-out hover:shadow-md'
-						onClick={() => setIsOpen(!isOpen)}
-						size={'icon-sm'}
-					>
-						<ChevronLeft
-							className={
-								'transition-all duration-300 ease-in-out ' +
-								(isOpen ? '' : 'rotate-180')
-							}
-						/>
-					</Button>
-				</div>
-				<Navbar isOpen={isOpen} />
+				</Button>
 			</div>
+
+			<Navbar isOpen={isOpen} className='overy-x-hi flex-1' />
 			<div>
 				<Profile className='border-t' isOpen={isOpen} />
 				<Help className='border-t' isOpen={isOpen} />
