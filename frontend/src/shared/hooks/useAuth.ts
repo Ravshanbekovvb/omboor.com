@@ -1,19 +1,53 @@
-import { useMutation } from '@tanstack/react-query'
-import ky from 'ky'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+
+import { api } from '../lib/ky-init'
+import { User } from '../types'
 
 export function useAuth() {
-	return useMutation({
-		mutationFn: async (data: { phone: string; password: string }) => {
-			const res = await ky
-				.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, { json: data })
-				.json<{ token: string }>()
-			return res.token
+	const router = useRouter()
+	const { mutateAsync: login, isPending: logining } = useMutation({
+		mutationKey: ['login'],
+		mutationFn: async (data: { phoneNumber: string; password: string }) => {
+			console.log(typeof data.phoneNumber)
+
+			const res = await api
+				.post(`auth/login`, {
+					json: data
+				})
+				.json<{ data: User }>()
+			console.log(res)
+
+			return res
 		},
 		onSuccess: data => {
-			console.log(data)
-
-			// user ma'lumotini qayta olish uchun signallash
-			// queryClient.invalidateQueries({ queryKey: ['user'] })
+			toast.success('Hush kelibsiz!')
+			router.push('/dashboard')
+		},
+		onError: error => {
+			console.log('Login xatosi:', error)
 		}
 	})
+	const { mutateAsync: logout, isPending: loggingOut } = useMutation({
+		mutationKey: ['logout'],
+		mutationFn: async () => {
+			await api.post('auth/logout').json()
+		},
+		onSuccess: () => {
+			router.push('/login')
+		}
+	})
+	const { mutateAsync: register, isPending: registering } = useMutation({
+		mutationKey: ['register'],
+		mutationFn: async (payload: User) => {
+			await api.post('auth/register', { json: payload }).json()
+		}
+	})
+
+	const { data: me } = useQuery({
+		queryKey: ['me'],
+		queryFn: async () => await api.get('auth/me').json<{ data: User }>()
+	})
+	return { me, login, logining, logout, loggingOut, register, registering }
 }

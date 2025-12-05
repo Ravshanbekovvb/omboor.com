@@ -28,7 +28,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 							{currentNavbar.currentLinkName}
 						</span>
 					</div>
-					<div className={cn('flex flex-col overflow-x-hidden overflow-y-auto')}>
+					<div className={cn('flex grow flex-col overflow-x-hidden overflow-y-auto')}>
 						{currentNavbar.items.map(item => (
 							<span
 								key={item.name}

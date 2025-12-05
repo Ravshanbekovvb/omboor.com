@@ -44,7 +44,7 @@ export const Sidebar: React.FC = () => {
 				</Button>
 			</div>
 
-			<Navbar isOpen={isOpen} className='overy-x-hi flex-1' />
+			<Navbar isOpen={isOpen} className='flex-1 overflow-x-hidden' />
 			<div>
 				<Profile className='border-t' isOpen={isOpen} />
 				<Help className='border-t' isOpen={isOpen} />

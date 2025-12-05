@@ -12,11 +12,15 @@ import {
 	SheetTitle,
 	SheetTrigger
 } from '@/shared/ui/sheet'
+import { Spinner } from '@/shared/ui/spinner'
+
+import { useSidebar } from '../model'
 
 export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 	className,
 	isOpen
 }) => {
+	const { logout, loggingOut } = useSidebar()
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
@@ -133,8 +137,16 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 				</SheetHeader>
 
 				<SheetFooter>
-					<Button variant={'destructive'} className='font-bold'>
-						<span className='first-letter:uppercase'>выйти из аккаунта</span>
+					<Button
+						variant={'destructive'}
+						className='font-bold'
+						onClick={() => {
+							logout()
+						}}
+					>
+						<span className='first-letter:uppercase'>
+							{loggingOut ? <Spinner /> : 'выйти из аккаунта'}
+						</span>
 					</Button>
 				</SheetFooter>
 			</SheetContent>

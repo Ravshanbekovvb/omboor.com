@@ -26,6 +26,7 @@ import {
 	FormLabel,
 	FormMessage
 } from '@/shared/ui/form'
+import { Spinner } from '@/shared/ui/spinner'
 
 import { useLogin } from './model'
 
@@ -42,7 +43,8 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 		setIsDropdownOpen,
 		setSelectedCountry,
 		onSubmit,
-		form
+		form,
+		logining
 	} = useLogin()
 	return (
 		<div
@@ -58,7 +60,7 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 					<div className='flex flex-col items-start'>
 						<FormField
 							control={form.control}
-							name='phone'
+							name='phoneNumber'
 							render={({ field }) => (
 								<FormItem className='relative mb-2 w-full'>
 									<FormLabel>Введите номер телефона</FormLabel>
@@ -176,7 +178,7 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 						type='submit'
 						variant='primary'
 					>
-						Вход в аккаунт
+						{logining ? <Spinner /> : '	Вход в аккаунт'}
 					</Button>
 					<p className='w-full text-center text-sm sm:text-base'>
 						Еще нет аккаунта?{' '}
