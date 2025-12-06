@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 
 import { menuItems } from '@/shared/constants'
 import { cn } from '@/shared/lib/utils'
@@ -30,14 +31,15 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 					</div>
 					<div className={cn('flex grow flex-col overflow-x-hidden overflow-y-auto')}>
 						{currentNavbar.items.map(item => (
-							<span
+							<Link
+								href={item.href}
 								key={item.name}
 								className={cn(
 									'hover:bg-input cursor-pointer p-4 px-6 font-bold first-letter:uppercase'
 								)}
 							>
 								{item.name}
-							</span>
+							</Link>
 						))}
 					</div>
 				</div>

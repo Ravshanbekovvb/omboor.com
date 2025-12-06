@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { HTTPError } from 'ky'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -10,14 +11,11 @@ export function useAuth() {
 	const { mutateAsync: login, isPending: logining } = useMutation({
 		mutationKey: ['login'],
 		mutationFn: async (data: components['schemas']['LoginRequestDTO']) => {
-			console.log(typeof data.phoneNumber)
-
 			const res = await api
 				.post(`auth/login`, {
 					json: data
 				})
 				.json<{ data: components['schemas']['UserDto'] }>()
-			console.log(res)
 
 			return res
 		},
@@ -25,8 +23,13 @@ export function useAuth() {
 			toast.success('Hush kelibsiz!')
 			router.push('/dashboard')
 		},
-		onError: error => {
-			console.log('Login xatosi:', error)
+		onError: async error => {
+			if (error instanceof HTTPError) {
+				const body = await error.response.json().catch(() => null)
+				if (body.message) {
+					return toast.error(body.message)
+				}
+			}
 		}
 	})
 	const { mutateAsync: logout, isPending: loggingOut } = useMutation({
@@ -47,8 +50,7 @@ export function useAuth() {
 
 	const { data: me } = useQuery({
 		queryKey: ['me'],
-		queryFn: async () =>
-			await api.get('auth/me').json<{ data: components['schemas']['UserDto'] }>()
+		queryFn: async () => await api.get('auth/me').json<components['schemas']['UserDto']>()
 	})
 	return { me, login, logining, logout, loggingOut, register, registering }
 }

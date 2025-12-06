@@ -173,6 +173,9 @@
 
 	/* Track */
 	::-webkit-scrollbar-track {
+		background: var(--color-background-light);
+	}
+	.dark ::-webkit-scrollbar-track {
 		background: var(--color-background);
 	}
 

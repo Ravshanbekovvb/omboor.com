@@ -7,17 +7,106 @@ import { TbCirclePercentageFilled } from 'react-icons/tb'
 
 import { TCountry } from './types'
 
+export const avatars = [
+	'/avatars/1.png',
+	'/avatars/2.png',
+	'/avatars/3.png',
+	'/avatars/4.png',
+	'/avatars/5.png',
+	'/avatars/6.png',
+	'/avatars/7.png',
+	'/avatars/8.png',
+	'/avatars/9.png'
+]
+export const themeOptions: {
+	label: 'light' | 'dark' | 'system'
+	img: string
+}[] = [
+	{ label: 'system', img: '/auto.png' },
+	{ label: 'light', img: '/light.png' },
+	{ label: 'dark', img: '/dark.png' }
+]
 export const countries: TCountry[] = [
-	{ code: 'UZ', name: "O'zbekiston", dialCode: '+998', flag: UZ, phoneMask: 'xx xxx xx xx' },
-	{ code: 'RU', name: 'Россия', dialCode: '+7', flag: RU, phoneMask: 'xxx xxx xx xx' },
-	{ code: 'KZ', name: 'Қазақстан', dialCode: '+7', flag: KZ, phoneMask: 'xxx xxx xx xx' },
-	{ code: 'KG', name: 'Кыргызстан', dialCode: '+996', flag: KG, phoneMask: 'xxx xxx xxx' },
-	{ code: 'TJ', name: 'Тоҷикистон', dialCode: '+992', flag: TJ, phoneMask: 'xxx xxx xxx' },
-	{ code: 'TM', name: 'Türkmenistan', dialCode: '+993', flag: TM, phoneMask: 'xxx xxx xxx' },
-	{ code: 'US', name: 'United States', dialCode: '+1', flag: US, phoneMask: 'xxx xxx xxxx' },
-	{ code: 'TR', name: 'Türkiye', dialCode: '+90', flag: TR, phoneMask: 'xxx xxx xxxx' },
-	{ code: 'DE', name: 'Deutschland', dialCode: '+49', flag: DE, phoneMask: 'xxxx xxxxxxx' },
-	{ code: 'FR', name: 'France', dialCode: '+33', flag: FR, phoneMask: 'xx xx xx xx xx' }
+	{
+		code: 'UZ',
+		name: "O'zbekiston",
+		dialCode: '+998',
+		flag: UZ,
+		phoneMask: 'xx xxx xx xx',
+		languageLabel: "O'zbekcha"
+	},
+	{
+		code: 'RU',
+		name: 'Россия',
+		dialCode: '+7',
+		flag: RU,
+		phoneMask: 'xxx xxx xx xx',
+		languageLabel: 'Русский'
+	},
+	{
+		code: 'KZ',
+		name: 'Қазақстан',
+		dialCode: '+7',
+		flag: KZ,
+		phoneMask: 'xxx xxx xx xx',
+		languageLabel: 'Қазақша'
+	},
+	{
+		code: 'KG',
+		name: 'Кыргызстан',
+		dialCode: '+996',
+		flag: KG,
+		phoneMask: 'xxx xxx xxx',
+		languageLabel: 'Кыргызча'
+	},
+	{
+		code: 'TJ',
+		name: 'Тоҷикистон',
+		dialCode: '+992',
+		flag: TJ,
+		phoneMask: 'xxx xxx xxx',
+		languageLabel: 'Тоҷикӣ'
+	},
+	{
+		code: 'TM',
+		name: 'Türkmenistan',
+		dialCode: '+993',
+		flag: TM,
+		phoneMask: 'xxx xxx xxx',
+		languageLabel: 'Türkmençe'
+	},
+	{
+		code: 'US',
+		name: 'United States',
+		dialCode: '+1',
+		flag: US,
+		phoneMask: 'xxx xxx xxxx',
+		languageLabel: 'English'
+	},
+	{
+		code: 'TR',
+		name: 'Türkiye',
+		dialCode: '+90',
+		flag: TR,
+		phoneMask: 'xxx xxx xxxx',
+		languageLabel: 'Türkçe'
+	},
+	{
+		code: 'DE',
+		name: 'Deutschland',
+		dialCode: '+49',
+		flag: DE,
+		phoneMask: 'xxxx xxxxxxx',
+		languageLabel: 'Deutsch'
+	},
+	{
+		code: 'FR',
+		name: 'France',
+		dialCode: '+33',
+		flag: FR,
+		phoneMask: 'xx xx xx xx xx',
+		languageLabel: 'Français'
+	}
 ]
 export const menuItems: {
 	name: string
@@ -89,14 +178,14 @@ export const menuItems: {
 		name: 'settings',
 		icon: MdSettings,
 		nestedItems: [
-			{ name: 'profile', href: '/products/profile' },
-			{ name: 'company', href: '/products/company' },
-			{ name: 'plan', href: '/products/plan' },
-			{ name: 'cheque', href: '/products/cheque' },
-			{ name: 'payment', href: '/products/payment' },
-			{ name: 'product', href: '/products/product' },
-			{ name: 'notification', href: '/products/notification' },
-			{ name: 'applications', href: '/products/applications' }
+			{ name: 'profile', href: '/settings/profile' },
+			{ name: 'company', href: '/settings/company' },
+			{ name: 'plan', href: '/settings/plan' },
+			{ name: 'cheque', href: '/settings/cheque' },
+			{ name: 'payment', href: '/settings/payment' },
+			{ name: 'product', href: '/settings/product' },
+			{ name: 'notification', href: '/settings/notification' },
+			{ name: 'applications', href: '/settings/applications' }
 		]
 	}
 ]

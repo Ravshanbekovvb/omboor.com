@@ -4,416 +4,416 @@
  */
 
 export interface paths {
-	'/api/users': {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		/** Get all users */
-		get: operations['UserController_findAll']
-		put?: never
-		/** Create user */
-		post: operations['UserController_create']
-		delete?: never
-		options?: never
-		head?: never
-		patch?: never
-		trace?: never
-	}
-	'/api/users/{id}': {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		/** Get user by id */
-		get: operations['UserController_findById']
-		put?: never
-		post?: never
-		/** Delete user */
-		delete: operations['UserController_delete']
-		options?: never
-		head?: never
-		/** Update user */
-		patch: operations['UserController_update']
-		trace?: never
-	}
-	'/api/auth/register': {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		get?: never
-		put?: never
-		/** Register user */
-		post: operations['AuthController_register']
-		delete?: never
-		options?: never
-		head?: never
-		patch?: never
-		trace?: never
-	}
-	'/api/auth/login': {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		get?: never
-		put?: never
-		/** User logged successfully */
-		post: operations['AuthController_login']
-		delete?: never
-		options?: never
-		head?: never
-		patch?: never
-		trace?: never
-	}
-	'/api/auth/logout': {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		get?: never
-		put?: never
-		/** User logged out successfully */
-		post: operations['AuthController_logout']
-		delete?: never
-		options?: never
-		head?: never
-		patch?: never
-		trace?: never
-	}
-	'/api/auth/me': {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		/** User returned successfully */
-		get: operations['AuthController_me']
-		put?: never
-		post?: never
-		delete?: never
-		options?: never
-		head?: never
-		patch?: never
-		trace?: never
-	}
+    "/api/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all users */
+        get: operations["UserController_findAll"];
+        put?: never;
+        /** Create user */
+        post: operations["UserController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/users/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get user by id */
+        get: operations["UserController_findById"];
+        put?: never;
+        post?: never;
+        /** Delete user */
+        delete: operations["UserController_delete"];
+        options?: never;
+        head?: never;
+        /** Update user */
+        patch: operations["UserController_update"];
+        trace?: never;
+    };
+    "/api/auth/register": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Register user */
+        post: operations["AuthController_register"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** User logged successfully */
+        post: operations["AuthController_login"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/auth/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** User logged out successfully */
+        post: operations["AuthController_logout"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/auth/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** User returned successfully */
+        get: operations["AuthController_me"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
-export type webhooks = Record<string, never>
+export type webhooks = Record<string, never>;
 export interface components {
-	schemas: {
-		UserDto: {
-			id: string
-			name: string
-			imgUrl?: Record<string, never> | null
-			email: string
-			/** @enum {string} */
-			role: 'REGULAR' | 'ADMIN'
-			/** @enum {string} */
-			plan: 'START' | 'ADVANCED' | 'PRO'
-			/** Format: date-time */
-			createdAt: string
-		}
-		CreateUserRequestDTO: {
-			/**
-			 * @description User name
-			 * @example Bekzod
-			 */
-			name: string
-			/**
-			 * @description User password. Must contain uppercase and number
-			 * @example Password123
-			 */
-			password: string
-			/**
-			 * @description Repeat password
-			 * @example Password123
-			 */
-			repeatPassword: string
-			/**
-			 * @description User phone number
-			 * @example +1234567890
-			 */
-			phoneNumber: string
-			/**
-			 * @description User avatar URL
-			 * @example https://example.com/avatar.png
-			 */
-			imgUrl?: string
-		}
-		UpdateUserRequestDTO: {
-			/**
-			 * @description User name
-			 * @example Bekzod
-			 */
-			name: string
-			/**
-			 * @description User password. Must contain uppercase and number
-			 * @example Password123
-			 */
-			password?: string
-			/**
-			 * @description User email
-			 * @example test@example.com
-			 */
-			email: string
-			/**
-			 * @description User avatar URL
-			 * @example https://example.com/avatar.png
-			 */
-			imgUrl?: string
-		}
-		LoginRequestDTO: {
-			/**
-			 * @description User phone number
-			 * @example +1234567890
-			 */
-			phoneNumber: string
-			/**
-			 * @description User password
-			 * @example passWord123
-			 */
-			password: string
-		}
-	}
-	responses: never
-	parameters: never
-	requestBodies: never
-	headers: never
-	pathItems: never
+    schemas: {
+        UserDto: {
+            id: string;
+            name: string;
+            imgUrl?: Record<string, never> | null;
+            email: string;
+            /** @enum {string} */
+            role: "REGULAR" | "ADMIN";
+            /** @enum {string} */
+            plan: "START" | "ADVANCED" | "PRO";
+            /** Format: date-time */
+            createdAt: string;
+        };
+        CreateUserRequestDTO: {
+            /**
+             * @description User name
+             * @example Bekzod
+             */
+            name: string;
+            /**
+             * @description User password. Must contain uppercase and number
+             * @example Password123
+             */
+            password: string;
+            /**
+             * @description Repeat password
+             * @example Password123
+             */
+            repeatPassword: string;
+            /**
+             * @description User phone number
+             * @example +1234567890
+             */
+            phoneNumber: string;
+            /**
+             * @description User avatar URL
+             * @example https://example.com/avatar.png
+             */
+            imgUrl?: string;
+        };
+        UpdateUserRequestDTO: {
+            /**
+             * @description User name
+             * @example Bekzod
+             */
+            name: string;
+            /**
+             * @description User password. Must contain uppercase and number
+             * @example Password123
+             */
+            password?: string;
+            /**
+             * @description User phone
+             * @example +1234567890
+             */
+            phoneNumber: string;
+            /**
+             * @description User avatar URL
+             * @example https://example.com/avatar.png
+             */
+            imgUrl?: string;
+        };
+        LoginRequestDTO: {
+            /**
+             * @description User phone number
+             * @example +1234567890
+             */
+            phoneNumber: string;
+            /**
+             * @description User password
+             * @example passWord123
+             */
+            password: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
-export type $defs = Record<string, never>
+export type $defs = Record<string, never>;
 export interface operations {
-	UserController_findAll: {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		requestBody?: never
-		responses: {
-			/** @description Users returned successfully */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					'application/json': components['schemas']['UserDto'][]
-				}
-			}
-		}
-	}
-	UserController_create: {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['CreateUserRequestDTO']
-			}
-		}
-		responses: {
-			/** @description User created successfully */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					'application/json': components['schemas']['UserDto']
-				}
-			}
-			/** @description User with this phone number is already exists */
-			409: {
-				headers: {
-					[name: string]: unknown
-				}
-				content?: never
-			}
-		}
-	}
-	UserController_findById: {
-		parameters: {
-			query?: never
-			header?: never
-			path: {
-				id: string
-			}
-			cookie?: never
-		}
-		requestBody?: never
-		responses: {
-			/** @description User returned successfully */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					'application/json': components['schemas']['UserDto']
-				}
-			}
-			/** @description User not found */
-			404: {
-				headers: {
-					[name: string]: unknown
-				}
-				content?: never
-			}
-		}
-	}
-	UserController_delete: {
-		parameters: {
-			query?: never
-			header?: never
-			path: {
-				id: string
-			}
-			cookie?: never
-		}
-		requestBody?: never
-		responses: {
-			/** @description User deleted successfully */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					'application/json': components['schemas']['UserDto']
-				}
-			}
-		}
-	}
-	UserController_update: {
-		parameters: {
-			query?: never
-			header?: never
-			path: {
-				id: string
-			}
-			cookie?: never
-		}
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['UpdateUserRequestDTO']
-			}
-		}
-		responses: {
-			/** @description User updated successfully */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					'application/json': components['schemas']['UserDto']
-				}
-			}
-			/** @description User not found */
-			404: {
-				headers: {
-					[name: string]: unknown
-				}
-				content?: never
-			}
-		}
-	}
-	AuthController_register: {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['CreateUserRequestDTO']
-			}
-		}
-		responses: {
-			/** @description User created successfully */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					'application/json': components['schemas']['UserDto']
-				}
-			}
-		}
-	}
-	AuthController_login: {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['LoginRequestDTO']
-			}
-		}
-		responses: {
-			/** @description User logged successfully */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					'application/json': components['schemas']['UserDto']
-				}
-			}
-		}
-	}
-	AuthController_logout: {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		requestBody?: never
-		responses: {
-			/** @description User logged out successfully */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content?: never
-			}
-		}
-	}
-	AuthController_me: {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		requestBody?: never
-		responses: {
-			/** @description User returned successfully */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					'application/json': components['schemas']['UserDto']
-				}
-			}
-		}
-	}
+    UserController_findAll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Users returned successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"][];
+                };
+            };
+        };
+    };
+    UserController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateUserRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description User created successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"];
+                };
+            };
+            /** @description User with this phone number is already exists */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UserController_findById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description User returned successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"];
+                };
+            };
+            /** @description User not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UserController_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description User deleted successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"];
+                };
+            };
+        };
+    };
+    UserController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateUserRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description User updated successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"];
+                };
+            };
+            /** @description User not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_register: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateUserRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description User created successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"];
+                };
+            };
+        };
+    };
+    AuthController_login: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoginRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description User logged successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"];
+                };
+            };
+        };
+    };
+    AuthController_logout: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description User logged out successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_me: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description User returned successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"];
+                };
+            };
+        };
+    };
 }

@@ -4,4 +4,5 @@ export type TCountry = {
 	dialCode: string
 	flag: React.FC<React.SVGAttributes<SVGElement>>
 	phoneMask: string
+	languageLabel: string
 }

@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 const nextConfig: NextConfig = {
 	images: {
@@ -10,12 +11,6 @@ const nextConfig: NextConfig = {
 			}
 		]
 	}
-	// experimental: {
-	// 	serverActions: {
-	// 		allowedOrigins: ['http://localhost:3001'],
-	// 		bodySizeLimit: '1mb'
-	// 	}
-	// }
 }
-
-export default nextConfig
+const withNextIntl = createNextIntlPlugin('./src/shared/i18n/request.ts')
+export default withNextIntl(nextConfig)

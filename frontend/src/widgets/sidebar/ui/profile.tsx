@@ -20,7 +20,8 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 	className,
 	isOpen
 }) => {
-	const { logout, loggingOut } = useSidebar()
+	const { logout, loggingOut, me } = useSidebar()
+
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
@@ -31,22 +32,28 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 						className
 					)}
 				>
-					<Image
-						src={
-							'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80'
-						}
-						alt='User image'
-						height={'30'}
-						width={'40'}
-						className='rounded-full transition-all duration-300 ease-in-out'
-					/>
+					{typeof me?.imgUrl === 'string' && me?.imgUrl ? (
+						<Image
+							src={me.imgUrl}
+							alt='User image'
+							height={30}
+							width={40}
+							className='rounded-full transition-all duration-300 ease-in-out'
+						/>
+					) : (
+						<div className='flex h-[40px] w-[40px] items-center justify-center rounded-full bg-gray-500 font-bold text-white'>
+							{me?.name?.[0]?.toUpperCase() ?? 'U'}
+						</div>
+					)}
 					<div
 						className={cn(
 							'flex flex-col items-start overflow-hidden transition-all duration-300 ease-in-out',
 							isOpen ? 'ml-2 max-w-full opacity-100' : 'ml-0 max-w-0 opacity-0'
 						)}
 					>
-						<span className='text-lg font-black whitespace-nowrap'>Abdulloh S.</span>
+						<span className='text-lg font-black whitespace-nowrap'>
+							{me?.name.slice(0, 13)}...
+						</span>
 						<span className='text-xs font-bold whitespace-nowrap text-gray-400'>
 							Bolalar tanlovi
 						</span>
@@ -62,21 +69,27 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 								`mt-5 flex cursor-pointer items-center justify-start gap-3 p-4 transition-all duration-300 ease-in-out`
 							)}
 						>
-							<Image
-								src={
-									'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80'
-								}
-								alt='User image'
-								height={'30'}
-								width={'40'}
-								className='rounded-full transition-all duration-300 ease-in-out'
-							/>
+							{typeof me?.imgUrl === 'string' && me?.imgUrl ? (
+								<Image
+									src={me.imgUrl}
+									alt='User image'
+									height={30}
+									width={40}
+									className='rounded-full transition-all duration-300 ease-in-out'
+								/>
+							) : (
+								<span className='flex h-[40px] w-[40px] items-center justify-center rounded-full bg-gray-500 font-bold text-white'>
+									{me?.name?.[0]?.toUpperCase() ?? 'U'}
+								</span>
+							)}
+
 							<span className={cn('flex flex-col items-start')}>
 								<span className='text-lg font-black whitespace-nowrap'>
-									Abdulloh Sultonov
+									{me?.name}
 								</span>
 								<span className='text-xs font-bold whitespace-nowrap'>
-									Bolalar tanlovi
+									{me?.plan}
+									{/* Bolalar tanlovi */}
 								</span>
 							</span>
 						</span>

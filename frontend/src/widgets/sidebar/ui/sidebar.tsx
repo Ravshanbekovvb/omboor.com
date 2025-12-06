@@ -1,3 +1,4 @@
+'use client'
 import { ChevronLeft } from 'lucide-react'
 
 import { MainLogo } from '@/entities/main-logo'
@@ -31,7 +32,7 @@ export const Sidebar: React.FC = () => {
 				/>
 				<Button
 					variant={'outline'}
-					className='absolute top-[50%] -right-4 min-h-5 min-w-5 -translate-y-1/2 cursor-pointer rounded-full p-2 transition-all duration-400 ease-in-out hover:shadow-md'
+					className='absolute top-[50%] -right-4 z-10 min-h-5 min-w-5 -translate-y-1/2 cursor-pointer rounded-full p-2 transition-all duration-400 ease-in-out hover:shadow-md'
 					onClick={() => setIsOpen(!isOpen)}
 					size={'icon-sm'}
 				>
