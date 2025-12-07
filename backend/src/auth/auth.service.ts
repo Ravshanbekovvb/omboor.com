@@ -1,6 +1,7 @@
-import { CreateUserRequestDTO } from '@/common/dto'
+import { ChangePasswordRequestDTO, CreateUserRequestDTO } from '@/common/dto'
 import { TUserWithOutPassword } from '@/common/types'
 import { User } from '@/generated/client'
+import { UpdateUserRequestDTO } from '@/user/dto'
 import { UserService } from '@/user/user.service'
 import {
 	BadRequestException,
@@ -11,7 +12,8 @@ import {
 import { ConfigService } from '@nestjs/config'
 import { compare } from 'bcrypt'
 import { Request, Response } from 'express'
-import { LoginRequestDTO } from './dto/login-request.dto'
+import { LoginRequestDTO, UpdateMeRequestDTO } from './dto'
+
 @Injectable()
 export class AuthService {
 	constructor(
@@ -67,6 +69,24 @@ export class AuthService {
 
 	async me(userId: string): Promise<TUserWithOutPassword> {
 		const { password, ...safeUser } = await this.userService.findById(userId)
+
+		return safeUser
+	}
+
+	async update(userId: string, payload: UpdateMeRequestDTO): Promise<TUserWithOutPassword> {
+		const { password, ...safeUser } = await this.userService.update(
+			userId,
+			payload as UpdateUserRequestDTO
+		)
+
+		return safeUser
+	}
+
+	async changePassword(
+		userId: string,
+		payload: ChangePasswordRequestDTO
+	): Promise<TUserWithOutPassword> {
+		const { password, ...safeUser } = await this.userService.changePassword(userId, payload)
 
 		return safeUser
 	}

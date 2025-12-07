@@ -1,14 +1,15 @@
+import { ChangePasswordRequestDTO } from '@/common/dto'
 import { SelectSubset } from '@/generated/internal/prismaNamespace'
 import { PrismaService } from '@/prisma/prisma.service'
 import {
+	BadRequestException,
 	ConflictException,
-	ForbiddenException,
 	Injectable,
 	NotFoundException
 } from '@nestjs/common'
-import { hash } from 'bcrypt'
+import { compare, hash } from 'bcrypt'
 import { UserDefaultArgs, UserFindManyArgs, UserGetPayload } from 'generated/prisma/models'
-import { CreateUserRequestDTO } from '../common/dto'
+import { CreateUserRequestDTO } from '../common/dto/create-user-request.dto'
 import { UpdateUserRequestDTO } from './dto/update-user-request.dto'
 
 @Injectable()
@@ -36,19 +37,19 @@ export class UserService {
 	}
 
 	async findById<T extends UserDefaultArgs>(
-		id: string,
+		userId: string,
 		args?: SelectSubset<T, UserDefaultArgs>
 	): Promise<UserGetPayload<T>> {
 		const params = args ?? {}
 
 		const user = (await this.prisma.user.findUnique({
 			where: {
-				id
+				id: userId
 			},
 			...params
 		})) as UserGetPayload<T>
 
-		if (!user) throw new NotFoundException(`User with this ID: #${id} is not found`)
+		if (!user) throw new NotFoundException(`User with this ID: #${userId} is not found`)
 
 		return user
 	}
@@ -77,19 +78,15 @@ export class UserService {
 	}
 
 	async update<T extends UserDefaultArgs>(
-		id: string,
-		authorizedUserId: string,
+		userId: string,
 		payload: UpdateUserRequestDTO,
 		args?: SelectSubset<T, UserDefaultArgs>
 	): Promise<UserGetPayload<T>> {
 		const params = args ?? {}
 
-		const user = await this.findById(id)
+		const { id, password } = await this.findById(userId)
 
-		if (user.id !== authorizedUserId)
-			throw new ForbiddenException('You are not allowed to edit other users')
-
-		const hashedPass = payload.password ? await hash(payload.password, 10) : user.password
+		const hashedPass = payload.password ? await hash(payload.password, 10) : password
 
 		return (await this.prisma.user.update({
 			where: {
@@ -101,15 +98,44 @@ export class UserService {
 	}
 
 	async delete<T extends UserDefaultArgs>(
-		id: string,
+		userId: string,
 		args?: SelectSubset<T, UserDefaultArgs>
 	): Promise<UserGetPayload<T>> {
 		const params = args ?? {}
+
+		const { id } = await this.findById(userId)
 
 		return (await this.prisma.user.delete({
 			where: {
 				id
 			},
+			...params
+		})) as UserGetPayload<T>
+	}
+
+	async changePassword<T extends UserDefaultArgs>(
+		userId: string,
+		payload: ChangePasswordRequestDTO,
+		args?: SelectSubset<T, UserDefaultArgs>
+	): Promise<UserGetPayload<T>> {
+		const params = args ?? {}
+
+		const { id, password } = await this.findById(userId)
+
+		const isValidPassword = await compare(payload.oldPassword, password)
+
+		if (!isValidPassword)
+			throw new BadRequestException(
+				'The old password you provided does not match our records'
+			)
+
+		const hashedPassword = await hash(payload.newPassword, 10)
+
+		return (await this.prisma.user.update({
+			where: {
+				id
+			},
+			data: { password: hashedPassword },
 			...params
 		})) as UserGetPayload<T>
 	}

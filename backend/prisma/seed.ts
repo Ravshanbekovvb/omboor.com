@@ -73,7 +73,8 @@ export async function up() {
 	await prisma.user.create({
 		data: {
 			id: '1',
-			name: 'Bekzod Ravshanbekov',
+			name: 'Bekzod',
+			lastName: 'Ravshanbekov',
 			password: hashSync('Bekzod2001', 10),
 			phoneNumber: '+998977883355',
 			imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png',
@@ -93,7 +94,8 @@ export async function up() {
 	await prisma.user.create({
 		data: {
 			id: '2',
-			name: 'Behruz Ravshanbekov',
+			name: 'Behruz',
+			lastName: 'Ravshanbekov',
 			password: hashSync('Behruz2005', 10),
 			phoneNumber: '+998944183810',
 			role: 'REGULAR'
