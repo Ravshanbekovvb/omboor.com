@@ -52,7 +52,7 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 						)}
 					>
 						<span className='text-lg font-black whitespace-nowrap'>
-							{`${me?.name} ${me?.lastName.slice(0, 1)}.`}
+							{me ? `${me.name} ${me.lastName?.slice(0, 1) ?? ''}.` : 'User name'}
 						</span>
 						<span className='text-xs font-bold whitespace-nowrap text-gray-400'>
 							Bolalar tanlovi

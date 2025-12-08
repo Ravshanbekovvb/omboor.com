@@ -58,5 +58,12 @@ export const useProfile = () => {
 			})
 		}
 	}, [me, theme, locale, form])
-	return { form, selectedAvatar, setSelectedAvatar, onSubmit, updatingMe, t }
+	return {
+		form,
+		selectedAvatar,
+		setSelectedAvatar,
+		onSubmit,
+		updatingMe,
+		t
+	}
 }
