@@ -1,9 +1,9 @@
-import { CreateUserRequestDTO } from '@/common/dto'
 import {
 	ValidationArguments,
 	ValidatorConstraint,
 	ValidatorConstraintInterface
 } from 'class-validator'
+import { CreateUserRequestDTO } from '../dto'
 
 @ValidatorConstraint({ name: 'IsPasswordsMatchingConstraint', async: false })
 export class IsPasswordsMatchingConstraint implements ValidatorConstraintInterface {

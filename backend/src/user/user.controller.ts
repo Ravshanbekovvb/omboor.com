@@ -1,5 +1,5 @@
-import { Authorization, AuthorizedUser } from '@/common/decorators'
-import { UserDto } from '@/common/dto'
+import { Authorization } from '@/common/decorators'
+import { CreateUserRequestDTO, UserDto } from '@/common/dto'
 import { UserRole } from '@/generated/client'
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
 import {
@@ -9,8 +9,7 @@ import {
 	ApiOperation,
 	ApiTags
 } from '@nestjs/swagger'
-import { CreateUserRequestDTO } from '../common/dto/create-user-request.dto'
-import { UpdateUserRequestDTO } from './dto/update-user-request.dto'
+import { UpdateUserRequestDTO } from './dto/'
 import { UserService } from './user.service'
 
 @ApiTags('Users')
@@ -31,8 +30,8 @@ export class UserController {
 	@ApiNotFoundResponse({ description: 'User not found' })
 	@Authorization(UserRole.ADMIN)
 	@Get(':id')
-	async findById(@Param('id') id: string) {
-		return await this.userService.findById(id)
+	async findById(@Param('id') userId: string) {
+		return await this.userService.findById(userId)
 	}
 
 	@ApiOperation({ summary: 'Create user' })
@@ -40,6 +39,7 @@ export class UserController {
 	@ApiConflictResponse({
 		description: 'User with this phone number is already exists'
 	})
+	@Authorization(UserRole.ADMIN)
 	@Post()
 	async create(@Body() payload: CreateUserRequestDTO) {
 		return await this.userService.create(payload)
@@ -50,16 +50,13 @@ export class UserController {
 	@ApiNotFoundResponse({ description: 'User not found' })
 	@Authorization(UserRole.ADMIN)
 	@Patch(':id')
-	async update(
-		@Param('id') id: string,
-		@AuthorizedUser('id') authorizedUserId: string,
-		@Body() payload: UpdateUserRequestDTO
-	) {
-		return await this.userService.update(id, authorizedUserId, payload)
+	async update(@Param('id') userId: string, @Body() payload: UpdateUserRequestDTO) {
+		return await this.userService.update(userId, payload)
 	}
 
 	@ApiOperation({ summary: 'Delete user' })
 	@ApiOkResponse({ description: 'User deleted successfully', type: UserDto })
+	@ApiNotFoundResponse({ description: 'User not found' })
 	@Authorization(UserRole.ADMIN)
 	@Delete(':id')
 	async delete(@Param('id') id: string) {
