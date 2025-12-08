@@ -1,16 +1,11 @@
-import { Loader2Icon } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 
-import { cn } from '@/shared/lib/utils'
+import { cn } from '../lib/utils'
 
-function Spinner({ className, ...props }: React.ComponentProps<'svg'>) {
-	return (
-		<Loader2Icon
-			role='status'
-			aria-label='Loading'
-			className={cn('size-6 animate-spin', className)}
-			{...props}
-		/>
-	)
+interface LoaderProps {
+	className?: string
 }
 
-export { Spinner }
+export const Spinner: React.FC<LoaderProps> = ({ className }) => {
+	return <Loader2 className={cn('animate-spin', className)} />
+}

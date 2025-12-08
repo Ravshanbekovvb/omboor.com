@@ -52,7 +52,7 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 						)}
 					>
 						<span className='text-lg font-black whitespace-nowrap'>
-							{me?.name.slice(0, 13)}...
+							{`${me?.name} ${me?.lastName.slice(0, 1)}.`}
 						</span>
 						<span className='text-xs font-bold whitespace-nowrap text-gray-400'>
 							Bolalar tanlovi
@@ -85,7 +85,7 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 
 							<span className={cn('flex flex-col items-start')}>
 								<span className='text-lg font-black whitespace-nowrap'>
-									{me?.name}
+									{`${me?.name} ${me?.lastName}`}
 								</span>
 								<span className='text-xs font-bold whitespace-nowrap'>
 									{me?.plan}

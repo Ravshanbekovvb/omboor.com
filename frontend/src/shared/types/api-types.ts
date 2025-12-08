@@ -106,7 +106,25 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch?: never;
+        /** User updated successfully */
+        patch: operations["AuthController_update"];
+        trace?: never;
+    };
+    "/api/auth/me/change-password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Password updated successfully */
+        patch: operations["AuthController_changePassword"];
         trace?: never;
     };
 }
@@ -114,15 +132,48 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         UserDto: {
+            /**
+             * @description Уникальный идентификатор пользователя
+             * @example c1a2b3d4-e5f6-7890-abcd-1234567890ef
+             */
             id: string;
+            /**
+             * @description Имя пользователя
+             * @example Bekzod
+             */
             name: string;
+            /**
+             * @description Фамилия пользователя
+             * @example Ravshanbekov
+             */
+            lastName: string;
+            /**
+             * @description Ссылка на аватар пользователя
+             * @example https://example.com/avatar.png
+             */
             imgUrl?: Record<string, never> | null;
-            email: string;
-            /** @enum {string} */
+            /**
+             * @description Номер телефона пользователя
+             * @example +998901234567
+             */
+            phoneNumber: string;
+            /**
+             * @description Роль пользователя в системе
+             * @example ADMIN
+             * @enum {string}
+             */
             role: "REGULAR" | "ADMIN";
-            /** @enum {string} */
+            /**
+             * @description Тарифный план пользователя
+             * @example START
+             * @enum {string}
+             */
             plan: "START" | "ADVANCED" | "PRO";
-            /** Format: date-time */
+            /**
+             * Format: date-time
+             * @description Дата создания пользователя
+             * @example 2024-12-01T12:30:00.000Z
+             */
             createdAt: string;
         };
         CreateUserRequestDTO: {
@@ -131,6 +182,11 @@ export interface components {
              * @example Bekzod
              */
             name: string;
+            /**
+             * @description User last name
+             * @example Ravshanbekov
+             */
+            lastName: string;
             /**
              * @description User password. Must contain uppercase and number
              * @example Password123
@@ -159,15 +215,15 @@ export interface components {
              */
             name: string;
             /**
+             * @description User last name
+             * @example Ravshanbekov
+             */
+            lastName: string;
+            /**
              * @description User password. Must contain uppercase and number
              * @example Password123
              */
             password?: string;
-            /**
-             * @description User phone
-             * @example +1234567890
-             */
-            phoneNumber: string;
             /**
              * @description User avatar URL
              * @example https://example.com/avatar.png
@@ -185,6 +241,40 @@ export interface components {
              * @example passWord123
              */
             password: string;
+        };
+        UpdateMeRequestDTO: {
+            /**
+             * @description User name
+             * @example Bekzod
+             */
+            name: string;
+            /**
+             * @description User last name
+             * @example Ravshanbekov
+             */
+            lastName: string;
+            /**
+             * @description User avatar URL
+             * @example https://example.com/avatar.png
+             */
+            imgUrl?: string;
+        };
+        ChangePasswordRequestDTO: {
+            /**
+             * @description User old password. Must contain uppercase and number
+             * @example Password123
+             */
+            oldPassword: string;
+            /**
+             * @description User password. Must contain uppercase and number
+             * @example NewPassword123
+             */
+            newPassword: string;
+            /**
+             * @description Repeat password
+             * @example NewPassword123
+             */
+            repeatPassword: string;
         };
     };
     responses: never;
@@ -295,6 +385,13 @@ export interface operations {
                     "application/json": components["schemas"]["UserDto"];
                 };
             };
+            /** @description User not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     UserController_update: {
@@ -352,6 +449,13 @@ export interface operations {
                     "application/json": components["schemas"]["UserDto"];
                 };
             };
+            /** @description User with this phone number is already exists */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     AuthController_login: {
@@ -376,6 +480,13 @@ export interface operations {
                     "application/json": components["schemas"]["UserDto"];
                 };
             };
+            /** @description Phone number or password is incorrect */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     AuthController_logout: {
@@ -389,6 +500,13 @@ export interface operations {
         responses: {
             /** @description User logged out successfully */
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Failed to destroy the session. Please try again later */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -413,6 +531,82 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["UserDto"];
                 };
+            };
+            /** @description User with this ID is not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateMeRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description User updated successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"];
+                };
+            };
+            /** @description User with this ID is not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_changePassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChangePasswordRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description Password updated successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDto"];
+                };
+            };
+            /** @description The old password you provided does not match our records */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description User with this ID is not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

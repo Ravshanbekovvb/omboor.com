@@ -167,7 +167,7 @@ export const menuItems: {
 		]
 	},
 	{
-		name: 'management',
+		name: 'managment',
 		icon: MdWorkHistory,
 		nestedItems: [
 			{ name: 'employe', href: '/products/employe' },

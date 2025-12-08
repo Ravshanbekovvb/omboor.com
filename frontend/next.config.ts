@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
 		remotePatterns: [
 			{
 				protocol: 'https',
-				hostname: 'img.freepik.com',
-				pathname: '/free-vector/blue-circle-with-white-user_78370-4707.jpg'
+				hostname: 'upload.wikimedia.org',
+				pathname: '/**'
 			}
 		]
 	}

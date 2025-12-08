@@ -1,5 +1,34 @@
 {
-	"HomePage": {
-		"title": "Hello world!"
+	"navbar": {
+		"products": "Tovarlar",
+		"orders": "Buyurtmalar",
+		"clients": "Mijozlar",
+		"marketing": "Marketing",
+		"reports": "Hisobotlar",
+		"managment": "Boshqaruv",
+		"settings": "Sozlamalar",
+		"logout": "Chiqish"
+	},
+	"profile": {
+		"title": "Profil sozlamalari",
+		"reset": "Qayta tiklash",
+		"save": "Saqlash",
+		"basic": "Asosiy",
+		"name": "Ism",
+		"lastName": "Familiya",
+		"photo": "Rasm",
+		"selectAvatar": "Rasm tanlash",
+		"or": "— yoki —",
+		"uploadPhoto": "Rasmingizni yuklang",
+		"photoFormat": "Yuklanayotgan rasm formati: JPG yoki PNG. Maksimal hajmi: 5MB.",
+		"security": "Xavfsizlik",
+		"password": "Parol",
+		"changePassword": "Parolni o'zgartirish",
+		"interface": "Interfeys",
+		"language": "Til",
+		"theme": "Interfeys ko‘rinishi",
+		"light": "Yorug'",
+		"dark": "Qorong'u",
+		"system": "Tizim"
 	}
 }

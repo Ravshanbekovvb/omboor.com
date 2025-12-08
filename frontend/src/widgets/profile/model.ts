@@ -1,11 +1,10 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { countries } from '@/shared/constants'
@@ -20,38 +19,44 @@ const formSchema = z.object({
 })
 type TForm = z.infer<typeof formSchema>
 export const useProfile = () => {
+	const t = useTranslations('profile')
+	const { me, updateMe, updatingMe } = useAuth()
 	const router = useRouter()
 	const { theme, setTheme } = useTheme()
-	const { me } = useAuth()
 	const locale = useLocale()
 	const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null)
 	const form = useForm<z.infer<typeof formSchema>>({
 		mode: 'onChange',
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			name: me?.name || '',
-			lastName: me?.name || '',
-			imgUrl: typeof me?.imgUrl === 'string' ? me.imgUrl : undefined,
-			theme: undefined,
+			name: '',
+			lastName: '',
+			imgUrl: undefined,
+			theme: 'system',
 			language: locale
 		}
 	})
 	const onSubmit: SubmitHandler<TForm> = async data => {
-		console.log(data)
-
 		const { theme, language, ...safeData } = data
-		setTheme(theme)
-		document.cookie = `locale=${language}; path=/; max-age=31536000; SameSite=Lax`
-
-		toast.success('Profile updated successfully', {
-			closeButton: true
+		console.log(data)
+		updateMe(safeData, {
+			onSuccess: () => {
+				setTheme(theme)
+				document.cookie = `locale=${language}; path=/; max-age=31536000; SameSite=Lax`
+				router.refresh()
+			}
 		})
-		router.refresh()
 	}
 	useEffect(() => {
-		if (theme) {
-			form.setValue('theme', theme as 'light' | 'dark' | 'system')
+		if (me) {
+			form.reset({
+				name: me.name,
+				lastName: me.lastName,
+				imgUrl: typeof me.imgUrl === 'string' ? me.imgUrl : undefined,
+				language: locale,
+				theme: theme as 'light' | 'dark' | 'system'
+			})
 		}
-	}, [theme, form])
-	return { me, form, selectedAvatar, setSelectedAvatar, onSubmit }
+	}, [me, theme, locale, form])
+	return { form, selectedAvatar, setSelectedAvatar, onSubmit, updatingMe, t }
 }

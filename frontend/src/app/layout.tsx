@@ -25,7 +25,7 @@ export default function MainLayout({
 			>
 				<Providers>
 					{children}
-					<Toaster position='top-center' />
+					<Toaster position='top-center' richColors />
 				</Providers>
 			</body>
 		</html>

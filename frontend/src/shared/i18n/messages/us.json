@@ -1,5 +1,34 @@
 {
-	"HomePage": {
-		"title": "Hello world!"
+	"navbar": {
+		"products": "Products",
+		"orders": "Orders",
+		"clients": "Clients",
+		"marketing": "Marketing",
+		"reports": "Reports",
+		"managment": "Management",
+		"settings": "Settings",
+		"logout": "Logout"
+	},
+	"profile": {
+		"title": "Profile Settings",
+		"reset": "Reset",
+		"save": "Save",
+		"basic": "Basic",
+		"name": "Name",
+		"lastName": "Last Name",
+		"photo": "Photo",
+		"selectAvatar": "Select Avatar",
+		"or": "— or —",
+		"uploadPhoto": "Upload your photo",
+		"photoFormat": "The uploaded image format: JPG or PNG. Maximum size: 5MB.",
+		"security": "Security",
+		"password": "Password",
+		"changePassword": "Change password",
+		"interface": "Interface",
+		"language": "Language",
+		"theme": "Theme",
+		"light": "Light",
+		"dark": "Dark",
+		"system": "System"
 	}
 }

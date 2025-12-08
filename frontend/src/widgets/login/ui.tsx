@@ -1,5 +1,4 @@
 'use client'
-import { Eye, EyeClosed } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
@@ -10,7 +9,7 @@ import { countries } from '@/shared/constants'
 import { cn } from '@/shared/lib/utils'
 import {
 	Button,
-	Input,
+	FormPasswordInput,
 	Select,
 	SelectContent,
 	SelectGroup,
@@ -77,7 +76,7 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 													if (country) setSelectedCountry(country)
 												}}
 											>
-												<SelectTrigger className='flex max-h-[1000px] min-h-[60px] items-center gap-1 rounded-none rounded-l-2xl border-none'>
+												<SelectTrigger className='flex max-h-[1000px] min-h-[60px] items-center gap-2 rounded-none rounded-l-2xl border-none'>
 													<selectedCountry.flag />
 													<span className='text-sm font-medium sm:text-base'>
 														{selectedCountry.dialCode}
@@ -143,28 +142,11 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 											</Link>
 										</div>
 										<FormControl>
-											<div className='relative'>
-												<Input
-													{...field}
-													type={isHashed ? 'text' : 'password'}
-													placeholder='введите ваш пароль'
-													className='w-full border-none text-sm sm:text-base'
-												/>
-												<button
-													type='button'
-													onClick={() => setIsHashed(!isHashed)}
-													className='absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer transition-colors'
-												>
-													{isHashed ? (
-														<Eye size={18} className='sm:h-5 sm:w-5' />
-													) : (
-														<EyeClosed
-															size={18}
-															className='sm:h-5 sm:w-5'
-														/>
-													)}
-												</button>
-											</div>
+											<FormPasswordInput
+												{...field}
+												placeholder='введите ваш пароль'
+												className='w-full border-none text-sm sm:text-base'
+											/>
 										</FormControl>
 										<FormDescription />
 										<FormMessage className='absolute -bottom-6' />
@@ -178,7 +160,7 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 						type='submit'
 						variant='primary'
 					>
-						{logining ? <Spinner /> : '	Вход в аккаунт'}
+						{logining ? <Spinner className='size-6 stroke-3' /> : '	Вход в аккаунт'}
 					</Button>
 					<p className='w-full text-center text-sm sm:text-base'>
 						Еще нет аккаунта?{' '}

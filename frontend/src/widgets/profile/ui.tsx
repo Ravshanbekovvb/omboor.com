@@ -27,36 +27,46 @@ import {
 	SelectTrigger,
 	Separator
 } from '@/shared/ui'
+import { Spinner } from '@/shared/ui/spinner'
 
 import { useProfile } from './model'
+import { DialogChangePassword } from '@/feature/change-password'
 
 export const Profile: React.FC = () => {
-	const { me, form, selectedAvatar, setSelectedAvatar, onSubmit } = useProfile()
+	const { form, selectedAvatar, setSelectedAvatar, onSubmit, updatingMe, t } = useProfile()
 	return (
-		<Section className='pb-20'>
+		<div className='pb-20'>
+			{/* HEADER */}
+			<header className='dark:bg-foreground sticky top-0 z-1 flex items-center justify-between border-b-2 bg-white px-8 py-4 pl-22'>
+				<Title title={t('title')} />
+				<div className='flex items-center gap-5'>
+					<Button
+						onClick={() => {
+							form.reset()
+						}}
+						disabled={updatingMe}
+						type='button'
+					>
+						{t('reset')}
+					</Button>
+
+					<Button
+						type='submit'
+						variant={'primary'}
+						disabled={updatingMe}
+						form='form-profile-update'
+					>
+						{updatingMe ? <Spinner className='size-5 w-[94px] stroke-3' /> : t('save')}
+					</Button>
+				</div>
+			</header>
 			{/* FORM */}
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
-					{/* HEADER */}
-					<div className='dark:bg-foreground sticky top-0 z-1 flex items-center justify-between border-b-2 bg-white px-8 py-4'>
-						<Title title='Настройки профиля' />
-						<div className='space-x-5'>
-							<Button
-								onClick={() => {
-									form.reset()
-								}}
-							>
-								Сбросить
-							</Button>
-							<Button type='submit' variant={'primary'}>
-								Сохранить
-							</Button>
-						</div>
-					</div>
-					<div className='flex gap-12 px-8 py-8'>
+				<form onSubmit={form.handleSubmit(onSubmit)} id='form-profile-update'>
+					<Section className='flex gap-12 px-8 py-8 pl-12'>
 						{/* LEFT TITLE */}
 						<div className='min-w-[170px]'>
-							<Title title='Основные' size='small' />
+							<Title title={t('basic')} size='small' />
 						</div>
 
 						{/* FORM */}
@@ -68,7 +78,7 @@ export const Profile: React.FC = () => {
 									name='name'
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>name</FormLabel>
+											<FormLabel>{t('name')}</FormLabel>
 											<FormControl>
 												<Input
 													{...field}
@@ -86,7 +96,7 @@ export const Profile: React.FC = () => {
 									name='lastName'
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Last name</FormLabel>
+											<FormLabel>{t('lastName')}</FormLabel>
 											<FormControl>
 												<Input
 													{...field}
@@ -102,7 +112,7 @@ export const Profile: React.FC = () => {
 							</div>
 							{/* PHOTO BLOCK */}
 							<div>
-								<Label>Фото</Label>
+								<Label>{t('photo')}</Label>
 
 								<div className='bg-background-light dark:bg-background mt-3 flex overflow-hidden rounded-xl'>
 									{/* LEFT UPLOAD AREA */}
@@ -125,15 +135,14 @@ export const Profile: React.FC = () => {
 													<FormItem>
 														{/* LABEL triggers hidden input */}
 														<FormLabel className='flex-c flex cursor-pointer flex-col items-center justify-center gap-1'>
-															<p className=''>Выберите аватарку</p>
+															<p className=''>{t('selectAvatar')}</p>
 															<p className='my-2 text-gray-500'>
-																— или —
+																{t('or')}
 															</p>
 															<span className='text-brand-primary underline'>
-																загрузите свое фото
+																{t('uploadPhoto')}
 															</span>
 														</FormLabel>
-
 														<FormControl>
 															<Input
 																type='file'
@@ -152,7 +161,6 @@ export const Profile: React.FC = () => {
 																}}
 															/>
 														</FormControl>
-
 														<FormMessage />
 													</FormItem>
 												)}
@@ -202,30 +210,26 @@ export const Profile: React.FC = () => {
 										))}
 									</div>
 								</div>
-								<FormDescription>
-									Формат загружаемого фото: JPG или PNG. Максимальный размер: 5МБ.
-								</FormDescription>
+								<FormDescription>{t('photoFormat')}</FormDescription>
 							</div>
 						</div>
-					</div>
+					</Section>
 					<Separator />
-					<div className='flex gap-12 px-8 py-8'>
-						{/* LEFT TITLE */}
+					{/* change password */}
+					<Section className='flex gap-12 px-8 py-8 pl-12'>
 						<div className='min-w-[170px]'>
-							<Title title='Безопасность' size='small' />
+							<Title title={t('security')} size='small' />
 						</div>
 						<div>
-							<div>
-								<Label>Пароль</Label>
-								<Button className='mt-5 w-110'>Изменить пароль</Button>
-							</div>
+							<Label>{t('password')}</Label>
+							<DialogChangePassword title={t('changePassword')} />
 						</div>
-					</div>
+					</Section>
 					<Separator />
-					<div className='flex gap-12 px-8 py-8'>
+					<Section className='flex gap-12 px-8 py-8 pl-12'>
 						{/* LEFT TITLE */}
 						<div className='min-w-[170px]'>
-							<Title title='Интерфейс' size='small' />
+							<Title title={t('interface')} size='small' />
 						</div>
 						<div className='space-y-7'>
 							<div>
@@ -234,7 +238,7 @@ export const Profile: React.FC = () => {
 									name='language'
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Язык</FormLabel>
+											<FormLabel>{t('language')}</FormLabel>
 											<FormControl>
 												<Select
 													{...field}
@@ -243,8 +247,6 @@ export const Profile: React.FC = () => {
 												>
 													<SelectTrigger className='max-h-[1000px] min-h-[60px] w-110'>
 														{(() => {
-															console.log(field)
-
 															const c = countries.find(
 																c =>
 																	c.code.toLowerCase() ===
@@ -267,23 +269,32 @@ export const Profile: React.FC = () => {
 														align='start'
 													>
 														<SelectGroup>
-															{countries.map(country => {
-																const CountryFlagComponent =
-																	country.flag
-																return (
-																	<SelectItem
-																		key={country.code}
-																		value={country.code.toLowerCase()}
-																		className='flex items-center gap-1'
-																	>
-																		<CountryFlagComponent />
-
-																		<span className='truncate text-xs sm:text-sm'>
-																			{country.languageLabel}
-																		</span>
-																	</SelectItem>
+															{countries
+																.filter(
+																	country =>
+																		country.code === 'UZ' ||
+																		country.code === 'RU' ||
+																		country.code === 'US'
 																)
-															})}
+																.map(country => {
+																	const CountryFlagComponent =
+																		country.flag
+																	return (
+																		<SelectItem
+																			key={country.code}
+																			value={country.code.toLowerCase()}
+																			className='flex items-center gap-1'
+																		>
+																			<CountryFlagComponent />
+
+																			<span className='truncate text-xs sm:text-sm'>
+																				{
+																					country.languageLabel
+																				}
+																			</span>
+																		</SelectItem>
+																	)
+																})}
 														</SelectGroup>
 													</SelectContent>
 												</Select>
@@ -300,7 +311,7 @@ export const Profile: React.FC = () => {
 									name='theme'
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Тема</FormLabel>
+											<FormLabel>{t('theme')}</FormLabel>
 											<FormControl>
 												<RadioGroup
 													onValueChange={field.onChange}
@@ -329,7 +340,7 @@ export const Profile: React.FC = () => {
 																/>
 															</FormLabel>
 															<div className='font-semibold first-letter:uppercase'>
-																{item.label}
+																{t(item.label)}
 															</div>
 														</FormItem>
 													))}
@@ -341,19 +352,9 @@ export const Profile: React.FC = () => {
 								/>
 							</div>
 						</div>
-					</div>
+					</Section>
 				</form>
 			</Form>
-			{/* <Button
-				type='button'
-				variant={'destructive'}
-				onClick={() => {
-					console.log(form.getValues())
-				}}
-				className=''
-			>
-				Click
-			</Button> */}
-		</Section>
+		</div>
 	)
 }

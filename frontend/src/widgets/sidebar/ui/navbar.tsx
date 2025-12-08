@@ -11,7 +11,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 	className,
 	isOpen
 }) => {
-	const { setCurrentNavbar, currentNavbar } = useSidebar()
+	const { setCurrentNavbar, currentNavbar, t } = useSidebar()
 	return (
 		<div className={cn('', className)}>
 			{currentNavbar && currentNavbar.items.length > 0 && isOpen ? (
@@ -78,7 +78,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 												: 'max-w-0 -translate-x-2 opacity-0'
 										)}
 									>
-										{item.name}
+										{t(item.name)}
 									</span>
 								</div>
 								<span

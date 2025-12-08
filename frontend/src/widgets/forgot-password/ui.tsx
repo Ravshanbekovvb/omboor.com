@@ -1,13 +1,20 @@
 'use client'
-import { ChevronLeft } from 'lucide-react'
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
 
+import { BackLink } from '@/entities/back-link'
 import { Title } from '@/entities/title'
 
 import { countries } from '@/shared/constants'
 import { cn } from '@/shared/lib/utils'
-import { Button, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger } from '@/shared/ui'
+import {
+	Button,
+	Section,
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger
+} from '@/shared/ui'
 import {
 	Form,
 	FormControl,
@@ -32,22 +39,14 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 		setSelectedCountry
 	} = useForgotPassword()
 	return (
-		<div
+		<Section
 			className={cn(
 				'dark:bg-foreground w-full space-y-10 rounded-[60px] bg-white p-6 sm:p-12 md:p-16 lg:p-20',
 				className
 			)}
 		>
 			<div className='flex items-center gap-4'>
-				<Link href={'/login'}>
-					<Button
-						variant={'outline'}
-						className='size-7 min-h-12 w-12 rounded-full'
-						size='icon'
-					>
-						<ChevronLeft className='size-6' />
-					</Button>
-				</Link>
+				<BackLink link='/login' />
 				<Title title='Забыли пароль' />
 			</div>
 			<Form {...form}>
@@ -125,6 +124,6 @@ export const ForgotPassword: React.FC<{ className?: string }> = ({ className }) 
 					</Button>
 				</form>
 			</Form>
-		</div>
+		</Section>
 	)
 }

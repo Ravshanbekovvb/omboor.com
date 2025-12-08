@@ -3,6 +3,7 @@ import { HTTPError } from 'ky'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
+import { queryClient } from '../lib'
 import { api } from '../lib/ky-init'
 import { components } from '../types'
 
@@ -22,6 +23,54 @@ export function useAuth() {
 		onSuccess: data => {
 			toast.success('Hush kelibsiz!')
 			router.push('/dashboard')
+		},
+		onError: async error => {
+			if (error instanceof HTTPError) {
+				const body = await error.response.json().catch(() => null)
+				if (body.message) {
+					return toast.error(body.message)
+				}
+			}
+		}
+	})
+	const { mutateAsync: updateMe, isPending: updatingMe } = useMutation({
+		mutationKey: ['meUpdate'],
+		mutationFn: async (data: components['schemas']['UpdateMeRequestDTO']) => {
+			const res = await api
+				.patch(`auth/me`, {
+					json: data
+				})
+				.json<{ data: components['schemas']['UserDto'] }>()
+
+			return res
+		},
+		onSuccess: data => {
+			toast.success('Profile updated successfully!', { closeButton: true })
+			queryClient.invalidateQueries({ queryKey: ['me'] })
+		},
+		onError: async error => {
+			if (error instanceof HTTPError) {
+				const body = await error.response.json().catch(() => null)
+				if (body.message) {
+					return toast.error(body.message)
+				}
+			}
+		}
+	})
+	const { mutateAsync: changePassword, isPending: changingPassword } = useMutation({
+		mutationKey: ['changePassword'],
+		mutationFn: async (data: components['schemas']['ChangePasswordRequestDTO']) => {
+			const res = await api
+				.patch(`auth/me/change-password`, {
+					json: data
+				})
+				.json<{ data: components['schemas']['UserDto'] }>()
+
+			return res
+		},
+		onSuccess: data => {
+			toast.success('Password updated successfully!', { closeButton: true })
+			queryClient.invalidateQueries({ queryKey: ['me'] })
 		},
 		onError: async error => {
 			if (error instanceof HTTPError) {
@@ -52,5 +101,17 @@ export function useAuth() {
 		queryKey: ['me'],
 		queryFn: async () => await api.get('auth/me').json<components['schemas']['UserDto']>()
 	})
-	return { me, login, logining, logout, loggingOut, register, registering }
+	return {
+		me,
+		login,
+		logining,
+		logout,
+		loggingOut,
+		register,
+		registering,
+		updateMe,
+		updatingMe,
+		changePassword,
+		changingPassword
+	}
 }
