@@ -37,7 +37,7 @@ export const Profile: React.FC = () => {
 	return (
 		<div className='pb-20'>
 			{/* HEADER */}
-			<header className='dark:bg-foreground sticky top-0 z-1 flex items-center justify-between border-b-2 bg-white px-8 py-4 pl-22'>
+			<header className='dark:bg-foreground sticky top-0 z-1 flex items-center justify-between border-b-2 bg-white px-8 py-4 pl-18'>
 				<Title title={t('title')} />
 				<div className='flex items-center gap-5'>
 					<Button
@@ -49,7 +49,6 @@ export const Profile: React.FC = () => {
 					>
 						{t('reset')}
 					</Button>
-
 					<Button
 						type='submit'
 						variant={'primary'}
@@ -63,12 +62,9 @@ export const Profile: React.FC = () => {
 			{/* FORM */}
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} id='form-profile-update'>
-					<Section className='flex gap-12 px-8 py-8 pl-12'>
+					<Section className='flex gap-12'>
 						{/* LEFT TITLE */}
-						<div className='min-w-[170px]'>
-							<Title title={t('basic')} size='small' />
-						</div>
-
+						<Title title={t('basic')} size='small' className='min-w-[170px]' />
 						{/* FORM */}
 						<div className='w-full max-w-4xl space-y-12'>
 							{/* NAME BLOCK */}
@@ -113,7 +109,6 @@ export const Profile: React.FC = () => {
 							{/* PHOTO BLOCK */}
 							<div>
 								<Label>{t('photo')}</Label>
-
 								<div className='bg-background-light dark:bg-background mt-3 flex overflow-hidden rounded-xl'>
 									{/* LEFT UPLOAD AREA */}
 									<div className='border-input flex w-1/2 flex-col items-center justify-center border-r-2 py-10'>
@@ -216,21 +211,18 @@ export const Profile: React.FC = () => {
 					</Section>
 					<Separator />
 					{/* change password */}
-					<Section className='flex gap-12 px-8 py-8 pl-12'>
-						<div className='min-w-[170px]'>
-							<Title title={t('security')} size='small' />
-						</div>
+					<Section className='flex gap-12'>
+						<Title title={t('security')} size='small' className='min-w-[170px]' />
 						<div>
 							<Label>{t('password')}</Label>
 							<DialogChangePassword title={t('changePassword')} />
 						</div>
 					</Section>
 					<Separator />
-					<Section className='flex gap-12 px-8 py-8 pl-12'>
+					<Section className='flex gap-12'>
 						{/* LEFT TITLE */}
-						<div className='min-w-[170px]'>
-							<Title title={t('interface')} size='small' />
-						</div>
+						<Title title={t('interface')} size='small' className='min-w-[170px]' />
+
 						<div className='space-y-7'>
 							<div>
 								<FormField
