@@ -77,7 +77,8 @@ export async function up() {
 			lastName: 'Ravshanbekov',
 			password: hashSync('Bekzod2001', 10),
 			phoneNumber: '+998977883355',
-			imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png',
+			avatarUrl:
+				'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png',
 			role: 'ADMIN',
 			stores: {
 				create: {
