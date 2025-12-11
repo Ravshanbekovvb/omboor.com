@@ -22,7 +22,6 @@ export const useChangePasswordModel = () => {
 		}
 	})
 	const onSubmit: SubmitHandler<TForm> = data => {
-		console.log(data)
 		changePassword(data)
 	}
 	return { onSubmit, form, changingPassword }

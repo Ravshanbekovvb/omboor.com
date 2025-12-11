@@ -7,10 +7,13 @@
 		"reports": "Reports",
 		"managment": "Management",
 		"settings": "Settings",
-		"logout": "Logout"
+		"logout": "Logout",
+		"users": "Users"
 	},
 	"profile": {
+		"profile": "Profile",
 		"title": "Profile Settings",
+		"description": "Make changes to profile here. Click save when you're done.",
 		"reset": "Reset",
 		"save": "Save",
 		"basic": "Basic",
@@ -26,9 +29,30 @@
 		"changePassword": "Change password",
 		"interface": "Interface",
 		"language": "Language",
+		"phoneNumber": "Phone Number",
 		"theme": "Theme",
 		"light": "Light",
 		"dark": "Dark",
-		"system": "System"
+		"system": "System",
+		"createUser": "Create User",
+		"create": "Create",
+		"passowrd": "Password",
+		"reapetPassword": "Repeat Password"
+	},
+	"users": {
+		"users": "Users",
+		"search": "Search users...",
+		"name": "Name",
+		"lastName": "Last Name",
+		"phoneNumber": "Phone Number",
+		"role": "Role",
+		"plan": "Plan",
+		"joinedAt": "Joined At",
+		"deleteUser": "Delete User"
+	},
+	"networkStatus": {
+		"noInternetConnection": "No Internet Connection",
+		"description": "Oops! It looks like you've lost your internet connection. Please check your network settings and try again.",
+		"tryAgain": "Try Again"
 	}
 }

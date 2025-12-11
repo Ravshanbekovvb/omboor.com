@@ -1,7 +1,6 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
-import { menuItems } from '@/shared/constants'
 import { cn } from '@/shared/lib/utils'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/shared/ui'
 
@@ -11,7 +10,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 	className,
 	isOpen
 }) => {
-	const { setCurrentNavbar, currentNavbar, t } = useSidebar()
+	const { setCurrentNavbar, currentNavbar, t, navbar } = useSidebar()
 	return (
 		<div className={cn('', className)}>
 			{currentNavbar && currentNavbar.items.length > 0 && isOpen ? (
@@ -44,7 +43,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 					</div>
 				</div>
 			) : (
-				menuItems.map(item => {
+				navbar.map(item => {
 					const ItemIcon = item.icon
 					return (
 						<HoverCard key={item.name} openDelay={80} closeDelay={80}>
@@ -74,7 +73,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 										className={cn(
 											'truncate overflow-hidden font-bold whitespace-nowrap transition-[max-width,opacity,transform] duration-300 ease-in-out first-letter:uppercase',
 											isOpen
-												? 'max-w-[160px] translate-x-0 opacity-100'
+												? 'max-w-40 translate-x-0 opacity-100'
 												: 'max-w-0 -translate-x-2 opacity-0'
 										)}
 									>
@@ -85,7 +84,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 									className={cn(
 										'overflow-hidden transition-[max-width,opacity,transform] duration-300 ease-in-out',
 										isOpen
-											? 'max-w-[20px] translate-x-0 opacity-100'
+											? 'max-w-5 translate-x-0 opacity-100'
 											: 'hidden max-w-0 translate-x-2 opacity-0'
 									)}
 								>

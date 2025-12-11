@@ -33,7 +33,7 @@ import { useProfile } from './model'
 import { DialogChangePassword } from '@/feature/change-password'
 
 export const Profile: React.FC = () => {
-	const { form, selectedAvatar, setSelectedAvatar, onSubmit, updatingMe, t } = useProfile()
+	const { form, onSubmit, updatingMe, t } = useProfile()
 	return (
 		<div className='pb-20'>
 			{/* HEADER */}
@@ -44,7 +44,7 @@ export const Profile: React.FC = () => {
 						onClick={() => {
 							form.reset()
 						}}
-						disabled={updatingMe}
+						disabled={updatingMe || !form.formState.isDirty}
 						type='button'
 					>
 						{t('reset')}
@@ -52,7 +52,7 @@ export const Profile: React.FC = () => {
 					<Button
 						type='submit'
 						variant={'primary'}
-						disabled={updatingMe}
+						disabled={updatingMe || !form.formState.isDirty}
 						form='form-profile-update'
 					>
 						{updatingMe ? <Spinner className='size-5 w-[94px] stroke-3' /> : t('save')}
@@ -150,7 +150,6 @@ export const Profile: React.FC = () => {
 																			URL.createObjectURL(
 																				file
 																			)
-																		setSelectedAvatar(null)
 																		field.onChange(url)
 																	}
 																}}
@@ -169,7 +168,6 @@ export const Profile: React.FC = () => {
 										<button
 											type='button'
 											onClick={() => {
-												setSelectedAvatar(null)
 												form.setValue('imgUrl', '')
 											}}
 											className={`flex h-14 w-14 items-center justify-center rounded-full border-4 ${
@@ -186,11 +184,10 @@ export const Profile: React.FC = () => {
 												key={src}
 												type='button'
 												onClick={() => {
-													setSelectedAvatar(src)
 													form.setValue('imgUrl', src)
 												}}
 												className={`h-14 w-14 overflow-hidden rounded-full border-4 ${
-													selectedAvatar === src
+													form.watch('imgUrl') === src
 														? 'border-brand-primary'
 														: 'border-transparent'
 												}`}

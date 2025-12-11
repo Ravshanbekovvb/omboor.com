@@ -21,7 +21,7 @@ function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
 				'file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm',
 				'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
 				'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
-				'dark:hover:bg-input min-h-[60px] rounded-2xl transition-all duration-200',
+				'dark:hover:bg-input border-input min-h-[60px] rounded-2xl border transition-all duration-200',
 
 				className
 			)}

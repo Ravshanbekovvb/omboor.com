@@ -5,6 +5,7 @@ import { Providers } from '@/shared/providers'
 import { Toaster } from '@/shared/ui/sonner'
 
 import './globals.css'
+import './loader.css'
 
 export const metadata: Metadata = {
 	title: 'Omboor',

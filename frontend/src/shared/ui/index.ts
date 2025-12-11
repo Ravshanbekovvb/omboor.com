@@ -40,6 +40,14 @@ export {
 } from './form'
 export { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card'
 export { Input } from './input'
+export {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput,
+	InputGroupText,
+	InputGroupTextarea
+} from './input-group'
 export { FormPasswordInput } from './input-password'
 export { Label } from './label'
 export { RadioGroup, RadioGroupItem } from './radio-group'
@@ -57,5 +65,19 @@ export {
 	SelectValue
 } from './select'
 export { Separator } from './separator'
+export {
+	Sheet,
+	SheetClose,
+	SheetContent,
+	SheetDescription,
+	SheetFooter,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger
+} from './sheet'
+export { Skeleton } from './skeleton'
 export { Toaster } from './sonner'
+export { Spinner } from './spinner'
+export { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table'
+export { Textarea } from './textarea'
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip'

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { HTTPError } from 'ky'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { queryClient } from '../lib'
@@ -8,6 +8,7 @@ import { api } from '../lib/ky-init'
 import { components } from '../types'
 
 export function useAuth() {
+	const pathname = usePathname()
 	const router = useRouter()
 	const { mutateAsync: login, isPending: logining } = useMutation({
 		mutationKey: ['login'],
@@ -99,7 +100,8 @@ export function useAuth() {
 
 	const { data: me } = useQuery({
 		queryKey: ['me'],
-		queryFn: async () => await api.get('auth/me').json<components['schemas']['UserDto']>()
+		queryFn: async () => await api.get('auth/me').json<components['schemas']['UserDto']>(),
+		enabled: pathname !== '/login' && pathname !== '/forgot-password'
 	})
 	return {
 		me,

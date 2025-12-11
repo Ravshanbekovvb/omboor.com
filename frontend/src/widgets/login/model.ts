@@ -11,7 +11,7 @@ import { TCountry } from '@/shared/types'
 
 const formSchema = z.object({
 	phoneNumber: z.string().min(5, 'Telefon raqam kiritilishi shart'),
-	password: z.string().min(8, 'Password must be at least 8 characters')
+	password: z.string().min(6, 'Password must be at least 6 characters')
 })
 type TForm = z.infer<typeof formSchema>
 export const useLogin = () => {

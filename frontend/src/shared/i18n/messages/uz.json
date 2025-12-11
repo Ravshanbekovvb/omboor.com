@@ -7,10 +7,13 @@
 		"reports": "Hisobotlar",
 		"managment": "Boshqaruv",
 		"settings": "Sozlamalar",
-		"logout": "Chiqish"
+		"logout": "Chiqish",
+		"users": "Foydalanuvchilar"
 	},
 	"profile": {
+		"profile": "Profil",
 		"title": "Profil sozlamalari",
+		"description": "Profilda o'zgartirishlar qiling. Tugatgach, saqlash tugmasini bosing.",
 		"reset": "Qayta tiklash",
 		"save": "Saqlash",
 		"basic": "Asosiy",
@@ -26,9 +29,30 @@
 		"changePassword": "Parolni o'zgartirish",
 		"interface": "Interfeys",
 		"language": "Til",
+		"phoneNumber": "Telefon nomeri",
 		"theme": "Interfeys ko‘rinishi",
 		"light": "Yorug'",
 		"dark": "Qorong'u",
-		"system": "Tizim"
+		"system": "Tizim",
+		"createUser": "Foydalanuvchini yaratish",
+		"create": "Yaratish",
+		"passowrd": "Parol",
+		"reapetPassword": "Parolni takrorlash"
+	},
+	"users": {
+		"users": "Foydalanuvchilar",
+		"search": "Foydalanuvchilarni qidirish...",
+		"name": "Ism",
+		"lastName": "Familiya",
+		"phoneNumber": "Telefon nomeri",
+		"role": "Rol",
+		"plan": "Tarif rejasi",
+		"joinedAt": "Qo'shilgan sana",
+		"deleteUser": "Foydalanuvchini o'chirish"
+	},
+	"networkStatus": {
+		"noInternetConnection": "Internet aloqasi yo'q",
+		"description": "Oops! Sizning qurilmangiz hozirda internetga ulangan emas. Iltimos, tarmoq sozlamalaringizni tekshiring.",
+		"tryAgain": "Qayta urinib ko'ring"
 	}
 }

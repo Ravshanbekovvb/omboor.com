@@ -1,13 +1,14 @@
 import { DE, FR, KG, KZ, RU, TJ, TM, TR, US, UZ } from 'country-flag-icons/react/3x2'
 import { FaUsers } from 'react-icons/fa'
 import { FaCartShopping } from 'react-icons/fa6'
+import { HiUsers } from 'react-icons/hi2'
 import { MdReport, MdSettings, MdWorkHistory } from 'react-icons/md'
 import { PiListChecksFill } from 'react-icons/pi'
 import { TbCirclePercentageFilled } from 'react-icons/tb'
 
 import { TCountry } from './types'
 
-export const avatars = [
+export const avatars: string[] = [
 	'/avatars/1.png',
 	'/avatars/2.png',
 	'/avatars/3.png',
@@ -178,14 +179,35 @@ export const menuItems: {
 		name: 'settings',
 		icon: MdSettings,
 		nestedItems: [
-			{ name: 'profile', href: '/settings/profile' },
-			{ name: 'company', href: '/settings/company' },
-			{ name: 'plan', href: '/settings/plan' },
-			{ name: 'cheque', href: '/settings/cheque' },
-			{ name: 'payment', href: '/settings/payment' },
-			{ name: 'product', href: '/settings/product' },
-			{ name: 'notification', href: '/settings/notification' },
-			{ name: 'applications', href: '/settings/applications' }
+			{ name: 'profile', href: '/settings/profile' }
+			// { name: 'company', href: '/settings/company' },
+			// { name: 'plan', href: '/settings/plan' },
+			// { name: 'cheque', href: '/settings/cheque' },
+			// { name: 'payment', href: '/settings/payment' },
+			// { name: 'product', href: '/settings/product' },
+			// { name: 'notification', href: '/settings/notification' },
+			// { name: 'applications', href: '/settings/applications' }
+		]
+	}
+]
+export const adminMenuItems: {
+	name: string
+	icon: React.ElementType
+	nestedItems: { name: string; href: string; type: 'base' | 'dialog' }[]
+}[] = [
+	{
+		name: 'users',
+		icon: HiUsers,
+		nestedItems: [
+			{ name: 'users', href: '/users/list', type: 'base' },
+			{ name: 'create User', href: '/users/list', type: 'dialog' }
+			// { name: 'import', href: '/users/import' },
+			// { name: 'orders', href: '/users/orders' },
+			// { name: 'inventory', href: '/users/inventory' },
+			// { name: 'transfer', href: '/users/transfer' },
+			// { name: 'revaluation', href: '/users/revaluation' },
+			// { name: 'write-off', href: '/users/write-off' },
+			// { name: 'suppliers', href: '/users/suppliers' }
 		]
 	}
 ]

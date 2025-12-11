@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useLocale, useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -24,7 +24,6 @@ export const useProfile = () => {
 	const router = useRouter()
 	const { theme, setTheme } = useTheme()
 	const locale = useLocale()
-	const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null)
 	const form = useForm<z.infer<typeof formSchema>>({
 		mode: 'onChange',
 		resolver: zodResolver(formSchema),
@@ -60,8 +59,6 @@ export const useProfile = () => {
 	}, [me, theme, locale, form])
 	return {
 		form,
-		selectedAvatar,
-		setSelectedAvatar,
 		onSubmit,
 		updatingMe,
 		t

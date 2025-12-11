@@ -2,7 +2,6 @@ import { ArrowRight, Store } from 'lucide-react'
 import Image from 'next/image'
 
 import { cn } from '@/shared/lib/utils'
-import { Button } from '@/shared/ui/button'
 import {
 	Sheet,
 	SheetContent,
@@ -11,7 +10,8 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger
-} from '@/shared/ui/sheet'
+} from '@/shared/ui'
+import { Button } from '@/shared/ui/button'
 import { Spinner } from '@/shared/ui/spinner'
 
 import { useSidebar } from '../model'
@@ -32,16 +32,16 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 						className
 					)}
 				>
-					{typeof me?.imgUrl === 'string' && me?.imgUrl ? (
+					{typeof me?.avatarUrl === 'string' && me?.avatarUrl ? (
 						<Image
-							src={me.imgUrl}
+							src={me.avatarUrl}
 							alt='User image'
 							height={30}
 							width={40}
 							className='rounded-full transition-all duration-300 ease-in-out'
 						/>
 					) : (
-						<div className='flex h-[40px] w-[40px] items-center justify-center rounded-full bg-gray-500 font-bold text-white'>
+						<div className='flex h-10 w-10 items-center justify-center rounded-full bg-gray-500 font-bold text-white'>
 							{me?.name?.[0]?.toUpperCase() ?? 'U'}
 						</div>
 					)}
@@ -60,7 +60,7 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 					</div>
 				</div>
 			</SheetTrigger>
-			<SheetContent side='left' className='rounded-r-2xl' color='dark'>
+			<SheetContent side='left'>
 				<SheetHeader>
 					<SheetTitle>Аккаунт</SheetTitle>
 					<SheetDescription>
@@ -69,16 +69,16 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 								`mt-5 flex cursor-pointer items-center justify-start gap-3 p-4 transition-all duration-300 ease-in-out`
 							)}
 						>
-							{typeof me?.imgUrl === 'string' && me?.imgUrl ? (
+							{typeof me?.avatarUrl === 'string' && me?.avatarUrl ? (
 								<Image
-									src={me.imgUrl}
+									src={me.avatarUrl}
 									alt='User image'
 									height={30}
 									width={40}
 									className='rounded-full transition-all duration-300 ease-in-out'
 								/>
 							) : (
-								<span className='flex h-[40px] w-[40px] items-center justify-center rounded-full bg-gray-500 font-bold text-white'>
+								<span className='flex h-10 w-10 items-center justify-center rounded-full bg-gray-500 font-bold text-white'>
 									{me?.name?.[0]?.toUpperCase() ?? 'U'}
 								</span>
 							)}
