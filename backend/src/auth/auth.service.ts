@@ -35,7 +35,7 @@ export class AuthService {
 		return safeUser
 	}
 
-	async logout(request: Request, response: Response): Promise<{ message: string }> {
+	async logout(request: Request, response: Response): Promise<string> {
 		return new Promise((resolve, reject) => {
 			request.session.destroy(err => {
 				if (err) {
@@ -47,9 +47,7 @@ export class AuthService {
 				}
 
 				response.clearCookie(this.config.getOrThrow<string>('SESSION_NAME'))
-				resolve({
-					message: 'User logged out successfully'
-				})
+				resolve('User logged out successfully')
 			})
 		})
 	}

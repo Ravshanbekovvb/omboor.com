@@ -41,7 +41,7 @@ export class UserService {
 		const limitNum = Number(limit)
 
 		if (isNaN(pageNum) || isNaN(limitNum))
-			throw new Error('Query params page or limit must be a number')
+			throw new BadRequestException('Query params page or limit must be a number')
 
 		return (await this.prisma.user.findMany({
 			...params,
