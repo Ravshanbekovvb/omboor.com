@@ -21,7 +21,7 @@ export class ProductService {
 		page: string,
 		limit: string,
 		args?: SelectSubset<T, ProductFindManyArgs>
-	): Promise<ProductGetPayload<T>[]> {
+	): Promise<{ products: ProductGetPayload<T>[]; totalPages }> {
 		const params = args ?? {}
 
 		const pageNum = Number(page)
@@ -30,11 +30,18 @@ export class ProductService {
 		if (isNaN(pageNum) || isNaN(limitNum))
 			throw new BadRequestException('Query params page or limit must be a number')
 
-		return (await this.prisma.product.findMany({
-			...params,
-			skip: (pageNum - 1) * limitNum,
-			take: limitNum
-		})) as ProductGetPayload<T>[]
+		const [products, total] = await Promise.all([
+			(await this.prisma.product.findMany({
+				...params,
+				skip: (pageNum - 1) * limitNum,
+				take: limitNum
+			})) as ProductGetPayload<T>[],
+			await this.prisma.product.count()
+		])
+
+		const totalPages = Math.ceil(total / limitNum)
+
+		return { products, totalPages }
 	}
 
 	async findByName<T extends ProductDefaultArgs>(

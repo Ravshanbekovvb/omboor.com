@@ -38,9 +38,9 @@ export class ProductController {
 		const limit = productsLimit || LIMIT_OF_PRODUCTS
 		const page = productsPage || '1'
 
-		const products = await this.productService.findAll(page, limit)
+		const res = await this.productService.findAll(page, limit)
 
-		return apiSuccessResponse(products, 'Products returned successfully')
+		return apiSuccessResponse(res, 'Products returned successfully')
 	}
 
 	@ApiOperation({ summary: 'Get product by name' })

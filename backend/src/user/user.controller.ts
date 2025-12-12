@@ -47,9 +47,9 @@ export class UserController {
 		const limit = usersLimit || LIMIT_OF_USERS
 		const page = usersPage || '1'
 
-		const users = await this.userService.findAll(page, limit)
+		const res = await this.userService.findAll(page, limit)
 
-		return apiSuccessResponse(users, 'Users returned successfully')
+		return apiSuccessResponse(res, 'Users returned successfully')
 	}
 
 	@ApiOperation({ summary: 'Get user by id' })

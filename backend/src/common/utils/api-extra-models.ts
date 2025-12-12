@@ -2,12 +2,41 @@ import { ApiExtraModels, ApiProperty, getSchemaPath } from '@nestjs/swagger'
 import { ProductDto, UserDto } from '../dto'
 import { ApiResponseDTO } from './api-responses'
 
-@ApiExtraModels(UserDto)
-export class ApiUsersResponseDTO extends ApiResponseDTO {
+export class ApiUsersWithTotalPagesResponseDTO {
 	@ApiProperty({
 		type: 'array',
 		items: { $ref: getSchemaPath(UserDto) },
 		description: 'Массив пользователей'
+	})
+	users: UserDto[]
+
+	@ApiProperty({
+		type: 'string',
+		description: 'Длина всей страницы'
+	})
+	totalPages: string
+}
+
+export class ApiProductsWithTotalPagesResponseDTO {
+	@ApiProperty({
+		type: 'array',
+		items: { $ref: getSchemaPath(ProductDto) },
+		description: 'Массив продуктов'
+	})
+	users: ProductDto[]
+
+	@ApiProperty({
+		type: 'string',
+		description: 'Длина всей страницы'
+	})
+	totalPages: string
+}
+
+@ApiExtraModels(UserDto)
+export class ApiUsersResponseDTO extends ApiResponseDTO {
+	@ApiProperty({
+		type: ApiUsersWithTotalPagesResponseDTO,
+		description: 'Ответ'
 	})
 	data: UserDto[]
 }
@@ -32,9 +61,8 @@ export class ApiLoggedOutResponseDTO extends ApiResponseDTO {
 @ApiExtraModels(ProductDto)
 export class ApiProductsResponseDTO extends ApiResponseDTO {
 	@ApiProperty({
-		type: 'array',
-		items: { $ref: getSchemaPath(ProductDto) },
-		description: 'Массив продуктов'
+		type: ApiProductsWithTotalPagesResponseDTO,
+		description: 'Ответ'
 	})
 	data: ProductDto[]
 }
@@ -42,8 +70,7 @@ export class ApiProductsResponseDTO extends ApiResponseDTO {
 @ApiExtraModels(ProductDto)
 export class ApiProductResponseDTO extends ApiResponseDTO {
 	@ApiProperty({
-		type: 'array',
-		items: { $ref: getSchemaPath(ProductDto) },
+		type: ProductDto,
 		description: 'Продукт'
 	})
 	data: ProductDto
