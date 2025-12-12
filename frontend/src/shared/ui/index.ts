@@ -50,6 +50,15 @@ export {
 } from './input-group'
 export { FormPasswordInput } from './input-password'
 export { Label } from './label'
+export {
+	Pagination,
+	PaginationContent,
+	PaginationEllipsis,
+	PaginationItem,
+	PaginationLink,
+	PaginationNext,
+	PaginationPrevious
+} from './pagination'
 export { RadioGroup, RadioGroupItem } from './radio-group'
 export { Section } from './section'
 export {

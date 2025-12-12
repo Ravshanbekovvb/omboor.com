@@ -127,6 +127,60 @@ export interface paths {
         patch: operations["AuthController_changePassword"];
         trace?: never;
     };
+    "/api/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all product */
+        get: operations["ProductController_findAll"];
+        put?: never;
+        /** Create product */
+        post: operations["ProductController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/products/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get product by id */
+        get: operations["ProductController_findById"];
+        put?: never;
+        post?: never;
+        /** Delete user */
+        delete: operations["ProductController_delete"];
+        options?: never;
+        head?: never;
+        /** Update user */
+        patch: operations["ProductController_update"];
+        trace?: never;
+    };
+    "/api/products/search/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get product by name */
+        get: operations["ProductController_findByName"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -151,7 +205,7 @@ export interface components {
              * @description Ссылка на аватар пользователя
              * @example https://example.com/avatar.png
              */
-            imgUrl?: Record<string, never> | null;
+            avatarUrl?: Record<string, never> | null;
             /**
              * @description Номер телефона пользователя
              * @example +998901234567
@@ -206,7 +260,7 @@ export interface components {
              * @description User avatar URL
              * @example https://example.com/avatar.png
              */
-            imgUrl?: string;
+            avatarUrl?: string;
         };
         UpdateUserRequestDTO: {
             /**
@@ -228,7 +282,7 @@ export interface components {
              * @description User avatar URL
              * @example https://example.com/avatar.png
              */
-            imgUrl?: string;
+            avatarUrl?: string;
         };
         LoginRequestDTO: {
             /**
@@ -257,7 +311,7 @@ export interface components {
              * @description User avatar URL
              * @example https://example.com/avatar.png
              */
-            imgUrl?: string;
+            avatarUrl?: string;
         };
         ChangePasswordRequestDTO: {
             /**
@@ -275,6 +329,164 @@ export interface components {
              * @example NewPassword123
              */
             repeatPassword: string;
+        };
+        ProductDto: {
+            /**
+             * @description Уникальный идентификатор товара
+             * @example p1234567890abcdef
+             */
+            id: string;
+            /**
+             * @description Название товара
+             * @example Coca-Cola 1L
+             */
+            name: string;
+            /**
+             * @description Описание товара
+             * @example Classic coke drink
+             */
+            description?: Record<string, never> | null;
+            /**
+             * @description Изображение товара
+             * @example https://example.com/product.png
+             */
+            imgUrl?: Record<string, never> | null;
+            /**
+             * @description Штрих-код товара
+             * @example 4789654123567
+             */
+            barcode?: Record<string, never> | null;
+            /**
+             * @description Артикул товара
+             * @example CC-001L
+             */
+            article?: Record<string, never> | null;
+            /**
+             * @description Бренд товара
+             * @example Coca-Cola
+             */
+            brand?: Record<string, never> | null;
+            /**
+             * @description Категория товара
+             * @example Drinks
+             */
+            category?: Record<string, never> | null;
+            /**
+             * @description Тип упаковки
+             * @example Bottle
+             */
+            container?: Record<string, never> | null;
+            /**
+             * @description Номер или количество единиц упаковки
+             * @example 1
+             */
+            containerNumber?: Record<string, never> | null;
+            /**
+             * @description Дополнительные опции или свойства товара
+             * @example Zero Sugar
+             */
+            options?: Record<string, never> | null;
+            /**
+             * @description Количество доступного товара
+             * @example 24
+             */
+            quantity: number;
+            /**
+             * @description Единица измерения товара
+             * @example PCS
+             * @enum {string}
+             */
+            unit: "PCS" | "KG" | "G" | "L" | "ML" | "M" | "CM" | "MM" | "PACK" | "BOX" | "SET";
+            /**
+             * @description Цена товара
+             * @example 12000
+             */
+            price: number;
+            /**
+             * @description Размер скидки в процентах
+             * @example 10
+             */
+            discount?: Record<string, never> | null;
+            /**
+             * Format: date-time
+             * @description Дата создания товара
+             * @example 2024-12-01T12:30:00.000Z
+             */
+            createdAt: string;
+        };
+        ProductService: Record<string, never>;
+        CreateProductRequestDTO: {
+            /**
+             * @description Название продукта
+             * @example Ковер аниме Наруто
+             */
+            name: string;
+            /**
+             * @description Описание продукта
+             * @example Ковер с ярким рисунком Наруто. Идеален для детской или игровой зоны. Комфортный и износостойкий материал
+             */
+            description?: string;
+            /**
+             * @description Картинка ковра
+             * @example https://img.joomcdn.net/237411c7f1cd0cff91a40c0b6913436f846850a2_original.jpeg
+             */
+            imgUrl?: string;
+            /**
+             * @description Штрих-код продукта
+             * @example 1234567890123
+             */
+            barcode?: string;
+            /**
+             * @description Артикул продукта
+             * @example ART-00998
+             */
+            article: string;
+            /**
+             * @description Бренд продукта
+             * @example IKEA
+             */
+            brand?: string;
+            /**
+             * @description Категория продукта
+             * @example Ковры
+             */
+            category?: string;
+            /**
+             * @description Тип контейнера
+             * @example Box
+             */
+            container?: string;
+            /**
+             * @description Номер контейнера
+             * @example 12
+             */
+            containerNumber?: number;
+            /**
+             * @description Опции продукта (JSON строка)
+             * @example {"size":"large","color":"black"}
+             */
+            options?: string;
+            /**
+             * @description Количество товара (необязательно, по умолчанию 0)
+             * @example 0
+             */
+            quantity?: number;
+            /**
+             * @description Единица измерения
+             * @example PCS
+             * @enum {string}
+             */
+            unit: "PCS" | "KG" | "G" | "L" | "ML" | "M" | "CM" | "MM" | "PACK" | "BOX" | "SET";
+            /**
+             * @description Цена продукта
+             * @example 150.5
+             */
+            price: number;
+            /**
+             * @description Цена со скидкой
+             * @example 120
+             */
+            discountPrice?: number;
         };
     };
     responses: never;
@@ -607,6 +819,142 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    ProductController_findAll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Products returned successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDto"][];
+                };
+            };
+        };
+    };
+    ProductController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateProductRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description Product created successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDto"];
+                };
+            };
+        };
+    };
+    ProductController_findById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Product returned successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductService"];
+                };
+            };
+        };
+    };
+    ProductController_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description User deleted successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDto"];
+                };
+            };
+        };
+    };
+    ProductController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateProductRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description User updated successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDto"];
+                };
+            };
+        };
+    };
+    ProductController_findByName: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Product returned successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductService"];
+                };
             };
         };
     };

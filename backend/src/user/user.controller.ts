@@ -1,12 +1,14 @@
+import { LIMIT_OF_USERS } from '@/common/constants'
 import { Authorization } from '@/common/decorators'
 import { CreateUserRequestDTO, UserDto } from '@/common/dto'
 import { UserRole } from '@/generated/client'
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common'
 import {
 	ApiConflictResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
+	ApiQuery,
 	ApiTags
 } from '@nestjs/swagger'
 import { UpdateUserRequestDTO } from './dto/'
@@ -20,9 +22,18 @@ export class UserController {
 	@ApiOperation({ summary: 'Get all users' })
 	@ApiOkResponse({ description: 'Users returned successfully', type: UserDto, isArray: true })
 	@Authorization(UserRole.ADMIN)
+	@ApiQuery({ name: 'page', required: false, description: 'Page number, default 1' })
+	@ApiQuery({
+		name: 'limit',
+		required: false,
+		description: 'Items per page, default 10'
+	})
 	@Get()
-	async findAll() {
-		return await this.userService.findAll()
+	async findAll(@Query('page') usersPage?: string, @Query('limit') usersLimit?: string) {
+		const limit = usersLimit || LIMIT_OF_USERS
+		const page = usersPage || '1'
+
+		return await this.userService.findAll(page, limit)
 	}
 
 	@ApiOperation({ summary: 'Get user by id' })

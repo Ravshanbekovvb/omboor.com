@@ -48,7 +48,7 @@ export const Login: React.FC<{ className?: string }> = ({ className }) => {
 	return (
 		<div
 			className={cn(
-				'dark:bg-foreground w-full rounded-[75px] bg-white p-6 sm:p-12 md:p-16 lg:p-20',
+				'dark:bg-foreground w-full bg-white p-10 sm:rounded-[75px] sm:p-12 md:p-16 lg:p-20',
 				className
 			)}
 		>

@@ -54,12 +54,16 @@ export function useUserCreate() {
 	})
 }
 
-export function useUsers() {
+export function useUsers({ page, limit }: { page: number; limit: number }) {
 	return useQuery({
-		queryKey: ['users'],
+		queryKey: ['users', page, limit],
 		queryFn: async () => {
-			const res = await api.get('users').json<components['schemas']['UserDto'][]>()
+			const res = await api
+				.get('users', { searchParams: { page, limit } })
+				.json<components['schemas']['UserDto'][]>()
 			if (res.length === 0) toast.info('No users found', { closeButton: true })
+			console.log(res)
+
 			return res
 		}
 	})

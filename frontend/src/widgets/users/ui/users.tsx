@@ -8,6 +8,7 @@ import { Button, Section, Spinner } from '@/shared/ui'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 import { SearchInput } from './search-input'
+import { UserPagination } from './user-pagination'
 
 import { DialogCreateUser } from '../../../feature/dialog-create-user'
 import { useUsersModel } from '../model'
@@ -38,6 +39,7 @@ export const Users = () => {
 				/>
 			</div>
 			<DataTable columns={columns} data={users!} className='mt-10' />
+			<UserPagination className='mt-4' />
 		</Section>
 	)
 }
