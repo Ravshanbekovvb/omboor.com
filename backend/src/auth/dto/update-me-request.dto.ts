@@ -18,5 +18,5 @@ export class UpdateMeRequestDTO {
 	})
 	@IsUrl({}, { message: 'Image url must be a valid URL' })
 	@IsOptional()
-	imgUrl?: string
+	avatarUrl?: string
 }

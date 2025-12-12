@@ -1,4 +1,4 @@
-import { IsPasswordsMatchingConstraint } from '@/common/decorators'
+import { IsChangePasswordsMatching } from '@/common/decorators'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsString, Matches, MinLength, Validate } from 'class-validator'
 
@@ -27,6 +27,6 @@ export class ChangePasswordRequestDTO {
 
 	@ApiProperty({ example: 'NewPassword123', description: 'Repeat password' })
 	@IsString({ message: 'Repeat password must be a string' })
-	@Validate(IsPasswordsMatchingConstraint)
+	@Validate(IsChangePasswordsMatching)
 	repeatPassword: string
 }

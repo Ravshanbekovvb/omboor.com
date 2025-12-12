@@ -10,7 +10,9 @@ export const NetworkStatus: React.FC = () => {
 	const { t, isOnline } = netWorkStatusModel()
 	console.log('status:', isOnline)
 
-	if (isOnline) return null
+	if (isOnline) {
+		return null
+	}
 	return (
 		<div className='dark:bg-background/80 bg-background-light/80 fixed z-20 flex min-h-screen w-screen items-center justify-center px-4 py-10 backdrop-blur-[2px]'>
 			<div className='flex w-full max-w-lg flex-col items-center text-center md:max-w-xl lg:max-w-2xl'>

@@ -59,7 +59,7 @@ model Product {
 
   name            String
   description     String?
-  imgUrl          String?
+  imgUrl          String? @map("img_url")
   barcode         String? @map("bar_code")
   article         String?
   brand           String?
@@ -72,8 +72,8 @@ model Product {
 
   unit Unit
 
-  price    Float
-  discount Int?
+  price         Float
+  discountPrice Int?  @map("discount_price")
 
   stores Store[] @relation("store_product_product_store")
 

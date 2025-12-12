@@ -17,7 +17,7 @@ export async function up() {
 				quantity: 42,
 				description:
 					'Мягкий ковер с дизайном Сакуры. Подходит для спальни, гостиной или игровой зоны. Яркий рисунок и плотный материал обеспечивают уют и долговечность.',
-				options: '3.5x5'
+				options: JSON.stringify({ size: '3x5', color: 'pink' })
 			},
 			{
 				id: '2',
@@ -29,7 +29,7 @@ export async function up() {
 				quantity: 35,
 				description:
 					'Ковер с ярким рисунком Наруто. Идеален для детской или игровой зоны. Комфортный и износостойкий материал.',
-				options: '4x6'
+				options: JSON.stringify({ size: '4x6', color: 'orange' })
 			},
 			{
 				id: '3',
@@ -41,7 +41,7 @@ export async function up() {
 				quantity: 30,
 				description:
 					'Стильный ковер с аниме-персонажем Луна. Добавляет уюта и атмосферы в комнату, долговечен и приятен на ощупь.',
-				options: '5x7'
+				options: JSON.stringify({ size: '5x7', color: 'blue' })
 			},
 			{
 				id: '4',
@@ -53,7 +53,7 @@ export async function up() {
 				quantity: 25,
 				description:
 					'Ковер с изображением Тоторо. Идеальный выбор для детской комнаты или игровой зоны. Плотный материал и насыщенные цвета.',
-				options: '6x8'
+				options: JSON.stringify({ size: '6x8', color: 'gray' })
 			},
 			{
 				id: '5',
@@ -65,7 +65,7 @@ export async function up() {
 				quantity: 20,
 				description:
 					'Большой ковер с аниме-дизайном в стиле Миядзаки. Добавляет атмосферу японской анимации и уюта, качественный и долговечный материал.',
-				options: '7x10'
+				options: JSON.stringify({ size: '7x10', color: 'purple' })
 			}
 		]
 	})

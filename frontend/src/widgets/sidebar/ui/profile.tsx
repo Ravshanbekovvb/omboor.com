@@ -157,9 +157,7 @@ export const Profile: React.FC<{ className?: string; isOpen: boolean }> = ({
 							logout()
 						}}
 					>
-						<span className='first-letter:uppercase'>
-							{loggingOut ? <Spinner /> : 'выйти из аккаунта'}
-						</span>
+						{loggingOut ? <Spinner className='size-6 stroke-3' /> : 'выйти из аккаунта'}
 					</Button>
 				</SheetFooter>
 			</SheetContent>

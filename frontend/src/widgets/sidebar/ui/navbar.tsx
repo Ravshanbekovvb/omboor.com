@@ -111,7 +111,8 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 
 									<div className='flex flex-col gap-2'>
 										{item.nestedItems.map(nestedItem => (
-											<div
+											<Link
+												href={nestedItem.href}
 												key={nestedItem.name}
 												className='hover:bg-input group hover:border-brand-primary/30 flex cursor-pointer items-center justify-between rounded-2xl border border-transparent px-3 py-2 text-sm font-semibold transition-all duration-200 ease-in-out'
 											>
@@ -119,7 +120,7 @@ export const Navbar: React.FC<{ className?: string; isOpen: boolean }> = ({
 													{nestedItem.name}
 												</span>
 												<ChevronRight className='group-hover:text-brand-primary size-4 text-gray-400 transition-all duration-200 ease-in-out group-hover:translate-x-1' />
-											</div>
+											</Link>
 										))}
 									</div>
 								</HoverCardContent>
