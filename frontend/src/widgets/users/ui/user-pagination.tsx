@@ -1,33 +1,89 @@
 import { cn } from '@/shared/lib/utils'
 import {
+	Button,
 	Pagination,
 	PaginationContent,
+	PaginationEllipsis,
 	PaginationItem,
 	PaginationLink,
 	PaginationNext,
-	PaginationPrevious
+	PaginationPrevious,
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger
 } from '@/shared/ui'
 
 import { useUsersModel } from '../model'
 
+const arr = Array.from({ length: 20 })
 export const UserPagination: React.FC<{ className?: string }> = ({ className }) => {
-	const { page, limit } = useUsersModel()
+	const { page, limit, pathname, createQueryString } = useUsersModel()
 	return (
-		<Pagination className={cn('flex w-full items-start', className)}>
+		<Pagination className={cn('flex w-full items-center justify-between', className)}>
 			<PaginationContent>
 				<PaginationItem>
-					<PaginationPrevious href={`/?page=${page - 1}&limit=${limit}`} />
+					<PaginationPrevious href={`${pathname}/?page=${page - 1}&limit=${limit}`} />
 				</PaginationItem>
+				{arr.length > 5 && (
+					<PaginationItem>
+						<PaginationEllipsis />
+					</PaginationItem>
+				)}
+				{[
+					arr.map((_, index) => {
+						const pageNumber = index + 1
+						if (pageNumber < page - 9 || pageNumber > page + 9) {
+							return null
+						}
+						return (
+							<PaginationItem key={pageNumber}>
+								<PaginationLink
+									href={`${pathname}/?page=${pageNumber}&limit=${limit}`}
+									isActive={pageNumber === page}
+								>
+									{pageNumber}
+								</PaginationLink>
+							</PaginationItem>
+						)
+					})
+				]}
+				{arr.length > 10 && (
+					<PaginationItem>
+						<PaginationEllipsis />
+					</PaginationItem>
+				)}
+
 				<PaginationItem>
-					<PaginationLink href='#'>1</PaginationLink>
-				</PaginationItem>
-				{/* <PaginationItem>
-					<PaginationEllipsis />
-				</PaginationItem> */}
-				<PaginationItem>
-					<PaginationNext href='#' />
+					<PaginationNext href={`${pathname}/?page=${page + 1}&limit=${limit}`} />
 				</PaginationItem>
 			</PaginationContent>
+			<Select
+				defaultValue={String(limit)}
+				onValueChange={value => {
+					console.log(value)
+					createQueryString('limit', value)
+				}}
+			>
+				<SelectTrigger asChild>
+					<Button className='' variant={'secondary'}>
+						Показать по {limit}
+					</Button>
+				</SelectTrigger>
+				<SelectContent>
+					<SelectGroup>
+						{Array.from({ length: 6 }).map((_, index) => {
+							const value = (index + 1) * 5
+							return (
+								<SelectItem key={value} value={String(value)}>
+									{value} строк
+								</SelectItem>
+							)
+						})}
+					</SelectGroup>
+				</SelectContent>
+			</Select>
 		</Pagination>
 	)
 }

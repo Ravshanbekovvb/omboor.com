@@ -11,6 +11,7 @@ import { parseBoolean } from './common/utils'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { RedisStore } from 'connect-redis'
 import { createClient } from 'redis'
+import { AllExceptionsFilter } from './common/filters/all-exceptions.filter'
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule)
@@ -54,6 +55,8 @@ async function bootstrap() {
 			transform: true
 		})
 	)
+
+	app.useGlobalFilters(new AllExceptionsFilter())
 
 	app.enableCors({
 		origin: configService.getOrThrow<string[]>('ALLOWED_ORIGIN'),

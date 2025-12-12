@@ -1,9 +1,17 @@
 import { LIMIT_OF_PRODUCTS } from '@/common/constants'
 import { Authorization } from '@/common/decorators'
-import { ProductDto } from '@/common/dto'
+import { apiSuccessResponse } from '@/common/utils'
+import { ApiProductResponseDTO, ApiProductsResponseDTO } from '@/common/utils/api-extra-models'
 import { UserRole } from '@/generated/enums'
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common'
-import { ApiOkResponse, ApiOperation, ApiQuery } from '@nestjs/swagger'
+import {
+	ApiBadRequestResponse,
+	ApiConflictResponse,
+	ApiNotFoundResponse,
+	ApiOkResponse,
+	ApiOperation,
+	ApiQuery
+} from '@nestjs/swagger'
 import { CreateProductRequestDTO } from './dto/create-product-request.dto'
 import { ProductService } from './product.service'
 
@@ -14,9 +22,10 @@ export class ProductController {
 	@ApiOperation({ summary: 'Get all product' })
 	@ApiOkResponse({
 		description: 'Products returned successfully',
-		type: ProductDto,
+		type: ApiProductsResponseDTO,
 		isArray: true
 	})
+	@ApiBadRequestResponse({ description: 'Query params page or limit must be a number' })
 	@Authorization(UserRole.ADMIN)
 	@ApiQuery({ name: 'page', required: false, description: 'Page number, default 1' })
 	@ApiQuery({
@@ -29,46 +38,63 @@ export class ProductController {
 		const limit = productsLimit || LIMIT_OF_PRODUCTS
 		const page = productsPage || '1'
 
-		return await this.productService.findAll(page, limit)
+		const res = await this.productService.findAll(page, limit)
+
+		return apiSuccessResponse(res, 'Products returned successfully')
 	}
 
 	@ApiOperation({ summary: 'Get product by name' })
-	@ApiOkResponse({ description: 'Product returned successfully', type: ProductDto })
+	@ApiOkResponse({ description: 'Product returned successfully', type: ApiProductResponseDTO })
 	@Authorization()
+	@ApiQuery({ name: 'name', required: false, description: 'Product name' })
 	@Get('search')
 	async findByName(@Query('name') name: string) {
-		return await this.productService.findByName(name)
+		const product = await this.productService.findByName(name)
+
+		return apiSuccessResponse(product, 'Product returned successfully')
 	}
 
 	@ApiOperation({ summary: 'Get product by id' })
-	@ApiOkResponse({ description: 'Product returned successfully', type: ProductDto })
+	@ApiOkResponse({ description: 'Product returned successfully', type: ApiProductResponseDTO })
+	@ApiNotFoundResponse({ description: 'Product with this ID is not found' })
 	@Authorization()
 	@Get(':id')
 	async findById(@Param('id') productId: string) {
-		return await this.productService.findById(productId)
+		const product = await this.productService.findById(productId)
+
+		return apiSuccessResponse(product, 'Product returned successfully')
 	}
 
 	@ApiOperation({ summary: 'Create product' })
-	@ApiOkResponse({ description: 'Product created successfully', type: ProductDto })
+	@ApiOkResponse({ description: 'Product created successfully', type: ApiProductResponseDTO })
+	@ApiConflictResponse({ description: 'Product with this name is already exists' })
 	@Authorization()
 	@Post()
 	async create(@Body() payload: CreateProductRequestDTO) {
-		return await this.productService.create(payload)
+		const product = await this.productService.create(payload)
+
+		return apiSuccessResponse(product, 'Product created successfully')
 	}
 
 	@ApiOperation({ summary: 'Update user' })
-	@ApiOkResponse({ description: 'User updated successfully', type: ProductDto })
+	@ApiOkResponse({ description: 'User updated successfully', type: ApiProductResponseDTO })
+	@ApiNotFoundResponse({ description: 'Product with this ID is not found' })
 	@Authorization()
 	@Patch(':id')
 	async update(@Param('id') userId: string, @Body() payload: CreateProductRequestDTO) {
-		return await this.productService.update(userId, payload)
+		const product = await this.productService.update(userId, payload)
+
+		return apiSuccessResponse(product, 'Product updated successfully')
 	}
 
 	@ApiOperation({ summary: 'Delete user' })
-	@ApiOkResponse({ description: 'User deleted successfully', type: ProductDto })
+	@ApiOkResponse({ description: 'User deleted successfully', type: ApiProductResponseDTO })
+	@ApiNotFoundResponse({ description: 'Product with this ID is not found' })
 	@Authorization()
 	@Delete(':id')
 	async delete(@Param('id') id: string) {
-		return await this.productService.delete(id)
+		const product = await this.productService.delete(id)
+
+		return apiSuccessResponse(product, 'Product deleted successfully')
 	}
 }

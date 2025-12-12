@@ -8,7 +8,7 @@ import { netWorkStatusModel } from './model'
 
 export const NetworkStatus: React.FC = () => {
 	const { t, isOnline } = netWorkStatusModel()
-	console.log('status:', isOnline)
+	// console.log('status:', isOnline)
 
 	if (isOnline) {
 		return null

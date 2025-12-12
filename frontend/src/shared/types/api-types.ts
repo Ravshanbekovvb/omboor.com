@@ -145,6 +145,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/products/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get product by name */
+        get: operations["ProductController_findByName"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/products/{id}": {
         parameters: {
             query?: never;
@@ -162,23 +179,6 @@ export interface paths {
         head?: never;
         /** Update user */
         patch: operations["ProductController_update"];
-        trace?: never;
-    };
-    "/api/products/search/{name}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get product by name */
-        get: operations["ProductController_findByName"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
         trace?: never;
     };
 }
@@ -414,7 +414,6 @@ export interface components {
              */
             createdAt: string;
         };
-        ProductService: Record<string, never>;
         CreateProductRequestDTO: {
             /**
              * @description Название продукта
@@ -499,7 +498,12 @@ export type $defs = Record<string, never>;
 export interface operations {
     UserController_findAll: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Page number, default 1 */
+                page?: string;
+                /** @description Items per page, default 10 */
+                limit?: string;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -824,7 +828,12 @@ export interface operations {
     };
     ProductController_findAll: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Page number, default 1 */
+                page?: string;
+                /** @description Items per page, default 10 */
+                limit?: string;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -866,6 +875,28 @@ export interface operations {
             };
         };
     };
+    ProductController_findByName: {
+        parameters: {
+            query: {
+                name: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Product returned successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDto"];
+                };
+            };
+        };
+    };
     ProductController_findById: {
         parameters: {
             query?: never;
@@ -883,7 +914,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductService"];
+                    "application/json": components["schemas"]["ProductDto"];
                 };
             };
         };
@@ -932,28 +963,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ProductDto"];
-                };
-            };
-        };
-    };
-    ProductController_findByName: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                name: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Product returned successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ProductService"];
                 };
             };
         };
