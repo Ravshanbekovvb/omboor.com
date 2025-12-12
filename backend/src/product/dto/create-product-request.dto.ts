@@ -1,6 +1,6 @@
 import { Unit } from '@/generated/enums'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { IsInt, IsNumber, IsOptional, IsString, IsUrl, MinLength } from 'class-validator'
+import { IsEnum, IsInt, IsNumber, IsOptional, IsString, IsUrl, MinLength } from 'class-validator'
 
 export class CreateProductRequestDTO {
 	@ApiProperty({ example: 'Ковер аниме Наруто', description: 'Название продукта' })
@@ -94,6 +94,7 @@ export class CreateProductRequestDTO {
 		enum: Unit,
 		description: 'Единица измерения'
 	})
+	@IsEnum(Unit, { message: 'Unit must be a valid enum value' })
 	unit: Unit
 
 	@ApiProperty({
