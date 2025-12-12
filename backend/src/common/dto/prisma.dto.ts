@@ -26,7 +26,7 @@ export class UserDto {
 		example: 'https://example.com/avatar.png',
 		description: 'Ссылка на аватар пользователя'
 	})
-	imgUrl?: string | null
+	avatarUrl?: string | null
 
 	@ApiProperty({
 		example: '+998901234567',

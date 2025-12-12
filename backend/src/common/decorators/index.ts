@@ -1,4 +1,5 @@
 export { Authorization } from './authorization.decorator'
 export { AuthorizedUser } from './authorized-user.decorator'
+export { IsChangePasswordsMatching } from './is-change-passwords-matching.decorator'
 export { IsPasswordsMatchingConstraint } from './is-passwords-matching.decorator'
 export { Roles, ROLES_KEY } from './roles.decorator'

@@ -41,6 +41,7 @@ export class AuthController {
 		description: 'Failed to destroy the session. Please try again later'
 	})
 	@Post('logout')
+	@HttpCode(HttpStatus.OK)
 	async logout(@Req() req: Request, @Res({ passthrough: true }) res: ExpressResponse) {
 		return await this.authService.logout(req, res)
 	}
