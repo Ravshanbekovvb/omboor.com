@@ -13,9 +13,23 @@ export class ProductService {
 	constructor(private readonly prisma: PrismaService) {}
 
 	async findAll<T extends ProductFindManyArgs>(
+		page: string,
+		limit: string,
 		args?: SelectSubset<T, ProductFindManyArgs>
 	): Promise<ProductGetPayload<T>[]> {
-		return await this.prisma.product.findMany(args)
+		const params = args ?? {}
+
+		const pageNum = Number(page)
+		const limitNum = Number(limit)
+
+		if (isNaN(pageNum) || isNaN(limitNum))
+			throw new Error('Query params page or limit must be a number')
+
+		return (await this.prisma.product.findMany({
+			...params,
+			skip: (pageNum - 1) * limitNum,
+			take: limitNum
+		})) as ProductGetPayload<T>[]
 	}
 
 	async findByName<T extends ProductDefaultArgs>(
@@ -24,12 +38,14 @@ export class ProductService {
 	): Promise<ProductGetPayload<T>> {
 		const params = args ?? {}
 
-		return (await this.prisma.product.findFirst({
+		const product = (await this.prisma.product.findFirst({
 			where: {
 				name
 			},
 			...params
 		})) as ProductGetPayload<T>
+
+		return product
 	}
 
 	async findById<T extends ProductDefaultArgs>(

@@ -31,9 +31,23 @@ export class UserService {
 	}
 
 	async findAll<T extends UserFindManyArgs>(
+		page: string,
+		limit: string,
 		args?: SelectSubset<T, UserFindManyArgs>
 	): Promise<UserGetPayload<T>[]> {
-		return await this.prisma.user.findMany(args)
+		const params = args ?? {}
+
+		const pageNum = Number(page)
+		const limitNum = Number(limit)
+
+		if (isNaN(pageNum) || isNaN(limitNum))
+			throw new Error('Query params page or limit must be a number')
+
+		return (await this.prisma.user.findMany({
+			...params,
+			skip: (pageNum - 1) * limitNum,
+			take: limitNum
+		})) as UserGetPayload<T>[]
 	}
 
 	async findById<T extends UserDefaultArgs>(
