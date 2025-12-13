@@ -1,6 +1,7 @@
 import { ChangePasswordRequestDTO } from '@/common/dto'
 import { SelectSubset } from '@/generated/internal/prismaNamespace'
 import { PrismaService } from '@/prisma/prisma.service'
+import { UploadService } from '@/upload/upload.service'
 import {
 	BadRequestException,
 	ConflictException,
@@ -14,7 +15,10 @@ import { UpdateUserRequestDTO } from './dto/update-user-request.dto'
 
 @Injectable()
 export class UserService {
-	constructor(private readonly prisma: PrismaService) {}
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly uploadService: UploadService
+	) {}
 
 	async findByPhoneNumber<T extends UserDefaultArgs>(
 		phoneNumber: string,
@@ -77,6 +81,8 @@ export class UserService {
 
 	async create<T extends UserDefaultArgs>(
 		payload: CreateUserRequestDTO,
+		fileName: string,
+		file: Express.Multer.File,
 		args?: SelectSubset<T, UserDefaultArgs>
 	): Promise<UserGetPayload<T>> {
 		const params = args ?? {}
@@ -91,6 +97,12 @@ export class UserService {
 			)
 
 		const hashedPass = await hash(validPayload.password, 10)
+
+		if (fileName) {
+			const { url } = await this.uploadService.uploadImage(fileName, file)
+
+			validPayload.avatarUrl = url
+		}
 
 		return (await this.prisma.user.create({
 			data: { ...validPayload, password: hashedPass },

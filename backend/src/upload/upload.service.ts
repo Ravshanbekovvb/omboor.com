@@ -11,14 +11,10 @@ export class UploadService {
 			.toBuffer()
 
 		const cleanName = fileName.replace(/[^a-zA-Z0-9-_]/g, '')
-		// const ext = file.mimetype === 'image/jpeg' ? 'jpg' : 'webp'
-
-		//uooisba7ivmrzosb.public.blob.vercel-storage.com/default-avatars/default-avatar-1.webp?download=1
-		//uooisba7ivmrzosb.public.blob.vercel-storage.com/default-avatars/default-avatar-2.webp
 
 		return await put(`custom-avatars/${cleanName}.webp`, webpBuffer, {
 			access: 'public',
-			contentType: file.mimetype,
+			contentType: 'image/webp',
 			allowOverwrite: true
 		})
 	}

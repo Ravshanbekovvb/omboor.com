@@ -2,14 +2,34 @@ import { Authorization, AuthorizedUser } from '@/common/decorators'
 import { ChangePasswordRequestDTO, CreateUserRequestDTO } from '@/common/dto'
 import { apiSuccessResponse, ApiUserResponseDTO } from '@/common/utils'
 import { ApiLoggedOutResponseDTO } from '@/common/utils/api-extra-models'
-import { Body, Controller, Get, HttpCode, HttpStatus, Patch, Post, Req, Res } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	FileTypeValidator,
+	Get,
+	HttpCode,
+	HttpStatus,
+	MaxFileSizeValidator,
+	ParseFilePipe,
+	Patch,
+	Post,
+	Query,
+	Req,
+	Res,
+	UploadedFile,
+	UseInterceptors
+} from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import {
 	ApiBadRequestResponse,
+	ApiBody,
 	ApiConflictResponse,
+	ApiConsumes,
 	ApiInternalServerErrorResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
-	ApiOperation
+	ApiOperation,
+	ApiQuery
 } from '@nestjs/swagger'
 import { type Response as ExpressResponse, type Request } from 'express'
 import { AuthService } from './auth.service'
@@ -23,9 +43,44 @@ export class AuthController {
 	@ApiOperation({ summary: 'Register user' })
 	@ApiOkResponse({ description: 'User created successfully', type: ApiUserResponseDTO })
 	@ApiConflictResponse({ description: 'User with this phone number is already exists' })
+	@ApiConsumes('multipart/form-data')
+	@ApiQuery({
+		name: 'fileName',
+		required: false,
+		description: 'Uploaded file name'
+	})
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				file: {
+					type: 'string',
+					format: 'binary'
+				}
+			}
+		}
+	})
+	@UseInterceptors(FileInterceptor('file'))
 	@Post('register')
-	async register(@Req() req: Request, @Body() payload: CreateUserRequestDTO) {
-		const user = await this.authService.register(req, payload)
+	async register(
+		@Req() req: Request,
+		@Body() payload: CreateUserRequestDTO,
+		@Query('fileName') fileName: string,
+		@UploadedFile(
+			new ParseFilePipe({
+				validators: [
+					new MaxFileSizeValidator({
+						maxSize: 4 * 1024 * 1024 // 4 MB
+					}),
+					new FileTypeValidator({
+						fileType: /^(image\/jpeg|image\/png|image\/webp)$/
+					})
+				]
+			})
+		)
+		file: Express.Multer.File
+	) {
+		const user = await this.authService.register(req, payload, fileName, file)
 
 		return apiSuccessResponse(user, 'User registered successfully')
 	}
