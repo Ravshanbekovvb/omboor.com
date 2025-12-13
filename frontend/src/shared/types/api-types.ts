@@ -230,6 +230,45 @@ export interface components {
              */
             createdAt: string;
         };
+        ApiUsersWithTotalPagesResponseDTO: {
+            /** @description Массив пользователей */
+            users: components["schemas"]["UserDto"][];
+            /** @description Длина всей страницы */
+            totalPages: string;
+        };
+        ApiUsersResponseDTO: {
+            /**
+             * @description Ответ успешный или нет
+             * @example true
+             */
+            success: boolean;
+            /** @description Сообщение ответа */
+            message: string;
+            /** @description Ответ */
+            data: components["schemas"]["ApiUsersWithTotalPagesResponseDTO"];
+        };
+        ApiErrorResponseDTO: {
+            /**
+             * @description Ответ успешный или нет
+             * @example false
+             */
+            success: boolean;
+            /** @description Сообщение ответа */
+            message: string;
+            /** @description Тело ответа */
+            data: null;
+        };
+        ApiUserResponseDTO: {
+            /**
+             * @description Ответ успешный или нет
+             * @example true
+             */
+            success: boolean;
+            /** @description Сообщение ответа */
+            message: string;
+            /** @description Пользователь */
+            data: components["schemas"]["UserDto"];
+        };
         CreateUserRequestDTO: {
             /**
              * @description User name
@@ -295,6 +334,17 @@ export interface components {
              * @example passWord123
              */
             password: string;
+        };
+        ApiLoggedOutResponseDTO: {
+            /**
+             * @description Ответ успешный или нет
+             * @example true
+             */
+            success: boolean;
+            /** @description Сообщение ответа */
+            message: string;
+            /** @description Вы вышли из системы */
+            data: null;
         };
         UpdateMeRequestDTO: {
             /**
@@ -414,6 +464,34 @@ export interface components {
              */
             createdAt: string;
         };
+        ApiProductsWithTotalPagesResponseDTO: {
+            /** @description Массив продуктов */
+            users: components["schemas"]["ProductDto"][];
+            /** @description Длина всей страницы */
+            totalPages: string;
+        };
+        ApiProductsResponseDTO: {
+            /**
+             * @description Ответ успешный или нет
+             * @example true
+             */
+            success: boolean;
+            /** @description Сообщение ответа */
+            message: string;
+            /** @description Ответ */
+            data: components["schemas"]["ApiProductsWithTotalPagesResponseDTO"];
+        };
+        ApiProductResponseDTO: {
+            /**
+             * @description Ответ успешный или нет
+             * @example true
+             */
+            success: boolean;
+            /** @description Сообщение ответа */
+            message: string;
+            /** @description Продукт */
+            data: components["schemas"]["ProductDto"];
+        };
         CreateProductRequestDTO: {
             /**
              * @description Название продукта
@@ -516,7 +594,16 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"][];
+                    "application/json": components["schemas"]["ApiUsersResponseDTO"];
+                };
+            };
+            /** @description Query params page or limit must be a number */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiErrorResponseDTO"];
                 };
             };
         };
@@ -540,7 +627,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"];
+                    "application/json": components["schemas"]["ApiUserResponseDTO"];
                 };
             };
             /** @description User with this phone number is already exists */
@@ -569,7 +656,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"];
+                    "application/json": components["schemas"]["ApiUserResponseDTO"];
                 };
             };
             /** @description User not found */
@@ -598,7 +685,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"];
+                    "application/json": components["schemas"]["ApiUserResponseDTO"];
                 };
             };
             /** @description User not found */
@@ -631,7 +718,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"];
+                    "application/json": components["schemas"]["ApiUserResponseDTO"];
                 };
             };
             /** @description User not found */
@@ -662,7 +749,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"];
+                    "application/json": components["schemas"]["ApiUserResponseDTO"];
                 };
             };
             /** @description User with this phone number is already exists */
@@ -693,7 +780,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"];
+                    "application/json": components["schemas"]["ApiUserResponseDTO"];
                 };
             };
             /** @description Phone number or password is incorrect */
@@ -719,7 +806,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ApiLoggedOutResponseDTO"];
+                };
             };
             /** @description Failed to destroy the session. Please try again later */
             500: {
@@ -745,7 +834,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"];
+                    "application/json": components["schemas"]["ApiUserResponseDTO"];
                 };
             };
             /** @description User with this ID is not found */
@@ -776,7 +865,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"];
+                    "application/json": components["schemas"]["ApiUserResponseDTO"];
                 };
             };
             /** @description User with this ID is not found */
@@ -807,7 +896,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserDto"];
+                    "application/json": components["schemas"]["ApiUserResponseDTO"];
                 };
             };
             /** @description The old password you provided does not match our records */
@@ -846,8 +935,15 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductDto"][];
+                    "application/json": components["schemas"]["ApiProductsResponseDTO"][];
                 };
+            };
+            /** @description Query params page or limit must be a number */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
@@ -870,15 +966,23 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductDto"];
+                    "application/json": components["schemas"]["ApiProductResponseDTO"];
                 };
+            };
+            /** @description Product with this name is already exists */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
     ProductController_findByName: {
         parameters: {
-            query: {
-                name: string;
+            query?: {
+                /** @description Product name */
+                name?: string;
             };
             header?: never;
             path?: never;
@@ -892,7 +996,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductDto"];
+                    "application/json": components["schemas"]["ApiProductResponseDTO"];
                 };
             };
         };
@@ -914,8 +1018,15 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductDto"];
+                    "application/json": components["schemas"]["ApiProductResponseDTO"];
                 };
+            };
+            /** @description Product with this ID is not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
@@ -936,8 +1047,15 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductDto"];
+                    "application/json": components["schemas"]["ApiProductResponseDTO"];
                 };
+            };
+            /** @description Product with this ID is not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
@@ -962,8 +1080,15 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductDto"];
+                    "application/json": components["schemas"]["ApiProductResponseDTO"];
                 };
+            };
+            /** @description Product with this ID is not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

@@ -14,7 +14,7 @@ import { DialogCreateUser } from '../../../feature/dialog-create-user'
 import { useUsersModel } from '../model'
 
 export const Users = () => {
-	const { users, isUsersPending, usersError, t } = useUsersModel()
+	const { data, isUsersPending, usersError, t } = useUsersModel()
 	if (isUsersPending) {
 		return <Spinner type='page-loader' />
 	}
@@ -38,7 +38,7 @@ export const Users = () => {
 					}
 				/>
 			</div>
-			<DataTable columns={columns} data={users!} className='mt-10' />
+			<DataTable columns={columns} data={data!.users} className='mt-10' />
 			<UserPagination className='mt-4' />
 		</Section>
 	)

@@ -36,7 +36,7 @@ export function useUserCreate() {
 		mutationFn: async (data: components['schemas']['CreateUserRequestDTO']) => {
 			const res = await api
 				.post(`users`, { json: data })
-				.json<components['schemas']['UserDto']>()
+				.json<components['schemas']['ApiUserResponseDTO']>()
 			return res
 		},
 		onSuccess: () => {
@@ -60,11 +60,11 @@ export function useUsers({ page, limit }: { page: number; limit: number }) {
 		queryFn: async () => {
 			const res = await api
 				.get('users', { searchParams: { page, limit } })
-				.json<components['schemas']['UserDto'][]>()
-			if (res.length === 0) toast.info('No users found', { closeButton: true })
+				.json<components['schemas']['ApiUsersResponseDTO']>()
+			if (res.data.users.length === 0) toast.info('No users found', { closeButton: true })
 			console.log(res)
 
-			return res
+			return res.data
 		}
 	})
 }

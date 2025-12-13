@@ -13,7 +13,7 @@ export const useUsersModel = () => {
 	const t = useTranslations('users')
 	const { mutate: createUser } = useUserCreate()
 	const tProfile = useTranslations('profile')
-	const { data: users, isPending: isUsersPending, error: usersError } = useUsers({ page, limit })
+	const { data, isPending: isUsersPending, error: usersError } = useUsers({ page, limit })
 	const { mutate: deleteUser, isPending: isUserDeletePending } = useUserDelete()
 	const createQueryString = useCallback(
 		(name: string, value: string) => {
@@ -25,7 +25,7 @@ export const useUsersModel = () => {
 		[searchParams]
 	)
 	return {
-		users,
+		data,
 		isUsersPending,
 		usersError,
 		createUser,
