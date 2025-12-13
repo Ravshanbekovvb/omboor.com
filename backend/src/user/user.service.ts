@@ -81,7 +81,6 @@ export class UserService {
 
 	async create<T extends UserDefaultArgs>(
 		payload: CreateUserRequestDTO,
-		fileName: string,
 		file: Express.Multer.File,
 		args?: SelectSubset<T, UserDefaultArgs>
 	): Promise<UserGetPayload<T>> {
@@ -98,8 +97,8 @@ export class UserService {
 
 		const hashedPass = await hash(validPayload.password, 10)
 
-		if (fileName) {
-			const { url } = await this.uploadService.uploadImage(fileName, file)
+		if (file) {
+			const { url } = await this.uploadService.uploadImage(file)
 
 			validPayload.avatarUrl = url
 		}

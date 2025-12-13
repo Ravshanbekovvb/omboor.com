@@ -84,11 +84,6 @@ export class UserController {
 		description: 'User with this phone number is already exists'
 	})
 	@ApiConsumes('multipart/form-data')
-	@ApiQuery({
-		name: 'fileName',
-		required: false,
-		description: 'Uploaded file name'
-	})
 	@ApiBody({
 		schema: {
 			type: 'object',
@@ -105,7 +100,6 @@ export class UserController {
 	@Post()
 	async create(
 		@Body() payload: CreateUserRequestDTO,
-		@Query('fileName') fileName: string,
 		@UploadedFile(
 			new ParseFilePipe({
 				fileIsRequired: false,
@@ -121,7 +115,7 @@ export class UserController {
 		)
 		file: Express.Multer.File
 	) {
-		const user = await this.userService.create(payload, fileName, file)
+		const user = await this.userService.create(payload, file)
 
 		return apiSuccessResponse(user, 'User created successfully')
 	}

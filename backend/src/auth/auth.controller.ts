@@ -13,7 +13,6 @@ import {
 	ParseFilePipe,
 	Patch,
 	Post,
-	Query,
 	Req,
 	Res,
 	UploadedFile,
@@ -28,8 +27,7 @@ import {
 	ApiInternalServerErrorResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
-	ApiOperation,
-	ApiQuery
+	ApiOperation
 } from '@nestjs/swagger'
 import { type Response as ExpressResponse, type Request } from 'express'
 import { AuthService } from './auth.service'
@@ -44,11 +42,6 @@ export class AuthController {
 	@ApiOkResponse({ description: 'User created successfully', type: ApiUserResponseDTO })
 	@ApiConflictResponse({ description: 'User with this phone number is already exists' })
 	@ApiConsumes('multipart/form-data')
-	@ApiQuery({
-		name: 'fileName',
-		required: false,
-		description: 'Uploaded file name'
-	})
 	@ApiBody({
 		schema: {
 			type: 'object',
@@ -65,7 +58,6 @@ export class AuthController {
 	async register(
 		@Req() req: Request,
 		@Body() payload: CreateUserRequestDTO,
-		@Query('fileName') fileName: string,
 		@UploadedFile(
 			new ParseFilePipe({
 				fileIsRequired: false,
@@ -81,7 +73,7 @@ export class AuthController {
 		)
 		file: Express.Multer.File
 	) {
-		const user = await this.authService.register(req, payload, fileName, file)
+		const user = await this.authService.register(req, payload, file)
 
 		return apiSuccessResponse(user, 'User registered successfully')
 	}

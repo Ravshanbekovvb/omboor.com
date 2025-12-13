@@ -55,7 +55,6 @@ export class AuthService {
 	async register(
 		request: Request,
 		payload: CreateUserRequestDTO,
-		fileName: string,
 		file: Express.Multer.File
 	): Promise<TUserWithOutPassword> {
 		const user = await this.userService.findByPhoneNumber(payload.phoneNumber)
@@ -65,7 +64,7 @@ export class AuthService {
 				`User with this phone number: ${payload.phoneNumber} already exists`
 			)
 
-		const newUser = await this.userService.create(payload, fileName, file)
+		const newUser = await this.userService.create(payload, file)
 
 		const { password, ...safeUser } = await this.saveSession(request, newUser)
 
