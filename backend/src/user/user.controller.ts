@@ -32,13 +32,11 @@ import {
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
-	ApiQuery,
-	ApiTags
+	ApiQuery
 } from '@nestjs/swagger'
 import { UpdateUserRequestDTO } from './dto/'
 import { UserService } from './user.service'
 
-@ApiTags('Users')
 @Controller('users')
 export class UserController {
 	constructor(private readonly userService: UserService) {}
@@ -110,6 +108,7 @@ export class UserController {
 		@Query('fileName') fileName: string,
 		@UploadedFile(
 			new ParseFilePipe({
+				fileIsRequired: false,
 				validators: [
 					new MaxFileSizeValidator({
 						maxSize: 4 * 1024 * 1024 // 4 MB
