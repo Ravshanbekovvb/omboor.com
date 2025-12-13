@@ -6,13 +6,13 @@ import { apiErrorResponse } from '../utils'
 export class AllExceptionsFilter implements ExceptionFilter {
 	catch(exception: unknown, host: ArgumentsHost) {
 		const ctx = host.switchToHttp()
-		const response = ctx.getResponse<Response>()
+		const response = ctx.getResponse<Response & { message: string }>()
 		// const request = ctx.getRequest<Request>()
 
-		const payload = apiErrorResponse(exception)
+		const payload = apiErrorResponse(exception, response.message)
 
 		const status = exception instanceof HttpException ? exception.getStatus() : 500
 
-		response.status(status).json(payload)
+		return response.status(status).json(payload)
 	}
 }

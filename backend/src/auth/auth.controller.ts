@@ -68,6 +68,7 @@ export class AuthController {
 		@Query('fileName') fileName: string,
 		@UploadedFile(
 			new ParseFilePipe({
+				fileIsRequired: false,
 				validators: [
 					new MaxFileSizeValidator({
 						maxSize: 4 * 1024 * 1024 // 4 MB
