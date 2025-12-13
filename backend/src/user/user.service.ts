@@ -112,6 +112,7 @@ export class UserService {
 	async update<T extends UserDefaultArgs>(
 		userId: string,
 		payload: UpdateUserRequestDTO,
+		file: Express.Multer.File,
 		args?: SelectSubset<T, UserDefaultArgs>
 	): Promise<UserGetPayload<T>> {
 		const params = args ?? {}
@@ -119,6 +120,12 @@ export class UserService {
 		const { id, password } = await this.findById(userId)
 
 		const hashedPass = payload.password ? await hash(payload.password, 10) : password
+
+		if (file) {
+			const { url } = await this.uploadService.uploadImage(file)
+
+			payload.avatarUrl = url
+		}
 
 		return (await this.prisma.user.update({
 			where: {

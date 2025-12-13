@@ -29,10 +29,12 @@ import {
 	ApiBody,
 	ApiConflictResponse,
 	ApiConsumes,
+	ApiExtraModels,
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
-	ApiQuery
+	ApiQuery,
+	getSchemaPath
 } from '@nestjs/swagger'
 import { UpdateUserRequestDTO } from './dto/'
 import { UserService } from './user.service'
@@ -78,6 +80,7 @@ export class UserController {
 		return apiSuccessResponse(user, 'User returned successfully')
 	}
 
+	@ApiExtraModels(CreateUserRequestDTO)
 	@ApiOperation({ summary: 'Create user' })
 	@ApiOkResponse({ description: 'User created successfully', type: ApiUserResponseDTO })
 	@ApiConflictResponse({
@@ -86,13 +89,17 @@ export class UserController {
 	@ApiConsumes('multipart/form-data')
 	@ApiBody({
 		schema: {
-			type: 'object',
-			properties: {
-				file: {
-					type: 'string',
-					format: 'binary'
+			allOf: [
+				{ $ref: getSchemaPath(CreateUserRequestDTO) },
+				{
+					type: 'object',
+					properties: {
+						file: {
+							format: 'binary'
+						}
+					}
 				}
-			}
+			]
 		}
 	})
 	@UseInterceptors(FileInterceptor('file'))
@@ -120,13 +127,48 @@ export class UserController {
 		return apiSuccessResponse(user, 'User created successfully')
 	}
 
+	@ApiExtraModels(CreateUserRequestDTO)
 	@ApiOperation({ summary: 'Update user' })
 	@ApiOkResponse({ description: 'User updated successfully', type: ApiUserResponseDTO })
 	@ApiNotFoundResponse({ description: 'User not found' })
+	@ApiConsumes('multipart/form-data')
+	@ApiBody({
+		schema: {
+			allOf: [
+				{ $ref: getSchemaPath(CreateUserRequestDTO) },
+				{
+					type: 'object',
+					properties: {
+						file: {
+							format: 'binary'
+						}
+					}
+				}
+			]
+		}
+	})
+	@UseInterceptors(FileInterceptor('file'))
 	@Authorization(UserRole.ADMIN)
 	@Patch(':id')
-	async update(@Param('id') userId: string, @Body() payload: UpdateUserRequestDTO) {
-		const user = await this.userService.update(userId, payload)
+	async update(
+		@Param('id') userId: string,
+		@Body() payload: UpdateUserRequestDTO,
+		@UploadedFile(
+			new ParseFilePipe({
+				fileIsRequired: false,
+				validators: [
+					new MaxFileSizeValidator({
+						maxSize: 4 * 1024 * 1024 // 4 MB
+					}),
+					new FileTypeValidator({
+						fileType: /^(image\/jpeg|image\/png|image\/webp)$/
+					})
+				]
+			})
+		)
+		file: Express.Multer.File
+	) {
+		const user = await this.userService.update(userId, payload, file)
 
 		return apiSuccessResponse(user, 'User updated successfully')
 	}
